@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->uuid('category_id')->primary();
-            $table->string('category', 300);
-            $table->uuid('created_by');
-            $table->foreign('created_by')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+        Schema::create('order_status', function (Blueprint $table) {
+            $table->uuid('order_id');
+            $table->foreign('order_id')->references('order_id')->on('orders')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->enum('status', ['packing', 'hand-over', 'shipped', 'delivering', 'completed']);
+            $table->integer('sequence');
             $table->timestamp('created_at')->useCurrent();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('order_status');
     }
 };

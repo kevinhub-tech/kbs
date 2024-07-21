@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->uuid('category_id')->primary();
-            $table->string('category', 300);
+        Schema::create('discounts', function (Blueprint $table) {
+            $table->uuid('discount_id')->primary();
+            $table->integer('discount_percentage');
             $table->uuid('created_by');
             $table->foreign('created_by')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->uuid('updated_by');
+            $table->foreign('updated_by')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('discounts');
     }
 };

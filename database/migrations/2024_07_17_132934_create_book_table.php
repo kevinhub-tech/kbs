@@ -11,16 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('book', function (Blueprint $table) {
-            $table->uuid('book_id');
+        Schema::create('books', function (Blueprint $table) {
+            $table->uuid('book_id')->primary();
             $table->mediumText('book_name');
             $table->longText('book_desc');
             $table->string('author_name', 255);
+            $table->text('image');
             $table->double('price');
-            $table->uuid('created_by')->reference('users_id')->on("users");
-            $table->uuid('updated_by')->reference('user_id')->on('users')->nullable();
-            $table->timestamps('created_at');
-            $table->timestamps('updated_at');
+            $table->double('delivery_fee');
+            $table->uuid('discount_id')->nullable();
+            $table->foreign('discount_id')->references('discount_id')->on("discounts");
+            $table->uuid('created_by')->nullable();
+            $table->foreign('created_by')->references('user_id')->on("users")->cascadeOnUpdate()->cascadeOnDelete();
+            $table->uuid('updated_by')->nullable();
+            $table->foreign('updated_by')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
@@ -29,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('book');
+        Schema::dropIfExists('books');
     }
 };

@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_cart', function (Blueprint $table) {
-            $table->uuid('user_id');
-            $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+        Schema::create('book_review', function (Blueprint $table) {
             $table->uuid('book_id');
             $table->foreign('book_id')->references('book_id')->on('books')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->integer('quantity');
+            $table->integer('rating');
+            $table->mediumText('review');
+            $table->uuid('reviewed_by');
+            $table->foreign('reviewed_by')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_cart');
+        Schema::dropIfExists('book_review');
     }
 };

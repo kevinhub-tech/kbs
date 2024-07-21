@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order', function (Blueprint $table) {
-            $table->uuid('order_id');
+        Schema::create('orders', function (Blueprint $table) {
+            $table->uuid('order_id')->primary();
             $table->double('order_number');
-            $table->uuid('address_id')->reference('address_id')->on('user_address');
             $table->enum('payment_method', ['cod', 'debit/credit']);
             $table->boolean('refund_state');
-            $table->uuid('user_id')->reference('user_id')->on('users');
+            $table->uuid('address_id')->nullable();
+            $table->foreign('address_id')->references('address_id')->on('user_addresses')->cascadeOnUpdate()->nullOnDelete();
+            $table->uuid('created_by');
+            $table->foreign('created_by')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamp('paid_at')->nullable();
             $table->timestamp('shipped_at')->nullable();
             $table->timestamp('delivered_at')->nullable();
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order');
+        Schema::dropIfExists('orders');
     }
 };

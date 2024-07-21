@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_favourites', function (Blueprint $table) {
-            $table->uuid('user_id')->reference('user_id')->on('users');
-            $table->uuid('book_id')->reference('book_id')->on('books');
-            $table->timestamp('created_at');
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->uuid('book_id');
+            $table->foreign('book_id')->references('book_id')->on('books')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });
     }

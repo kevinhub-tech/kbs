@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_address', function (Blueprint $table) {
-            $table->uuid('address_id');
-            $table->uuid('user_id')->reference('user_id')->on('users');
+        Schema::create('user_addresses', function (Blueprint $table) {
+            $table->uuid('address_id')->primary();
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->mediumText('address');
             $table->string('state', 200);
             $table->string('phone_number', 200);
             $table->integer('postal_code');
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->boolean('default')->default(true);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_address');
+        Schema::dropIfExists('user_addresses');
     }
 };
