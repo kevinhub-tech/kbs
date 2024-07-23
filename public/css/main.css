@@ -1,0 +1,57 @@
+/* Author/Vendor/Username fontstyle */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+/* Description/Generat Use fontstyle */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+/* Heading, Title, Nav font-style */
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+:root {
+    --main-color: #fff;
+    --shades: #005D6C;
+}
+
+body {
+    margin: 0;
+    background-color: #E1D6D6;
+
+}
+
+.author,
+.vendor-name,
+.user-name {
+    font-family: "Roboto Mono", monospace;
+}
+
+.heading,
+.nav-bar,
+.title {
+    font-family: "Jost", sans-serif;
+}
+
+p {
+    font-family: "Manrope", sans-serif;
+}
+
+nav {
+    background-color: #fff;
+
+}
+
+nav div.main-nav-container {}
+
+div.nav-logo i.fa-lightbulb {
+    font-size: 1.7rem;
+    color: var(--shades);
+    font-weight: 200;
+}
