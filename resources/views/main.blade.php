@@ -29,10 +29,7 @@
 <body class="vh-100 overflow-hidden">
     <main>
         <x-nav></x-nav>
-
-
         @yield('main.content')
-        <button>Test</button>
     </main>
 </body>
 @stack('scripts')
