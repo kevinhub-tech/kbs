@@ -19,6 +19,9 @@
 :root {
     --main-color: #fff;
     --shades: #005D6C;
+    --author-vendor-user: "Roboto Mono", monospace;
+    --heading-nav-bar-title: "Jost", sans-serif;
+    --general-font: "Manrope", sans-serif
 }
 
 body {
@@ -27,31 +30,79 @@ body {
 
 }
 
-.author,
-.vendor-name,
-.user-name {
-    font-family: "Roboto Mono", monospace;
-}
-
-.heading,
-.nav-bar,
-.title {
-    font-family: "Jost", sans-serif;
-}
-
-p {
-    font-family: "Manrope", sans-serif;
-}
 
 nav {
     background-color: #fff;
-
+    padding: 0.6rem 0;
+    height: max-content;
+    position: sticky;
+    box-shadow: 0 0.01rem 0.4rem 0.01rem var(--shades);
 }
 
-nav div.main-nav-container {}
+nav div.main-nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 
-div.nav-logo i.fa-lightbulb {
+
+a.nav-logo {
+    text-decoration: none;
+    color: #000000;
+}
+
+a.nav-logo h2 {
+    font-family: var(--heading-nav-bar-title);
+}
+
+a.nav-logo i.fa-lightbulb {
     font-size: 1.7rem;
     color: var(--shades);
     font-weight: 200;
+    margin-right: 0.4rem;
+}
+
+nav div.search-bar {
+    border: 1px solid var(--shades);
+    width: 25rem;
+    font-family: var(--author-vendor-user);
+}
+
+nav div.search-bar select {
+    color: var(--shades);
+    padding: 0.6rem 0.3rem 0.6rem 0.3rem;
+}
+
+nav div.search-bar input[type='text'] {
+    border-left: 1px solid #000000;
+    padding: 0.6rem;
+}
+
+nav div.search-bar i.fa-magnifying-glass {
+    position: relative;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 1rem;
+    cursor: pointer;
+    color: var(--shades);
+}
+
+
+nav div.main-nav-container ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav div.main-nav-container ul li {
+    float: left;
+}
+
+nav div.main-nav-container ul li a {
+    margin-right: 2rem;
+    text-decoration: none;
+    font-family: var(--heading-nav-bar-title);
+    color: #000000;
+
 }
