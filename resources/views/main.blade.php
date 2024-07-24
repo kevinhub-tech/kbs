@@ -26,11 +26,13 @@
     @stack('head')
 </head>
 
-<body class="vh-100 overflow-hidden">
+<body class="vh-100">
+    <x-nav></x-nav>
     <main>
-        <x-nav></x-nav>
+
         @yield('main.content')
     </main>
+    <x-footer></x-footer>
 </body>
 @stack('scripts')
 
