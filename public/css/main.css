@@ -36,7 +36,7 @@ nav {
     padding: 0.6rem 0;
     height: max-content;
     position: sticky;
-    box-shadow: 0 0.01rem 0.4rem 0.01rem var(--shades);
+    /* box-shadow: 0 0.01rem 0.4rem 0.01rem var(--shades); */
 }
 
 nav div.main-nav-container {
@@ -104,5 +104,176 @@ nav div.main-nav-container ul li a {
     text-decoration: none;
     font-family: var(--heading-nav-bar-title);
     color: #000000;
+}
 
+main {
+    padding: 2rem;
+}
+
+form.login-form {
+    width: 35rem;
+    /* height: 50dvh; */
+    background-color: #FFFFF0;
+    border-radius: 1rem;
+    box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #000000;
+    margin: 0 auto;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+form.login-form div.logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+form.login-form h4 {
+    font-family: var(--heading-nav-bar-title);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+form.login-form label {
+    font-family: var(--author-vendor-user);
+    font-size: 1rem;
+}
+
+form.login-form input {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--shades);
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+form.login-form input:focus {
+    box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem var(--shades);
+}
+
+/* Container for the input and icon */
+form.login-form .input-container {
+    position: relative;
+    width: 100%;
+}
+
+form.login-form .input-container input {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--shades);
+    margin-bottom: 1rem;
+    width: 100%;
+    padding-right: 2rem;
+    /* Adjust this to ensure the icon does not overlap text */
+}
+
+form.login-form .input-container input:focus {
+    box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem var(--shades);
+}
+
+form.login-form .input-container i.fa-eye,
+form.login-form .input-container i.fa-eye-slash {
+    position: absolute;
+    top: 40%;
+    right: 0.5rem;
+    /* Adjust this for icon spacing */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--shades);
+}
+
+
+form.login-form button[type='submit'] {
+    background-color: transparent;
+    margin-top: 1rem;
+    height: 2.8rem;
+    background-color: var(--shades);
+    color: var(--main-color);
+    font-weight: 500;
+    border-radius: 0.5rem;
+}
+
+form.login-form button[type='submit']:hover {
+    background-color: transparent;
+    color: var(--shades);
+    border: 1px dashed #000000;
+    transition: all .4s ease;
+}
+
+form.login-form p {
+    font-style: var(--general-font);
+    margin-top: 2rem;
+    font-size: 1rem;
+}
+
+form.login-form p a {
+    text-decoration: none;
+    color: var(--shades);
+}
+
+form.login-form p.form-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0.8rem 0;
+}
+
+form.login-form p.form-divider::before,
+form.login-form p.form-divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid var(--shades);
+}
+
+form.login-form p.form-divider::before {
+    margin-right: 1rem;
+}
+
+form.login-form p.form-divider::after {
+    margin-left: 1rem;
+}
+
+form.login-form div.facebook-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: #3b5998;
+    color: var(--main-color);
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+form.login-form div.facebook-login i.fa-facebook {
+    font-size: 1.5rem;
+}
+
+form.login-form div.facebook-login:hover {
+    background-color: var(--main-color);
+    color: #3b5998;
+    border: 1px dashed #000000;
+    transition: all .4s ease;
+}
+
+form.login-form div.google-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: #d34836;
+    color: var(--main-color);
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+form.login-form div.google-login:hover {
+    background-color: var(--main-color);
+    color: #d34836;
+    border: 1px dashed #000000;
+    transition: all .4s ease;
+}
+
+form.login-form div.google-login i.fa-google {
+    font-size: 1.5rem;
 }
