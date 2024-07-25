@@ -36,13 +36,6 @@ nav {
     padding: 0.6rem 0;
     height: max-content;
     position: sticky;
-    /* box-shadow: 0 0.01rem 0.4rem 0.01rem var(--shades); */
-}
-
-nav div.main-nav-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
 }
 
 
@@ -66,6 +59,7 @@ nav div.search-bar {
     border: 1px solid var(--shades);
     width: 25rem;
     font-family: var(--author-vendor-user);
+
 }
 
 nav div.search-bar select {
@@ -76,6 +70,7 @@ nav div.search-bar select {
 nav div.search-bar input[type='text'] {
     border-left: 1px solid #000000;
     padding: 0.6rem;
+    font-family: var(--author-vendor-user);
 }
 
 nav div.search-bar i.fa-magnifying-glass {
@@ -106,16 +101,41 @@ nav div.main-nav-container ul li a {
     color: #000000;
 }
 
+nav div.main-nav-container ul li a:hover {
+    color: var(--shades);
+    transition: all 0.5s;
+}
+
+nav div.main-nav-container ul li a i {
+    font-size: 1.3rem;
+}
+
+
+nav div.main-nav-container ul li a i.fa-cart-shopping:hover {
+    color: #3b5998;
+    transition: all 0.5s;
+}
+
+nav div.main-nav-container ul li a i.fa-heart:hover {
+    color: #F02F2F;
+    transition: all 0.5s;
+}
+
+nav div.main-nav-container ul li a i.fa-user:hover {
+    color: var(--shades);
+    transition: all 0.5s;
+}
+
+
 main {
     padding: 2rem;
 }
 
 form.login-form {
     width: 35rem;
-    /* height: 50dvh; */
     background-color: #FFFFF0;
     border-radius: 1rem;
-    box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #000000;
+    box-shadow: 0rem 0rem 0.5rem 0.1rem #000000;
     margin: 0 auto;
     padding: 4rem;
     display: flex;
@@ -145,6 +165,7 @@ form.login-form input {
     border-bottom: 1px solid var(--shades);
     margin-bottom: 1rem;
     width: 100%;
+    font-family: var(--author-vendor-user);
 }
 
 form.login-form input:focus {
@@ -276,4 +297,36 @@ form.login-form div.google-login:hover {
 
 form.login-form div.google-login i.fa-google {
     font-size: 1.5rem;
+}
+
+footer {
+    background-color: #000000;
+    color: var(--main-color);
+    font-family: var(--heading-nav-bar-title);
+    padding: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+footer a.nav-logo {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+footer a.nav-logo h2 {
+    font-family: var(--heading-nav-bar-title);
+}
+
+footer a.nav-logo i.fa-lightbulb {
+    font-size: 1.7rem;
+    color: var(--main-color);
+    font-weight: 200;
+    margin-right: 0.4rem;
+}
+
+footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
