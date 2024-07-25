@@ -10,7 +10,14 @@
                     </h2>
                 </a>
             </div>
-            <h4>Log Into Your Account</h4>
+            <h4>Log Into
+                Your
+                @if (Request::url() === route('vendor.login'))
+                    Vendor
+                @elseif(Request::url() === route('admin.login'))
+                    Admin
+                @endif Account
+            </h4>
             <label for="">Email:</label>
             <input type="text" name="email" id="">
             <label for="">Password:</label>
