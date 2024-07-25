@@ -18,6 +18,9 @@ Route::prefix('user')->group(function () {
     Route::get('/login', function () {
         return view('login');
     })->name('user.login');
+    Route::get('/register', function () {
+        return view('users.register');
+    })->name('user.register');
     Route::get('/home', function () {
         return view('users.home');
     });
