@@ -26,8 +26,11 @@
 
 body {
     margin: 0;
+    padding: 0;
     background-color: #E1D6D6;
-
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -36,6 +39,8 @@ nav {
     padding: 0.6rem 0;
     height: max-content;
     position: sticky;
+    top: 0;
+    box-shadow: 0.1rem 0rem 0.2rem 0.01rem #000000;
 }
 
 
@@ -131,7 +136,8 @@ main {
     padding: 2rem;
 }
 
-form.login-form {
+form.login-form,
+form.register-form {
     width: 35rem;
     background-color: #FFFFF0;
     border-radius: 1rem;
@@ -143,24 +149,28 @@ form.login-form {
     justify-content: center;
 }
 
-form.login-form div.logo {
+form.login-form div.logo,
+form.register-form div.logo {
     display: flex;
     justify-content: center;
     margin-bottom: 4rem;
 }
 
-form.login-form h4 {
+form.login-form h4,
+form.register-form h4 {
     font-family: var(--heading-nav-bar-title);
     text-align: center;
     margin-bottom: 2rem;
 }
 
-form.login-form label {
+form.login-form label,
+form.register-form label {
     font-family: var(--author-vendor-user);
     font-size: 1rem;
 }
 
-form.login-form input {
+form.login-form input,
+form.register-form input {
     padding: 0.5rem;
     border-bottom: 1px solid var(--shades);
     margin-bottom: 1rem;
@@ -168,17 +178,20 @@ form.login-form input {
     font-family: var(--author-vendor-user);
 }
 
-form.login-form input:focus {
+form.login-form input:focus,
+form.register-form input:focus {
     box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem var(--shades);
 }
 
 /* Container for the input and icon */
-form.login-form .input-container {
+form.login-form .input-container,
+form.register-form .input-container {
     position: relative;
     width: 100%;
 }
 
-form.login-form .input-container input {
+form.login-form .input-container input,
+form.register-form .input-container input {
     padding: 0.5rem;
     border-bottom: 1px solid var(--shades);
     margin-bottom: 1rem;
@@ -187,12 +200,15 @@ form.login-form .input-container input {
     /* Adjust this to ensure the icon does not overlap text */
 }
 
-form.login-form .input-container input:focus {
+form.login-form .input-container input:focus,
+form.register-form .input-container input:focus {
     box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem var(--shades);
 }
 
 form.login-form .input-container i.fa-eye,
-form.login-form .input-container i.fa-eye-slash {
+form.login-form .input-container i.fa-eye-slash,
+form.register-form .input-container i.fa-eye,
+form.register-form .input-container i.fa-eye-slash {
     position: absolute;
     top: 40%;
     right: 0.5rem;
@@ -203,7 +219,8 @@ form.login-form .input-container i.fa-eye-slash {
 }
 
 
-form.login-form button[type='submit'] {
+form.login-form button[type='submit'],
+form.register-form button[type='submit'] {
     background-color: transparent;
     margin-top: 1rem;
     height: 2.8rem;
@@ -213,25 +230,29 @@ form.login-form button[type='submit'] {
     border-radius: 0.5rem;
 }
 
-form.login-form button[type='submit']:hover {
+form.login-form button[type='submit']:hover,
+form.register-form button[type='submit']:hover {
     background-color: transparent;
     color: var(--shades);
     border: 1px dashed #000000;
     transition: all .4s ease;
 }
 
-form.login-form p {
+form.login-form p,
+form.register-form p {
     font-style: var(--general-font);
     margin-top: 2rem;
     font-size: 1rem;
 }
 
-form.login-form p a {
+form.login-form p a,
+form.register-form p a {
     text-decoration: none;
     color: var(--shades);
 }
 
-form.login-form p.form-divider {
+form.login-form p.form-divider,
+form.register-form p.form-divider {
     display: flex;
     align-items: center;
     text-align: center;
@@ -239,21 +260,26 @@ form.login-form p.form-divider {
 }
 
 form.login-form p.form-divider::before,
-form.login-form p.form-divider::after {
+form.login-form p.form-divider::after,
+form.register-form p.form-divider::before,
+form.register-form p.form-divider::after {
     content: "";
     flex: 1;
     border-bottom: 1px solid var(--shades);
 }
 
-form.login-form p.form-divider::before {
+form.login-form p.form-divider::before,
+form.register-form p.form-divider::before {
     margin-right: 1rem;
 }
 
-form.login-form p.form-divider::after {
+form.login-form p.form-divider::after,
+form.register-form p.form-divider::after {
     margin-left: 1rem;
 }
 
-form.login-form div.facebook-login {
+form.login-form div.facebook-login,
+form.register-form div.facebook-register {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -265,18 +291,21 @@ form.login-form div.facebook-login {
     cursor: pointer;
 }
 
-form.login-form div.facebook-login i.fa-facebook {
+form.login-form div.facebook-login i.fa-facebook,
+form.register-form div.facebook-register i.fa-facebook {
     font-size: 1.5rem;
 }
 
-form.login-form div.facebook-login:hover {
+form.login-form div.facebook-login:hover,
+form.register-form div.facebook-register:hover {
     background-color: var(--main-color);
     color: #3b5998;
     border: 1px dashed #000000;
     transition: all .4s ease;
 }
 
-form.login-form div.google-login {
+form.login-form div.google-login,
+form.register-form div.google-register {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -288,14 +317,16 @@ form.login-form div.google-login {
     cursor: pointer;
 }
 
-form.login-form div.google-login:hover {
+form.login-form div.google-login:hover,
+form.register-form div.google-register:hover {
     background-color: var(--main-color);
     color: #d34836;
     border: 1px dashed #000000;
     transition: all .4s ease;
 }
 
-form.login-form div.google-login i.fa-google {
+form.login-form div.google-login i.fa-google,
+form.register-form div.google-register i.fa-google {
     font-size: 1.5rem;
 }
 
@@ -303,10 +334,15 @@ footer {
     background-color: #000000;
     color: var(--main-color);
     font-family: var(--heading-nav-bar-title);
-    padding: 1rem;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    padding: 2rem;
+    width: 100%;
+    margin-top: auto;
+}
+
+footer div.footer-container {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-around;
 }
 
 footer a.nav-logo {
@@ -329,4 +365,86 @@ footer ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+
+footer ul li a {
+    text-decoration: none;
+    color: var(--main-color);
+    display: inline-block;
+    /* position: relative; */
+}
+
+
+footer ul li a::after {
+    content: '';
+    height: 4px;
+    width: 0%;
+    background-color: var(--main-color);
+    display: block;
+    transition: 0.4s ease-in-out;
+}
+
+
+
+footer ul li a:hover::after {
+    content: '';
+    height: 2px;
+    width: 100%;
+    background-color: var(--main-color);
+    display: block;
+    transition: 0.4s ease-in-out;
+}
+
+footer div.social-links {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+footer div.social-links a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+footer div.social-links i {
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+footer div.social-links i.fa-square-facebook:hover {
+    color: #3b5998;
+    transition: all 0.4s;
+}
+
+footer div.social-links i.fa-instagram:hover {
+    color: #DD2A7B;
+    transition: all 0.4s;
+}
+
+footer div.social-links i.fa-square-x-twitter:hover {
+    color: var(--shades);
+    transition: all 0.4s;
+}
+
+section.copy-right {
+    font-family: var(--author-vendor-user);
+    background-color: var(--main-color);
+    color: var(--shades);
+    padding: 0.5rem 0rem;
+    text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+    footer {
+        padding: 2rem;
+    }
+
+    div.footer-container {
+        flex-direction: column;
+    }
+
+    div.footer-container div:not(:last-child) {
+        margin-bottom: 2rem;
+    }
 }

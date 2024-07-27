@@ -26,7 +26,7 @@
     @stack('head')
 </head>
 
-<body class="vh-100">
+<body>
     <x-nav></x-nav>
     <main>
 
