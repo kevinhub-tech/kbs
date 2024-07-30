@@ -27,20 +27,39 @@
             </div>
             <button type="submit">Login</button>
             @if (Request::url() === route('user.login'))
-                <p>Don't have an account? <a href="#">Register Here!</a></p>
+                <p>Don't have an account? <a href="{{ route('user.register') }}">Register Here!</a></p>
                 <p class="form-divider">Or</p>
                 <h4 class="mt-2">Login with</h4>
                 <div class="row">
                     <div class="facebook-login col-md-5 mb-2 mb-md-0 text-center">
-                        <i class="fa-brands fa-facebook"></i>
-                        <label for="facebook"> Facebook</label>
+                        <a href="{{ route('auth.login', ['facebook']) }}">
+                            <i class="fa-brands fa-facebook"></i>
+                            <label for="facebook"> Facebook</label>
+                        </a>
                     </div>
                     <div class="google-login offset-md-2 col-md-5 text-center">
-                        <i class="fa-brands fa-google"></i>
-                        <label for="google"> Google</label>
+                        <a href="{{ route('auth.login', ['google']) }}">
+                            <i class="fa-brands fa-google"></i>
+                            <label for="google"> Google</label>
+                        </a>
                     </div>
                 </div>
             @endif
         </form>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('i#togglePassword').on('click', function() {
+                if ($(this).hasClass('fa-eye')) {
+                    $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+                    $(this).prev().attr('type', 'text');
+                } else {
+                    $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+                    $(this).prev().attr('type', 'password');
+                }
+            });
+        });
+    </script>
+@endpush

@@ -21,19 +21,39 @@
                 <i class="fa-regular fa-eye" id="togglePassword"></i>
             </div>
             <button type="submit">Register</button>
+            <p>Already have an account? <a href="{{ route('user.login') }}">Login Here!</a></p>
             <p class="form-divider">Or</p>
             <h4 class="mt-2">Register with</h4>
             <div class="row">
                 <div class="facebook-register col-md-5 mb-2 mb-md-0 text-center">
-                    <i class="fa-brands fa-facebook"></i>
-                    <label for="facebook"> Facebook</label>
+                    <a href="">
+                        <i class="fa-brands fa-facebook"></i>
+                        <label for="facebook"> Facebook</label>
+                    </a>
                 </div>
                 <div class="google-register offset-md-2 col-md-5 text-center">
-                    <i class="fa-brands fa-google"></i>
-                    <label for="google"> Google</label>
+                    <a href="">
+                        <i class="fa-brands fa-google"></i>
+                        <label for="google"> Google</label>
+                    </a>
                 </div>
             </div>
 
         </form>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('i#togglePassword').on('click', function() {
+                if ($(this).hasClass('fa-eye')) {
+                    $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+                    $(this).prev().attr('type', 'text');
+                } else {
+                    $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+                    $(this).prev().attr('type', 'password');
+                }
+            });
+        });
+    </script>
+@endpush
