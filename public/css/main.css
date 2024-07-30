@@ -280,15 +280,20 @@ form.register-form p.form-divider::after {
 
 form.login-form div.facebook-login,
 form.register-form div.facebook-register {
+    background-color: #3b5998;
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+form.login-form div.facebook-login a,
+form.register-form div.facebook-register a {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    background-color: #3b5998;
+    text-decoration: none;
     color: var(--main-color);
-    padding: 0.7rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
 }
 
 form.login-form div.facebook-login i.fa-facebook,
@@ -299,36 +304,50 @@ form.register-form div.facebook-register i.fa-facebook {
 form.login-form div.facebook-login:hover,
 form.register-form div.facebook-register:hover {
     background-color: var(--main-color);
-    color: #3b5998;
     border: 1px dashed #000000;
     transition: all .4s ease;
 }
 
+form.login-form div.facebook-login:hover a,
+form.register-form div.facebook-register:hover a {
+    color: #3b5998 !important;
+}
+
 form.login-form div.google-login,
 form.register-form div.google-register {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
     background-color: #d34836;
-    color: var(--main-color);
     padding: 0.7rem;
     border-radius: 0.5rem;
     cursor: pointer;
 }
 
-form.login-form div.google-login:hover,
-form.register-form div.google-register:hover {
-    background-color: var(--main-color);
-    color: #d34836;
-    border: 1px dashed #000000;
-    transition: all .4s ease;
+form.login-form div.google-login a,
+form.register-form div.google-register a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--main-color);
 }
 
 form.login-form div.google-login i.fa-google,
 form.register-form div.google-register i.fa-google {
     font-size: 1.5rem;
 }
+
+form.login-form div.google-login:hover,
+form.register-form div.google-register:hover {
+    background-color: var(--main-color);
+    border: 1px dashed #000000;
+    transition: all .4s ease;
+}
+
+form.login-form div.google-login:hover a,
+form.register-form div.google-register:hover a {
+    color: #d34836 !important;
+}
+
 
 footer {
     background-color: #000000;
