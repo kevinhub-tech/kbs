@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('user_id')->primary();
             $table->string('name', 200);
-            $table->string('email', 200);
+            $table->string('email', 200)->nullable();
             $table->text('image')->nullable();
             $table->boolean('is_auth')->default(false);
             $table->string('token', 100)->nullable();
-            $table->string('password', 300);
+            $table->string('password', 300)->nullable();
             $table->uuid('role_id')->nullable();
             $table->foreign('role_id')->references('role_id')->on('roles')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamp('created_at')->useCurrent();
