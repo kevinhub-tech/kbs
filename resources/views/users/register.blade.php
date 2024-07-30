@@ -2,6 +2,7 @@
 @section('main.content')
     <div class="d-flex justify-content-center align-items-center h-100">
         <form action="#" method="POST" class="register-form">
+            @csrf
             <div class="logo">
                 <a class="nav-logo d-flex align-items-center" href='#'>
                     <i class="fa-regular fa-lightbulb"></i>

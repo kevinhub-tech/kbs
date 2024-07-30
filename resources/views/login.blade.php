@@ -2,6 +2,7 @@
 @section('main.content')
     <div class="d-flex justify-content-center align-items-center h-100">
         <form action="#" method="POST" class="login-form">
+            @csrf
             <div class="logo">
                 <a class="nav-logo d-flex align-items-center" href='#'>
                     <i class="fa-regular fa-lightbulb"></i>
@@ -18,8 +19,17 @@
                     Admin
                 @endif Account
             </h4>
-            <label for="">Email:</label>
-            <input type="text" name="email" id="">
+            <label for="">
+                @if (Request::url() === route('vendor.login') || Request::url() === route('admin.login'))
+                    Name:
+                @else
+                    Email:
+                @endif
+            </label>
+            <input type="text" @if (Request::url() === route('vendor.login') || Request::url() === route('admin.login')) name="name"
+        @else
+        name="email" @endif
+                id="">
             <label for="">Password:</label>
             <div class="input-container">
                 <input type="password" name="password" id="password">
