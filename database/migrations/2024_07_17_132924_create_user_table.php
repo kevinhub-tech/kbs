@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email', 200)->nullable();
             $table->text('image')->nullable();
             $table->boolean('is_auth')->default(false);
+            $table->enum('auth_provider', ['facebook', 'google']);
             $table->string('token', 100)->nullable();
             $table->string('password', 300)->nullable();
             $table->uuid('role_id')->nullable();
