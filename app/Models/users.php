@@ -20,6 +20,7 @@ class users extends Model
         'email',
         'image',
         'is_auth',
+        'auth_provider',
         'token',
         'password',
         'role_id',
