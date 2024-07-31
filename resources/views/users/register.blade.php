@@ -1,7 +1,7 @@
 @extends('main')
 @section('main.content')
     <div class="d-flex justify-content-center align-items-center h-100">
-        <form action="#" method="POST" class="register-form">
+        <form action="{{ route('user.manualregister') }}" method="POST" class="register-form">
             @csrf
             <div class="logo">
                 <a class="nav-logo d-flex align-items-center" href='#'>
@@ -39,8 +39,12 @@
                     </a>
                 </div>
             </div>
-
         </form>
+        <h4>
+            @if (session('message'))
+                {{ session('message') }}
+            @endif
+        </h4>
     </div>
 @endsection
 @push('scripts')

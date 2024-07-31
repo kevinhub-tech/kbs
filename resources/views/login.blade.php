@@ -1,7 +1,16 @@
 @extends('main')
 @section('main.content')
+    @php
+        if (Request::url() === route('vendor.login')) {
+            $login_attempt_route = route('vendor.manuallogin');
+        } elseif (Request::url() === route('admin.login')) {
+            $login_attempt_route = route('admin.manuallogin');
+        } else {
+            $login_attempt_route = route('user.manuallogin');
+        }
+    @endphp
     <div class="d-flex justify-content-center align-items-center h-100">
-        <form action="#" method="POST" class="login-form">
+        <form action="{{ $login_attempt_route }}" method="POST" class="login-form">
             @csrf
             <div class="logo">
                 <a class="nav-logo d-flex align-items-center" href='#'>
@@ -56,6 +65,11 @@
                 </div>
             @endif
         </form>
+        <h4>
+            @if (session('message'))
+                {{ session('message') }}
+            @endif
+        </h4>
     </div>
 @endsection
 @push('scripts')
