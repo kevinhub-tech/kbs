@@ -25,7 +25,7 @@ class UserController extends Controller
         if ($user) {
             if ($user->is_auth) {
                 $auth_provider = $user->auth_provider === 'facebook' ? 'Facebook' : 'Google';
-                return  redirect()->route('user.register')->with('message', 'You have an account within this app, created with' . $auth_provider);
+                return  redirect()->route('user.register')->with('message', 'You have an account within this app, created with ' . $auth_provider . '. Please login with ' . $auth_provider . ' .');
             } else {
                 return  redirect()->route('user.register')->with('message', 'You have created an account with this email already. Please login with that email');
             }
@@ -59,7 +59,7 @@ class UserController extends Controller
         if ($user) {
             if ($user->password === null) {
                 $auth_provider = $user->auth_provider === 'facebook' ? 'Facebook' : 'Google';
-                return redirect()->route('user.login')->with('message', 'You have an account on the app with' . $auth_provider . ' already. Please login with' . $auth_provider);
+                return redirect()->route('user.login')->with('message', 'You have an account on the app with ' . $auth_provider . ' already. Please login with ' . $auth_provider);
             } else {
                 if (Hash::check($request->password, $user->password)) {
                     $user->token = Uuid::uuid4()->toString();
