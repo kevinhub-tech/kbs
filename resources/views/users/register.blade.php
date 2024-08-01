@@ -27,13 +27,13 @@
             <h4 class="mt-2">Register with</h4>
             <div class="row">
                 <div class="facebook-register col-md-5 mb-2 mb-md-0 text-center">
-                    <a href="">
+                    <a href="{{ route('auth.login', ['facebook']) }}">
                         <i class="fa-brands fa-facebook"></i>
                         <label for="facebook"> Facebook</label>
                     </a>
                 </div>
                 <div class="google-register offset-md-2 col-md-5 text-center">
-                    <a href="">
+                    <a href="{{ route('auth.login', ['google']) }}">
                         <i class="fa-brands fa-google"></i>
                         <label for="google"> Google</label>
                     </a>
