@@ -26,7 +26,7 @@ class VendorOnlyAccess
 
         if ($request->hasHeader('Authorization') && $request->isJson()) {
             $error_message = "You are not authorized to access this api. Only users are allowed for access";
-            if (SessionHandler::isTokenValid($request->header('Authorization'), self::$role)) {
+            if (SessionHandler::isTokenValid($request->header('Authorization'), $this->role)) {
                 return $next($request);
             } else {
                 return response()->json([
@@ -40,11 +40,11 @@ class VendorOnlyAccess
                 ]);
             }
         } else {
-            $error_message = "You are not authorized to visit this page. Only Users are allowed";
-            if (SessionHandler::isUserAccessAllowed(self::$role)) {
+            $error_message = "You are not authorized to visit this page. Only signed in 'Vendors' are allowed!";
+            if (SessionHandler::isUserAccessAllowed($this->role)) {
                 return $next($request);
             } else {
-                redirect()->back()->with('accessDeny', $error_message);
+                return redirect()->route('accessDeny')->with('accessDeny', $error_message);
             }
         }
     }
