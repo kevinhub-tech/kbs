@@ -29,7 +29,6 @@
 <body>
     <x-nav></x-nav>
     <main>
-
         @yield('main.content')
     </main>
     <x-footer></x-footer>
