@@ -3,15 +3,14 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
-use App\Http\Middleware\UserOnlyAccess;
-use App\Http\Middleware\VendorOnlyAccess;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
+
 
 
 Route::controller(VendorController::class)->prefix('vendor')->group(function () {
     Route::middleware('vendor-only')->group(function () {
         Route::get('/', 'home')->name('vendor.home');
+        Route::get('/logout', 'logout')->name("vendor.logout");
     });
     Route::get('/login', 'login')->name('vendor.login');
     Route::post('/signin', 'signin')->name('vendor.manuallogin');
@@ -20,6 +19,7 @@ Route::controller(VendorController::class)->prefix('vendor')->group(function () 
 Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::middleware('admin-only')->group(function () {
         Route::get('/', 'home')->name('admin.home');
+        Route::get('/logout', 'logout')->name("admin.logout");
     });
     Route::get('/login', 'login')->name('admin.login');
     Route::post('/signin', 'signin')->name('admin.manuallogin');
@@ -30,6 +30,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('/register', 'register')->name('user.register');
     Route::middleware('user-only')->group(function () {
         Route::get('/', 'home')->name("user.home");
+        Route::get('/logout', 'logout')->name("user.logout");
     });
     Route::post('/signin', 'signin')->name('user.manuallogin');
     Route::post('/signup', 'signup')->name('user.manualregister');
