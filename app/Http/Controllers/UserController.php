@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SessionHandler;
+use App\Models\roles;
 use App\Models\users;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
 use Ramsey\Uuid\Uuid;
 
@@ -16,6 +17,9 @@ class UserController extends Controller
     //
     public function register()
     {
+        if (SessionHandler::checkUserSession()) {
+            return redirect()->back();
+        }
         return view('users.register');
     }
     public function signup(Request $request)
@@ -39,13 +43,17 @@ class UserController extends Controller
             'role_id' => 'eaf20dd0-81cf-4115-8e9a-9ac5fe43ac21'
         ]);
 
+        $user_role = roles::find('eaf20dd0-81cf-4115-8e9a-9ac5fe43ac21');
         if ($new_user) {
-            SessionHandler::storeSessionDetails($new_user->user_id, $new_user->role_id, $new_user->token);
+            SessionHandler::storeSessionDetails($new_user->user_id, $new_user->name, $user_role->role_name, $new_user->token);
             return redirect()->route('user.home');
         }
     }
     public function login()
     {
+        if (SessionHandler::checkUserSession()) {
+            return redirect()->back();
+        }
         return view('login');
     }
     public function signin(Request $request)
@@ -64,7 +72,8 @@ class UserController extends Controller
                 if (Hash::check($request->password, $user->password)) {
                     $user->token = Uuid::uuid4()->toString();
                     $user->save();
-                    SessionHandler::storeSessionDetails($user->user_id, $user->role_id, $user->token);
+                    $user_role = roles::find($user->role_id);
+                    SessionHandler::storeSessionDetails($user->user_id, $user->name, $user_role->role_name, $user->token);
                     return redirect()->route('user.home');
                 } else {
                     return redirect()->route('user.login')->with('message', 'Unmatched password. Please check your password again');
@@ -72,6 +81,17 @@ class UserController extends Controller
             }
         } else {
             return redirect()->route('user.login')->with('message', 'You do not have an account on the app. Please create an account or Login with Facebook/Google');
+        }
+    }
+
+    public function logout()
+    {
+        $user = users::find(session('userId'));
+        $user->token = null;
+        $user->save();
+        if ($user) {
+            SessionHandler::removeSessionDetails();
+            return redirect()->route('user.login');
         }
     }
 
@@ -103,7 +123,8 @@ class UserController extends Controller
 
                 $user->token = Uuid::uuid4()->toString();
                 $user->save();
-                SessionHandler::storeSessionDetails($user->user_id, $user->role_id, $user->token);
+                $user_role = roles::find($user->role_id);
+                SessionHandler::storeSessionDetails($user->user_id, $user->name, $user_role->role_name, $user->token);
                 return redirect()->route('user.home');
             } else {
                 $user->is_auth = true;
@@ -111,7 +132,8 @@ class UserController extends Controller
                 $user->image = $avatar;
                 $user->token = Uuid::uuid4()->toString();
                 $user->save();
-                SessionHandler::storeSessionDetails($user->user_id, $user->role_id, $user->token);
+                $user_role = roles::find($user->role_id);
+                SessionHandler::storeSessionDetails($user->user_id, $user->name, $user_role->role_name, $user->token);
                 return redirect()->route('user.home');
             }
         }
@@ -124,7 +146,29 @@ class UserController extends Controller
             'token' => Uuid::uuid4()->toString(),
             'role_id' => 'eaf20dd0-81cf-4115-8e9a-9ac5fe43ac21'
         ]);
-        SessionHandler::storeSessionDetails($new_user->user_id, $new_user->role_id, $new_user->token);
+        $user_role = roles::where($new_user->role_id);
+        SessionHandler::storeSessionDetails($new_user->user_id, $new_user->name, $user_role->role_name, $new_user->token);
         return redirect()->route('user.home');
+    }
+    public function demopost(Request $request)
+    {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'You have successfully posted some info on user route',
+            'payload' => [
+                $request->name,
+                $request->email,
+            ]
+        ], Response::HTTP_ACCEPTED);
+    }
+
+    public function demoget(Request $request)
+    {
+        $get_data = ['1' => 'data 1', '2' => 'data 2'];
+        return response()->json([
+            'status' => 'success',
+            'message' => 'You have successfully posted some info on user route',
+            'payload' => $get_data
+        ], Response::HTTP_ACCEPTED);
     }
 }
