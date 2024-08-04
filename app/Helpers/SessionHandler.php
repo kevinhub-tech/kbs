@@ -10,10 +10,11 @@ use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 
 class SessionHandler
 {
-    public static function storeSessionDetails($userId, $userRole, $userToken)
+    public static function storeSessionDetails($userId, $userName, $userRole, $userToken)
     {
         session([
             'userSignedIn' => true,
+            'userName' => $userName,
             'userId' => $userId,
             'userRole' => $userRole,
             'userToken' => $userToken
@@ -24,6 +25,7 @@ class SessionHandler
     {
         Session::forget(
             'userSignedIn',
+            'userName',
             'userId',
             'userRole',
             'userToken'
@@ -34,6 +36,7 @@ class SessionHandler
     {
         return Session::has([
             'userSignedIn',
+            'userName',
             'userId',
             'userRole',
             'userToken'
@@ -42,9 +45,7 @@ class SessionHandler
 
     public static function isUserAccessAllowed(string $role)
     {
-        $user_role = roles::find(session('userRole'));
-
-        if (self::checkUserSession() && $user_role->role_name === $role) {
+        if (self::checkUserSession() && session('userRole') === $role) {
             return true;
         }
         return false;
@@ -52,11 +53,10 @@ class SessionHandler
 
     public static function isTokenValid(string $token, string $required_role)
     {
-        if (isset($token) || $token === null) {
+        if (!isset($token) || $token === null) {
             return false;
         }
-        $user = users::where('token', $token);
-
+        $user = users::where('token', $token)->first();
         if ($user) {
             $user_role = roles::find($user->role_id);
             if ($user_role->role_name === $required_role) {

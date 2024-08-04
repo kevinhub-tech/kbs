@@ -23,12 +23,12 @@ class AdminOnlyAccess
          * Check if user is signed in and the role is admin
          * if web, redirect to previous. if api, return error json.
          */
-        if ($request->hasHeader('Authorization') && $request->isJson()) {
-            $error_message = "You are not authorized to access this api. Only users are allowed for access";
+        if ($request->hasHeader('Authorization') && str_contains($request->route()->getPrefix(), 'api')) {
+            $error_message = "You are not authorized to access this api. Only signed in 'Admins' are allowed for access";
             if (SessionHandler::isTokenValid($request->header('Authorization'), $this->role)) {
                 return $next($request);
             } else {
-                return response()->json([
+                return response()->json(
                     [
                         'status' => 'failure',
                         'message' => 'Failed to Authenticate',
@@ -36,7 +36,7 @@ class AdminOnlyAccess
                         'payload' => [],
                     ],
                     Response::HTTP_UNAUTHORIZED
-                ]);
+                );
             }
         } else {
             $error_message = "You are not authorized to visit this page. Only signed in 'Admins' are allowed!";
