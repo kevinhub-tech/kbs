@@ -21,22 +21,28 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <ul>
-                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                <li><a href="#"><i class="fa-solid fa-heart"></i></a></li>
-                <li><a href="#"><i class="fa-solid fa-user"></i></a></li>
+                <li><a class="nav-links"href="#"><i class="fa-solid fa-cart-shopping"></i><small
+                            class="cart-count">10</small></a>
+                </li>
+                <li><a class="nav-links" href="#"><i class="fa-solid fa-heart"></i><small
+                            class="favourite-count">1</small></a></li>
+                <li>
+                    <div class="dropdown show">
+                        <a class="nav-links" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" href="#"><i
+                                class="fa-solid fa-user"></i></a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Orders</a>
+                            <a class="dropdown-item" href="#">Reviews</a>
+                        </div>
+                    </div>
+                </li>
             </ul>
         @endif
 
         @if (session('userSignedIn') && session('userRole') === 'vendor')
-            <div class="search-bar mb-3">
-                <select name="" id="">
-                    <option value="books">Books</option>
-                    <option value="author">Authors</option>
-                    <option value="genre">Genre</option>
-                </select>
-                <input type="text" name="search" id="search-bar" placeholder="Search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
             <ul>
                 <li><a href="#">Manage Orders</a></li>
                 <li><a href="#">Manage Books</a></li>
@@ -46,15 +52,6 @@
         @endif
 
         @if (session('userSignedIn') && session('userRole') === 'admin')
-            <div class="search-bar mb-3">
-                <select name="" id="">
-                    <option value="books">Books</option>
-                    <option value="author">Authors</option>
-                    <option value="genre">Genre</option>
-                </select>
-                <input type="text" name="search" id="search-bar" placeholder="Search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
             <ul>
                 <li><a href="#">Manage Users</a></li>
                 <li><a href="#">Manage Vendors</a></li>

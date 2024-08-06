@@ -165,6 +165,7 @@ nav div.main-nav-container ul li a {
     text-decoration: none;
     font-family: var(--heading-nav-bar-title);
     color: #000000;
+    position: relative;
 }
 
 nav div.main-nav-container ul li a:hover {
@@ -190,6 +191,24 @@ nav div.main-nav-container ul li a i.fa-heart:hover {
 nav div.main-nav-container ul li a i.fa-user:hover {
     color: var(--shades);
     transition: all 0.5s;
+}
+
+nav small.cart-count,
+nav small.favourite-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    min-width: 1rem;
+    width: max-content;
+    height: 1rem;
+    font-size: 10px;
+    background-color: var(--shades);
+    border-radius: 50%;
+    color: white;
+    padding: 0 0.2rem;
+    display: none;
+    justify-content: center;
+    align-items: center;
 }
 
 
