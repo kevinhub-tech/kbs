@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('state', 200);
             $table->string('phone_number', 200);
             $table->integer('postal_code');
-            $table->boolean('default')->default(true);
+            $table->boolean('default_address');
+            $table->boolean('default_billing_address');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

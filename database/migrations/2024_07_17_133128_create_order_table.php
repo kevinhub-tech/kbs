@@ -16,6 +16,7 @@ return new class extends Migration
             $table->double('order_number');
             $table->enum('payment_method', ['cod', 'debit/credit']);
             $table->boolean('refund_state');
+            $table->boolean('is_cancelled');
             $table->uuid('address_id')->nullable();
             $table->foreign('address_id')->references('address_id')->on('user_addresses')->cascadeOnUpdate()->nullOnDelete();
             $table->uuid('created_by');
