@@ -33,6 +33,67 @@ body {
     flex-direction: column;
 }
 
+input.input-empty {
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #ff0505, -0.1rem -0.1rem 0.1rem 0.1rem #ff0505;
+}
+
+/* Toastify custom css */
+div.toastify.on.kbs-info.toastify-right.toastify-top::before {
+    content: url('../image/info.svg');
+    margin-right: 0.5rem;
+}
+
+div.toastify.on.kbs-info.toastify-right.toastify-top {
+    background-color: var(--main-color) !important;
+    box-shadow: 0.05rem 0.05rem 0.1rem 0.1rem rgb(255, 255, 2), -0.05rem -0.05rem 0.1rem 0.1rem rgb(255, 255, 2);
+    color: #000000;
+    font-weight: 700;
+}
+
+div.toastify.on.kbs-error.toastify-right.toastify-top::before {
+    content: url('../image/error.svg');
+    margin-right: 0.5rem;
+}
+
+div.toastify.on.kbs-error.toastify-right.toastify-top {
+    background-color: var(--main-color) !important;
+    box-shadow: 0.05rem 0.05rem 0.1rem 0.1rem #ff0505, -0.05rem -0.05rem 0.1rem 0.1rem #ff0505;
+    color: #000000;
+    font-weight: 700;
+}
+
+div.toastify.on.kbs-success.toastify-right.toastify-top::before {
+    content: url('../image/success.svg');
+    margin-right: 0.5rem;
+}
+
+div.toastify.on.kbs-success.toastify-right.toastify-top {
+    background-color: var(--main-color) !important;
+    box-shadow: 0.05rem 0.05rem 0.1rem 0.1rem #2bff00, -0.05rem -0.05rem 0.1rem 0.1rem #2bff00;
+    color: #000000;
+    font-weight: 700;
+}
+
+div.swal2-actions button.swal2-confirm:hover {
+    background-color: transparent;
+    color: #7066e0;
+    border: 1px dashed #000000;
+    transition: all .4s ease;
+}
+
+div.swal2-actions button.swal2-deny:hover {
+    background-color: transparent;
+    color: #dc3741;
+    border: 1px dashed #000000;
+    transition: all .4s ease;
+}
+
+div.swal2-actions button.swal2-cancel:hover {
+    background-color: transparent;
+    color: #6e7881;
+    border: 1px dashed #000000;
+    transition: all .4s ease;
+}
 
 nav {
     background-color: #fff;
