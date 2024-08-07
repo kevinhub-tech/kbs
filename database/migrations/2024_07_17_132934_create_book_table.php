@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('book_desc');
             $table->string('author_name', 255);
             $table->text('image');
+            $table->integer('stock');
             $table->double('price');
             $table->double('delivery_fee');
             $table->uuid('discount_id')->nullable();
