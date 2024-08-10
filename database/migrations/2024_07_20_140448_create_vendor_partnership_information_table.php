@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('vendor_info_id')->primary();
             $table->uuid('vendor_application_id');
             $table->foreign('vendor_application_id')->references('application_id')->on('vendor_partnership_applications')->cascadeOnUpdate()->cascadeOnDelet();
+            $table->string('vendor_name', 200);
             $table->string('email', 200);
             $table->string('phone_number', 200);
             $table->longText('vendor_description');
