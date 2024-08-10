@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('email', 200);
             $table->string('genre', 300);
             $table->longText('application_letter');
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->mediumText('rejection_reason');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });
