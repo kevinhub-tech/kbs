@@ -101,6 +101,7 @@ nav {
     height: max-content;
     position: sticky;
     top: 0;
+    z-index: 10000;
     box-shadow: 0.1rem 0rem 0.2rem 0.01rem #000000;
 }
 
