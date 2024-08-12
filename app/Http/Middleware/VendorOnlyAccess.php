@@ -24,20 +24,32 @@ class VendorOnlyAccess
          * if web, redirect to previous. if api, return error json.
          */
 
-        if ($request->hasHeader('Authorization') && str_contains($request->route()->getPrefix(), 'api')) {
+        if ($request->hasHeader('Authorization') || str_contains($request->route()->getPrefix(), 'api')) {
             $error_message = "You are not authorized to access this api. Only signed in 'Vendors' are allowed for access";
-            if (SessionHandler::isTokenValid($request->header('Authorization'), $this->role)) {
-                return $next($request);
-            } else {
+            if (!$request->hasHeader('Authorization')) {
                 return response()->json(
                     [
                         'status' => 'failure',
                         'message' => 'Failed to Authenticate',
-                        'errors' => ['error' => $error_message],
+                        'errors' => ['error' => 'Authorization token has not been passed.'],
                         'payload' => [],
                     ],
                     Response::HTTP_UNAUTHORIZED
                 );
+            } else {
+                if (SessionHandler::isTokenValid($request->header('Authorization'), $this->role)) {
+                    return $next($request);
+                } else {
+                    return response()->json(
+                        [
+                            'status' => 'failure',
+                            'message' => 'Failed to Authenticate',
+                            'errors' => ['error' => $error_message],
+                            'payload' => [],
+                        ],
+                        Response::HTTP_UNAUTHORIZED
+                    );
+                }
             }
         } else {
             $error_message = "You are not authorized to visit this page. Only signed in 'Vendors' are allowed!";
