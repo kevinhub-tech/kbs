@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('vendor_partnership_applications', function (Blueprint $table) {
             $table->uuid('application_id')->primary();
             $table->string('email', 200);
-            $table->string('genre', 300);
             $table->longText('application_letter');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->mediumText('rejection_reason');
