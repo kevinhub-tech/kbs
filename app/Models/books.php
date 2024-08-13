@@ -49,6 +49,7 @@ class books extends Model
         'book_desc',
         'author_name',
         'image',
+        'stock',
         'price',
         'delivery_fee',
         'discount_id',
