@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SessionHandler;
+use App\Models\books;
+use App\Models\category;
 use App\Models\roles;
 use App\Models\users;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Ramsey\Uuid\Uuid;
@@ -97,7 +100,22 @@ class UserController extends Controller
 
     public function home()
     {
-        return view('users.home');
+        $categories = category::all()->sortBy('category');
+        $books = books::all()->sortBy('book_name');
+        foreach ($books as $book) {
+            $review_count = DB::table('book_review')->where('book_id', '=', $book->book_id)->count();
+            if ($review_count > 0) {
+                $avg_review = DB::table('book_review')->where('book_id', '=', $book->book_id)->avg('rating');
+                $book->review = $avg_review;
+            } else {
+                $book->review = 0;
+            }
+        }
+        foreach ($categories as $category) {
+            $count = DB::table('book_categories')->where('category_id', '=', $category->category_id)->count();
+            $category->count = $count;
+        }
+        return view('users.home', compact('categories', 'books'));
     }
     public function auth(string $social)
     {
