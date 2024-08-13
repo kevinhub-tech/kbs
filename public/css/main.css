@@ -33,8 +33,10 @@ body {
     flex-direction: column;
 }
 
-input.input-empty {
-    box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #ff0505, -0.1rem -0.1rem 0.1rem 0.1rem #ff0505;
+input.input-empty,
+textarea.input-empty,
+div.mult-select-tag.input-empty {
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #ff0505, -0.1rem -0.1rem 0.1rem 0.1rem #ff0505 !important;
 }
 
 /* Toastify custom css */
@@ -302,7 +304,6 @@ form.register-form .input-container i.fa-eye-slash {
 
 form.login-form button[type='submit'],
 form.register-form button[type='submit'] {
-    background-color: transparent;
     margin-top: 1rem;
     height: 2.8rem;
     background-color: var(--shades);
