@@ -36,6 +36,7 @@
                             <a class="dropdown-item" href="#">Profile</a>
                             <a class="dropdown-item" href="#">Orders</a>
                             <a class="dropdown-item" href="#">Reviews</a>
+                            <a class="dropdown-item" href="{{ route('user.logout') }}">Log Out</a>
                         </div>
                     </div>
                 </li>
@@ -46,8 +47,20 @@
             <ul>
                 <li><a href="#">Manage Orders</a></li>
                 <li><a href="#">Manage Books</a></li>
-                <li><a href="#"><i class="fa-solid fa-user"></i></a></li>
+                <li>
+                    <div class="dropdown show">
+                        <a class="nav-links" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" href="#"><i
+                                class="fa-solid fa-user"></i></a>
 
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Orders</a>
+                            <a class="dropdown-item" href="#">Reviews</a>
+                            <a class="dropdown-item" href="{{ route('vendor.logout') }}">Log Out</a>
+                        </div>
+                    </div>
+                </li>
             </ul>
         @endif
 
@@ -55,7 +68,20 @@
             <ul>
                 <li><a href="#">Manage Users</a></li>
                 <li><a href="#">Manage Vendors</a></li>
-                <li><a href="#"><i class="fa-solid fa-user"></i></a></li>
+                <li>
+                    <div class="dropdown show">
+                        <a class="nav-links" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" href="#"><i
+                                class="fa-solid fa-user"></i></a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Orders</a>
+                            <a class="dropdown-item" href="#">Reviews</a>
+                            <a class="dropdown-item" href="{{ route('vendor.logout') }}">Log Out</a>
+                        </div>
+                    </div>
+                </li>
             </ul>
         @endif
 
