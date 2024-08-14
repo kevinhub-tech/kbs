@@ -119,9 +119,15 @@ div.kbs-book-card-container h4 {
     text-overflow: ellipsis;
 }
 
+div.kbs-book-card-container div.star-rating span.fa.fa-star.checked {
+    color: var(--shades);
+}
+
 div.kbs-book-card-container div.star-rating span.rating {
     font-family: var(--general-font);
 }
+
+
 
 div.kbs-book-card-container p.book-author {
     margin-top: 0.5rem;
@@ -176,6 +182,42 @@ img.book-image {
     width: 10rem;
     height: 15rem;
     object-fit: cover;
+}
+
+div.kbs-book-card-container div.modal-header h3 {
+    font-family: var(--heading-nav-bar-title);
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+div.kbs-book-card-container div.modal-body p.book-author {
+    margin-top: 0;
+    font-size: 0.9rem;
+}
+
+div.kbs-book-card-container div.modal-body small.stock {
+    width: max-content;
+}
+
+div.kbs-book-card-container div.modal-body label,
+div.kbs-book-card-container div.modal-body .cart-quantity small {
+    font-family: var(--general-font);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+div.kbs-book-card-container div.modal-body .cart-quantity {
+    margin-top: 0.4rem;
+}
+
+div.kbs-book-card-container div.modal-body .cart-quantity button {
+    width: 2.2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+div.kbs-book-card-container div.modal-body .cart-quantity button:hover {
+    border: 3px solid var(--shades);
 }
 
 @media screen and (max-width: 1640px) {

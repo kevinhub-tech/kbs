@@ -23,9 +23,9 @@
                                     <h4>{{ $book->book_name }}</h4>
                                 </a>
                                 <div class="star-rating" bookid="something" rating='{{ $book->review }}'>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="rating">{{ $book->review }} stars</span>
@@ -36,23 +36,47 @@
                                 <button class='kbs-purchase'>Purchase Now</button>
                                 <div class="d-flex justify-content-evenly align-items-center mt-3">
                                     <!-- Button trigger modal -->
-                                    <a type="button" class="kbs-buttom" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
+                                    <a class="kbs-buttom" data-bs-toggle="modal" data-bs-target="#{{ $book->book_id }}">
                                         <i class="fa-solid fa-cart-shopping"></i>
                                     </a>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
+                                    <div class="modal fade" id="{{ $book->book_id }}" data-bs-backdrop="static"
+                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                                    <h3 id="staticBackdropLabel">Add to Cart</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    ...
+                                                    <div class='d-flex justify-content-evenly align-items-center'>
+                                                        <img src="{{ route('get-image', ['image' => $book->image]) }}"
+                                                            alt="" class="book-image">
+                                                        <div class="d-flex flex-column justify-content-around">
+                                                            <h4>{{ $book->book_name }}</h4>
+                                                            <p class='book-author'>By {{ $book->author_name }}</p>
+                                                            <h4>Price : ${{ $book->price }}</h4>
+                                                            <small class="stock">Stock :
+                                                                <span>{{ $book->stock }}</span></small><br>
+                                                            <label for="">Quantity:</label>
+                                                            <div class="cart-quantity">
+                                                                <button class="substract-quantity" disabled>
+                                                                    -
+                                                                </button>
+                                                                <small id="quantity">1</small>
+                                                                <button class="add-quantity">
+                                                                    +
+                                                                </button>
+                                                            </div>
+                                                            <label for="" class="mt-3">Total Price:
+                                                                $<span id="total-price"
+                                                                    original-price='{{ $book->price }}'>{{ $book->price }}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -68,8 +92,6 @@
                         </div>
                     </div>
                 @endforeach
-
-
             </div>
             <div>
                 Pagination section
@@ -95,23 +117,55 @@
             });
             setBookListingHeightDynamically();
 
-            // $("div.star-rating").each(function(index, div) {
-            //     let div_wda = $(div);
-            //     let rating = 3;
-            //     for (i = 1; i <= rating; i++) {
-            //         div_wda.children().each(function(index, span) {
-            //             if (index + 1 === i) {
-            //                 return;
-            //             }
-            //                 console.log(index);
-            //                 console.log(span);
+            $("div.star-rating").each(function(index, div) {
+                let divStarRating = $(div);
+                let rating = divStarRating.attr('rating') - 1;
+                for (i = 0; i <= rating; i++) {
+                    divStarRating.children().eq(i).addClass('checked');
+                }
+            })
 
-            //         });
-            //     }
+            $("div.cart-quantity button").on('click', function(e) {
+                let button = e.currentTarget;
+                let buttonClassName = e.currentTarget.className
+                let stock = parseInt(button.parentElement.previousElementSibling.previousElementSibling
+                    .previousElementSibling.children[0].innerHTML);
+                let totalPriceElement = button.parentElement.nextElementSibling.children[0];
+                let totalPrice = parseFloat(button.parentElement.nextElementSibling.children[0]
+                    .getAttribute('original-price'));
+                if (buttonClassName === 'add-quantity') {
+                    let quantityElement = button.previousElementSibling;
+                    let quantity = parseInt(quantityElement.innerHTML);
+                    quantity += 1;
+                    if (quantity === stock) {
+                        quantityElement.innerHTML = quantity;
+                        button.setAttribute('disabled', true);
+                    } else if (quantity > 1) {
+                        button.previousElementSibling.previousElementSibling.removeAttribute('disabled');
+                        quantityElement.innerHTML = quantity;
+                    } else {
+                        quantityElement.innerHTML = quantity;
+                    }
+                    totalPrice *= quantity;
+                    totalPriceElement.innerHTML = totalPrice;
+                } else {
+                    let quantityElement = button.nextElementSibling;
+                    let quantity = parseInt(quantityElement.innerHTML);
+                    quantity -= 1;
 
-            // })
-            // console.log($("div.star-rating").attr('bookid'));
-
+                    if (quantity < 2) {
+                        button.setAttribute('disabled', true);
+                        quantityElement.innerHTML = quantity;
+                    } else if (quantity < stock) {
+                        button.nextElementSibling.nextElementSibling.removeAttribute('disabled');
+                        quantityElement.innerHTML = quantity;
+                    } else {
+                        quantityElement.innerHTML = quantity;
+                    }
+                    totalPrice *= quantity;
+                    totalPriceElement.innerHTML = totalPrice;
+                }
+            })
         });
     </script>
 @endpush

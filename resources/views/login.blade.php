@@ -65,11 +65,6 @@
                 </div>
             @endif
         </form>
-        <h4>
-            @if (session('message'))
-                {{ session('message') }}
-            @endif
-        </h4>
     </div>
 @endsection
 @push('scripts')
@@ -85,5 +80,14 @@
                 }
             });
         });
+        @if (session('message'))
+            const sessionMessage = "{{ session('message') }}";
+        @else
+            const sessionMessage = null;
+        @endif
+
+        if (sessionMessage) {
+            toast('info', sessionMessage);
+        }
     </script>
 @endpush
