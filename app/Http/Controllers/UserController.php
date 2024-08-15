@@ -17,7 +17,17 @@ use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
-    //
+    private static $user_id;
+    public function __construct(Request $request)
+    {
+        if ($request->hasHeader('Authorization')) {
+            $user = users::select('user_id')->where('token', '=', $request->header('Authorization'))->first();
+            self::$user_id = $user->user_id;
+        } else {
+            self::$user_id = session('userId');
+        }
+    }
+
     public function register()
     {
         if (SessionHandler::checkUserSession()) {
@@ -115,7 +125,10 @@ class UserController extends Controller
             $count = DB::table('book_categories')->where('category_id', '=', $category->category_id)->count();
             $category->count = $count;
         }
-        return view('users.home', compact('categories', 'books'));
+
+        $cart_count = DB::table('user_cart')->where('user_id', '=', self::$user_id)->count();
+        $favourite_count = DB::table('user_favourites')->where('user_id', '=', self::$user_id)->count();
+        return view('users.home', compact('categories', 'books', 'cart_count', 'favourite_count'));
     }
     public function auth(string $social)
     {
@@ -168,25 +181,76 @@ class UserController extends Controller
         SessionHandler::storeSessionDetails($new_user->user_id, $new_user->name, $user_role->role_name, $new_user->token);
         return redirect()->route('user.home');
     }
-    public function demopost(Request $request)
+
+    public function addcart(Request $request)
     {
+        /**
+         * Accept book_id, quantity and return cart count
+         */
+        $request->validate([
+            'book_id' => ['required'],
+            'quantity' => ['required']
+        ]);
+
+        $book_found_count = DB::table('user_cart')->where('book_id', '=', $request->book_id)->count();
+
+        if ($book_found_count > 0) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'This book has been already added to your cart.',
+                'payload' => []
+            ], Response::HTTP_CONFLICT);
+        }
+        DB::table('user_cart')->insert([
+            'user_id' => self::$user_id,
+            'book_id' => $request->book_id,
+            'quantity' => $request->quantity,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        $cart_count = DB::table('user_cart')->where('user_id', '=', self::$user_id)->count();
         return response()->json([
             'status' => 'success',
-            'message' => 'You have successfully posted some info on user route',
+            'message' => 'An item has been successfully added into your cart!',
             'payload' => [
-                $request->name,
-                $request->email,
+                'cart_count' => $cart_count
             ]
         ], Response::HTTP_ACCEPTED);
     }
 
-    public function demoget(Request $request)
+    public function addfavourite(Request $request)
     {
-        $get_data = ['1' => 'data 1', '2' => 'data 2'];
+        /**
+         * Accept book_id, quantity and return cart count
+         */
+        $request->validate([
+            'book_id' => ['required']
+        ]);
+
+        $book_found_count = DB::table('user_favourites')->where('book_id', '=', $request->book_id)->count();
+
+        if ($book_found_count > 0) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'This book has been already added to your favourites.',
+                'payload' => []
+            ], Response::HTTP_CONFLICT);
+        }
+        DB::table('user_favourites')->insert([
+            'user_id' => self::$user_id,
+            'book_id' => $request->book_id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        $favourite_count = DB::table('user_favourites')->where('user_id', '=', self::$user_id)->count();
         return response()->json([
             'status' => 'success',
-            'message' => 'You have successfully posted some info on user route',
-            'payload' => $get_data
+            'message' => 'An item has been successfully added into your favourites!',
+            'payload' => [
+                'favourite_count' => $favourite_count
+            ]
         ], Response::HTTP_ACCEPTED);
     }
 }
