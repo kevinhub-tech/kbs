@@ -8,6 +8,7 @@ const toast = (status, message) => {
     }
     Toastify({
         text: message,
+        duration: 3000,
         close: true,
         style: {
             background: 'none'
@@ -64,8 +65,6 @@ const formValidate = () => {
 
     $('textarea').each(function (index, textarea) {
         let ktextarea = $(textarea);
-
-
         if (ktextarea.attr('validate')) {
             if (ktextarea.val().length === 0) {
                 ktextarea.addClass('input-empty');
@@ -80,3 +79,18 @@ const formValidate = () => {
     }
     return noEmptyInputs
 }
+
+$(document).ready(() => {
+    $("small.cart-count").html('{{ $cart_count }}');
+    $("small.favourite-count").html('{{ $favourite_count }}');
+
+    // Getting user cart + favourite count and showing the count only if it is not 0
+    let cartCount = parseInt($("small.cart-count").html());
+    let favouriteCount = parseInt($("small.favourite-count").html());
+    if (cartCount === 0) {
+        $("small.cart-count").css('display', 'none');
+    }
+    if (favouriteCount === 0) {
+        $("small.favourite-count").css('display', 'none');
+    }
+})
