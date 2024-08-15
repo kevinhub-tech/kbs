@@ -15,17 +15,16 @@
                 <select name="" id="">
                     <option value="books">Books</option>
                     <option value="author">Authors</option>
-                    <option value="genre">Genre</option>
                 </select>
                 <input type="text" name="search" id="search-bar" placeholder="Search">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <ul>
                 <li><a class="nav-links"href="#"><i class="fa-solid fa-cart-shopping"></i><small
-                            class="cart-count">10</small></a>
+                            class="cart-count">0</small></a>
                 </li>
                 <li><a class="nav-links" href="#"><i class="fa-solid fa-heart"></i><small
-                            class="favourite-count">1</small></a></li>
+                            class="favourite-count">0</small></a></li>
                 <li>
                     <div class="dropdown show">
                         <a class="nav-links" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
