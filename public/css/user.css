@@ -220,6 +220,29 @@ div.kbs-book-card-container div.modal-body .cart-quantity button:hover {
     border: 3px solid var(--shades);
 }
 
+div.kbs-book-card-container div.modal-footer button {
+    font-family: var(--heading-nav-bar-title);
+}
+
+div.kbs-book-card-container div.modal-footer button.kbs-btn {
+    background-color: var(--shades);
+    color: var(--main-color);
+}
+
+div.kbs-book-card-container div.modal-footer button.btn-secondary:hover {
+    background-color: var(--main-color);
+    border: 1px dashed #000000;
+    color: var(--shades);
+    transition: all .4s ease;
+}
+
+div.kbs-book-card-container div.modal-footer button.kbs-btn:hover {
+    background-color: var(--main-color);
+    border: 1px dashed #000000;
+    color: var(--shades);
+    transition: all .4s ease;
+}
+
 @media screen and (max-width: 1640px) {
 
     div.kbs-book-card {
