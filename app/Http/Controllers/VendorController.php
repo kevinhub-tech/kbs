@@ -15,7 +15,6 @@ use Ramsey\Uuid\Uuid;
 
 class VendorController extends Controller
 {
-    //
     private static $user_id;
     public function __construct(Request $request)
     {
