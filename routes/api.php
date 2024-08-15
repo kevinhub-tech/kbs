@@ -23,8 +23,8 @@ Route::controller(AdminController::class)->prefix('admin')->group(function () {
 
 Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::middleware('user-only')->group(function () {
-        Route::get('/get', 'demoget');
-        Route::post('/post', 'demopost');
+        Route::post('/add-cart', 'addcart')->name('user.addcart');
+        Route::post('/add-favourite', 'addfavourite')->name('user.addfavourite');
     });
 });
 
