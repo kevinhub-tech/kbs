@@ -13,11 +13,12 @@
         @if (session('userSignedIn') && session('userRole') === 'user')
             <div class="search-bar mb-3">
                 <select name="" id="">
-                    <option value="books">Books</option>
-                    <option value="author">Authors</option>
+                    <option value="books" @if (Request::get('c') === 'books') selected @endif>Books</option>
+                    <option value="author" @if (Request::get('c') === 'author') selected @endif>Authors</option>
                 </select>
-                <input type="text" name="search" id="search-bar" placeholder="Search">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" name="search" id="search-bar" placeholder="Search"
+                    @if (Request::get('v')) value="{{ Request::get('v') }}" @endif>
+                <i class="fa-solid fa-magnifying-glass" data-route="{{ route('user.home') }}"></i>
             </div>
             <ul>
                 <li><a class="nav-links"href="#"><i class="fa-solid fa-cart-shopping"></i><small
