@@ -69,6 +69,18 @@ section.kbs-book-listing {
     width: 83%;
 }
 
+section.kbs-book-listing.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f3f5;
+    border-radius: 0.5rem;
+}
+
+section.kbs-book-listing.empty h3.kbs-book-empty {
+    font-family: var(--author-vendor-user);
+}
+
 div.kbs-book-listing-container {
     margin: 0;
     padding: 0;
@@ -126,8 +138,6 @@ div.kbs-book-card-container div.star-rating span.fa.fa-star.checked {
 div.kbs-book-card-container div.star-rating span.rating {
     font-family: var(--general-font);
 }
-
-
 
 div.kbs-book-card-container p.book-author {
     margin-top: 0.5rem;
@@ -279,14 +289,15 @@ div.kbs-book-card-container div.modal-footer button.kbs-btn:hover {
         width: 100%;
     }
 
-    /* div.kbs-book-listing-container {
-        overflow-x: auto;
-        overflow-y: auto;
-    } */
+    div.kbs-book-listing-container {
 
-    /* div.kbs-book-card {
+
+        height: max-content;
+    }
+
+    div.kbs-book-card {
         flex: 0 0 calc(50% - 1rem);
-    } */
+    }
 }
 
 @media screen and (max-width: 768px) {
