@@ -108,10 +108,19 @@ class UserController extends Controller
         }
     }
 
-    public function home()
+    public function home(Request $request)
     {
         $categories = category::all()->sortBy('category');
-        $books = books::all()->sortBy('book_name');
+        $query = books::query();
+        if ($request->c) {
+            if ($request->c === 'books') {
+                $query->where('book_name', 'like', '%' . $request->v  . '%');
+            } else {
+                $query->where('author_name', 'like', '%' . $request->v  . '%');
+            }
+        }
+
+        $books = $query->orderBy('book_name')->paginate(30);
         foreach ($books as $book) {
             $review_count = DB::table('book_review')->where('book_id', '=', $book->book_id)->count();
             if ($review_count > 0) {
