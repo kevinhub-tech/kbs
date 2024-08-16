@@ -80,17 +80,29 @@ const formValidate = () => {
     return noEmptyInputs
 }
 
-$(document).ready(() => {
-    $("small.cart-count").html('{{ $cart_count }}');
-    $("small.favourite-count").html('{{ $favourite_count }}');
-
+$(document).ready(function () {
     // Getting user cart + favourite count and showing the count only if it is not 0
     let cartCount = parseInt($("small.cart-count").html());
     let favouriteCount = parseInt($("small.favourite-count").html());
+
     if (cartCount === 0) {
         $("small.cart-count").css('display', 'none');
     }
     if (favouriteCount === 0) {
         $("small.favourite-count").css('display', 'none');
     }
-})
+
+    $('div.search-bar i.fa-solid.fa-magnifying-glass').on('click', (e) => {
+        console.log(e.currentTarget.dataset.route);
+        let searchIcon = e.currentTarget;
+        let route = searchIcon.dataset.route;
+        let category = searchIcon.previousElementSibling.previousElementSibling.value;
+        let searchValue = searchIcon.previousElementSibling.value;
+
+        if (searchValue.length === 0) {
+            toast('error', 'Search value cannot be empty!')
+        }
+
+        window.location.href = route + '?c=' + category + '&v=' + searchValue;
+    })
+});
