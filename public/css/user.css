@@ -95,6 +95,14 @@ div.kbs-book-listing-container {
     height: 100dvh;
 }
 
+div.kbs-book-card-container {
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    gap: 0.3rem;
+    height: 100%;
+}
+
 div.kbs-book-card {
     background-color: var(--main-color);
     flex: 0 0 calc(33% - 1rem);
@@ -106,26 +114,23 @@ div.kbs-book-card {
     padding: 2rem;
 }
 
-div.kbs-book-card-container {
-    display: flex;
-    justify-content: space-evenly;
-    position: relative;
-    gap: 0.3rem;
-    height: 100%;
-}
 
-div.kbs-book-card-container a.book-title {
+
+div.kbs-book-card-container a.book-title,
+div.kbs-favourite-book-card-container a.book-title {
     text-decoration: none;
     color: #000000;
 }
 
-div.kbs-book-card-container a.book-title:hover {
+div.kbs-book-card-container a.book-title:hover,
+div.kbs-favourite-book-card-container a.book-title:hover {
     color: var(--shades);
     transition: all .4s ease;
 }
 
 
-div.kbs-book-card-container h4 {
+div.kbs-book-card-container h4,
+div.kbs-favourite-book-card-container h4 {
     font-size: 1.2rem;
     font-family: var(--heading-nav-bar-title);
     width: 12rem;
@@ -134,22 +139,26 @@ div.kbs-book-card-container h4 {
     text-overflow: ellipsis;
 }
 
-div.kbs-book-card-container div.star-rating span.fa.fa-star.checked {
+div.kbs-book-card-container div.star-rating span.fa.fa-star.checked,
+div.kbs-favourite-book-card-container div.star-rating span.fa.fa-star.checked {
     color: var(--shades);
 }
 
-div.kbs-book-card-container div.star-rating span.rating {
+div.kbs-book-card-container div.star-rating span.rating,
+div.kbs-favourite-card-container div.star-rating span.rating {
     font-family: var(--general-font);
 }
 
 div.kbs-book-card-container p.book-author,
-div.kbs-cart-book-title p.kbs-book-author {
+div.kbs-cart-book-title p.kbs-book-author,
+div.kbs-favourite-book-card-container p.book-author {
     margin-top: 0.5rem;
     font-size: 1rem;
     font-family: var(--author-vendor-user);
 }
 
-div.kbs-book-card-container small.stock {
+div.kbs-book-card-container small.stock,
+div.kbs-favourite-book-card-container small.stock {
     font-family: var(--general-font);
     font-weight: 600;
     padding: 0.2rem;
@@ -157,7 +166,8 @@ div.kbs-book-card-container small.stock {
     border-radius: 0.5rem;
 }
 
-div.kbs-book-card-container button.kbs-purchase {
+div.kbs-book-card-container button.kbs-purchase,
+div.kbs-favourite-book-card-container button.kbs-purchase {
     margin-top: 1rem;
     font-family: var(--heading-nav-bar-title);
     font-weight: 600;
@@ -168,20 +178,23 @@ div.kbs-book-card-container button.kbs-purchase {
     border-radius: 0.5rem;
 }
 
-div.kbs-book-card-container button.kbs-purchase:hover {
+div.kbs-book-card-container button.kbs-purchase:hover,
+div.kbs-favourite-book-card-container button.kbs-purchase:hover {
     background-color: var(--main-color);
     border: 1px dashed #000000;
     color: var(--shades);
     transition: all .4s ease;
 }
 
-div.kbs-book-card-container i {
+div.kbs-book-card-container i,
+div.kbs-favourite-book-card-container i {
     font-size: 1.5rem;
     color: #000000;
     cursor: pointer;
 }
 
-div.kbs-book-card-container i.fa-cart-shopping:hover {
+div.kbs-book-card-container i.fa-cart-shopping:hover,
+div.kbs-favourite-book-card-container i.fa-cart-shopping:hover {
     color: #3b5998;
     transition: all 0.5s;
 }
@@ -198,59 +211,70 @@ img.book-image {
     object-fit: cover;
 }
 
-div.kbs-book-card-container div.modal-header h3 {
+div.kbs-book-card-container div.modal-header h3,
+div.kbs-favourite-book-card-container div.modal-header h3 {
     font-family: var(--heading-nav-bar-title);
     font-weight: 600;
     font-size: 1.5rem;
 }
 
-div.kbs-book-card-container div.modal-body p.book-author {
+div.kbs-book-card-container div.modal-body p.book-author,
+div.kbs-favourite-card-container div.modal-body p.book-author {
     margin-top: 0;
     font-size: 0.9rem;
 }
 
-div.kbs-book-card-container div.modal-body small.stock {
+div.kbs-book-card-container div.modal-body small.stock,
+div.kbs-favourite-book-card-container div.modal-body small.stock {
     width: max-content;
 }
 
 div.kbs-book-card-container div.modal-body label,
+div.kbs-favourite-book-card-container div.modal-body label,
 div.kbs-book-card-container div.modal-body .cart-quantity small {
     font-family: var(--general-font);
     font-size: 1rem;
     font-weight: 600;
 }
 
-div.kbs-book-card-container div.modal-body .cart-quantity {
+div.kbs-book-card-container div.modal-body .cart-quantity,
+div.kbs-favourite-book-card-container div.modal-body .cart-quantity {
     margin-top: 0.4rem;
 }
 
-div.kbs-book-card-container div.modal-body .cart-quantity button {
+div.kbs-book-card-container div.modal-body .cart-quantity button,
+div.kbs-favourite-book-card-container div.modal-body .cart-quantity button {
     width: 2.2rem;
     height: 2rem;
     border-radius: 50%;
 }
 
-div.kbs-book-card-container div.modal-body .cart-quantity button:hover {
+div.kbs-book-card-container div.modal-body .cart-quantity button:hover,
+div.kbs-favourite-book-card-container div.modal-body .cart-quantity button:hover {
     border: 3px solid var(--shades);
 }
 
-div.kbs-book-card-container div.modal-footer button {
+div.kbs-book-card-container div.modal-footer button,
+div.kbs-favourite-book-card-container div.modal-footer button {
     font-family: var(--heading-nav-bar-title);
 }
 
-div.kbs-book-card-container div.modal-footer button.kbs-btn {
+div.kbs-book-card-container div.modal-footer button.kbs-btn,
+div.kbs-favourite-book-card-container div.modal-footer button.kbs-btn {
     background-color: var(--shades);
     color: var(--main-color);
 }
 
-div.kbs-book-card-container div.modal-footer button.btn-secondary:hover {
+div.kbs-book-card-container div.modal-footer button.btn-secondary:hover,
+div.kbs-favourite-book-card-container div.modal-footer button.btn-secondary:hover {
     background-color: var(--main-color);
     border: 1px dashed #000000;
     color: var(--shades);
     transition: all .4s ease;
 }
 
-div.kbs-book-card-container div.modal-footer button.kbs-btn:hover {
+div.kbs-book-card-container div.modal-footer button.kbs-btn:hover,
+div.kbs-favourite-book-card-container div.modal-footer button.kbs-btn:hover {
     background-color: var(--main-color);
     border: 1px dashed #000000;
     color: var(--shades);
@@ -265,7 +289,7 @@ div.kbs-book-card-container div.modal-footer button.kbs-btn:hover {
     Cart Page CSS starts here
 */
 
-section.kbs-cart-header {
+section.kbs-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -274,18 +298,22 @@ section.kbs-cart-header {
     border-radius: 0.5rem;
 }
 
-section.kbs-cart-header h3,
-section.kbs-cart-header h4 {
+section.kbs-header h3,
+section.kbs-header h4 {
     font-size: 1.2rem;
     font-family: var(--heading-nav-bar-title);
 }
 
-section.kbs-cart-header div.kbs-cart-link-container h3 a {
+section.kbs-header h3 i.fa-solid.fa-heart {
+    color: #F02F2F;
+}
+
+section.kbs-header div.kbs-cart-link-container h3 a {
     text-decoration: none;
     color: #000000;
 }
 
-section.kbs-cart-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right {
+section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right {
     border: 2px solid var(--shades);
     color: var(--shades);
     padding: 0.5rem 0.6rem;
@@ -293,12 +321,12 @@ section.kbs-cart-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right {
     border-radius: 50%;
 }
 
-section.kbs-cart-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right:hover {
+section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right:hover {
     border: 2px dashed var(--shades);
     transition: all 1s ease;
 }
 
-section.kbs-cart-header div.kbs-cart-link-container i.fa-solid.fa-x {
+section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-x {
     border: 2px solid red;
     color: red;
     padding: 0.5rem 0.6rem;
@@ -306,18 +334,18 @@ section.kbs-cart-header div.kbs-cart-link-container i.fa-solid.fa-x {
     border-radius: 50%;
 }
 
-section.kbs-cart-header div.kbs-cart-link-container i.fa-solid.fa-x:hover {
+section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-x:hover {
     border: 2px dashed red;
     transition: all 1s ease;
 }
 
 
-section.kbs-cart-header div.kbs-cart-link-container h3 {
+section.kbs-header div.kbs-cart-link-container h3 {
     color: red;
     cursor: pointer;
 }
 
-section.kbs-cart-header div.kbs-cart-link-container {
+section.kbs-header div.kbs-cart-link-container {
     display: flex;
     justify-content: space-around;
     gap: 2rem;
@@ -525,6 +553,59 @@ aside.kbs-cart-summary-container button.kbs-check-out:hover {
     border: 1px dashed var(--shades);
     transition: all 0.4s ease;
 }
+
+/* 
+    Favourite page css starts here
+*/
+
+
+section.kbs-favourite-listing-container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+div.kbs-favourite-book-card-container {
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    gap: 0.3rem;
+    height: 100%;
+    margin-top: 1.5rem;
+}
+
+div.kbs-favourite-book-card {
+    background-color: var(--main-color);
+    flex: 0 0 calc(25% - 1rem);
+    /* Two cards per row with space for the gap */
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem #cbb9b9, -0.1rem -0.1rem 0.1rem 0.01rem #cbb9b9;
+    border-radius: 0.5rem;
+    max-height: 40rem;
+    height: max-content;
+    padding: 2rem;
+    position: relative;
+}
+
+div.kbs-favourite-book-card i.fa-solid.fa-x {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: #f2f3f5;
+    padding: 0.6rem 0.8rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+div.kbs-favourite-book-card i.fa-solid.fa-x:hover {
+    background-color: var(--shades);
+    color: var(--main-color);
+    transition: all 0.4s ease;
+}
+
+div.kbs-favourite-book-card a.kbs-button {}
 
 
 @media screen and (max-width: 1640px) {

@@ -210,7 +210,19 @@ class UserController extends Controller
 
     public function favourite()
     {
-        return view('users.favourites');
+        $favourited_books = DB::table('user_favourites')->where('user_id', '=', self::$user_id)->get();
+        foreach ($favourited_books as $favourited_book) {
+            $book_details = books::where('book_id', '=', $favourited_book->book_id)->first();
+            $review_count = DB::table('book_review')->where('book_id', '=', $favourited_book->book_id)->count();
+            if ($review_count > 0) {
+                $avg_review = DB::table('book_review')->where('book_id', '=', $favourited_book->book_id)->avg('rating');
+                $book_details->review = $avg_review;
+            } else {
+                $book_details->review = 0;
+            }
+            $favourited_book->book_details = $book_details;
+        }
+        return view('users.favourites', compact('favourited_books'));
     }
     /**
      * API logic code starts here
