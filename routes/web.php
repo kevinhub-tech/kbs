@@ -32,6 +32,8 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('/register', 'register')->name('user.register');
     Route::middleware('user-only')->group(function () {
         Route::get('/', 'home')->name("user.home");
+        Route::get('/cart', 'cart')->name("user.cart");
+        Route::get('/favourite', 'favourite')->name("user.favourite");
         Route::get('/logout', 'logout')->name("user.logout");
     });
     Route::post('/signin', 'signin')->name('user.manuallogin');
