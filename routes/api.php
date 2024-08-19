@@ -25,6 +25,8 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::middleware('user-only')->group(function () {
         Route::post('/add-cart', 'addcart')->name('user.addcart');
         Route::post('/add-favourite', 'addfavourite')->name('user.addfavourite');
+        Route::post('/update-cart', 'updatecart')->name('user.updatecart');
+        Route::post('/remove-cart', 'removecart')->name('user.removecart');
     });
 });
 
