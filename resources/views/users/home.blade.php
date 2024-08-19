@@ -41,7 +41,7 @@
                                     <button class='kbs-purchase'>Purchase Now</button>
                                     <div class="d-flex justify-content-evenly align-items-center mt-3">
                                         <!-- Button trigger modal -->
-                                        <a class="kbs-buttom" data-bs-toggle="modal"
+                                        <a class="kbs-button" data-bs-toggle="modal"
                                             data-bs-target="#{{ $book->book_id }}">
                                             <i class="fa-solid fa-cart-shopping"></i>
                                         </a>
