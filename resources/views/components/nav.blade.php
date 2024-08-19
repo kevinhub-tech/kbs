@@ -28,7 +28,7 @@
                 <li><a class="nav-links" href="{{ route('user.cart') }}"><i class="fa-solid fa-cart-shopping"></i><small
                             class="cart-count">{{ $cart_count }}</small></a>
                 </li>
-                <li><a class="nav-links" href="#"><i class="fa-solid fa-heart"></i><small
+                <li><a class="nav-links" href="{{ route('user.favourite') }}"><i class="fa-solid fa-heart"></i><small
                             class="favourite-count">{{ $favourite_count }}</small></a></li>
                 <li>
                     <div class="dropdown show">
