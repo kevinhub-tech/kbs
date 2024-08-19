@@ -28,6 +28,9 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Login / Register Process logic code starts here
+     */
     public function register()
     {
         if (SessionHandler::checkUserSession()) {
@@ -107,38 +110,6 @@ class UserController extends Controller
             return redirect()->route('user.login');
         }
     }
-
-    public function home(Request $request)
-    {
-        $categories = category::all()->sortBy('category');
-        $query = books::query();
-        if ($request->c) {
-            if ($request->c === 'books') {
-                $query->where('book_name', 'like', '%' . $request->v  . '%');
-            } else {
-                $query->where('author_name', 'like', '%' . $request->v  . '%');
-            }
-        }
-
-        $books = $query->orderBy('book_name')->paginate(30);
-        foreach ($books as $book) {
-            $review_count = DB::table('book_review')->where('book_id', '=', $book->book_id)->count();
-            if ($review_count > 0) {
-                $avg_review = DB::table('book_review')->where('book_id', '=', $book->book_id)->avg('rating');
-                $book->review = $avg_review;
-            } else {
-                $book->review = 0;
-            }
-        }
-        foreach ($categories as $category) {
-            $count = DB::table('book_categories')->where('category_id', '=', $category->category_id)->count();
-            $category->count = $count;
-        }
-
-        $cart_count = DB::table('user_cart')->where('user_id', '=', self::$user_id)->count();
-        $favourite_count = DB::table('user_favourites')->where('user_id', '=', self::$user_id)->count();
-        return view('users.home', compact('categories', 'books', 'cart_count', 'favourite_count'));
-    }
     public function auth(string $social)
     {
         return Socialite::driver($social)->redirect();
@@ -191,6 +162,59 @@ class UserController extends Controller
         return redirect()->route('user.home');
     }
 
+    /**
+     * Web logic code starts here
+     */
+
+    public function home(Request $request)
+    {
+        $categories = category::all()->sortBy('category');
+        $query = books::query();
+        if ($request->c) {
+            if ($request->c === 'books') {
+                $query->where('book_name', 'like', '%' . $request->v  . '%');
+            } else {
+                $query->where('author_name', 'like', '%' . $request->v  . '%');
+            }
+        }
+
+        $books = $query->orderBy('book_name')->paginate(30);
+        foreach ($books as $book) {
+            $review_count = DB::table('book_review')->where('book_id', '=', $book->book_id)->count();
+            if ($review_count > 0) {
+                $avg_review = DB::table('book_review')->where('book_id', '=', $book->book_id)->avg('rating');
+                $book->review = $avg_review;
+            } else {
+                $book->review = 0;
+            }
+        }
+        foreach ($categories as $category) {
+            $count = DB::table('book_categories')->where('category_id', '=', $category->category_id)->count();
+            $category->count = $count;
+        }
+
+
+        return view('users.home', compact('categories', 'books'));
+    }
+
+    public function cart()
+    {
+        $cart_items = DB::table('user_cart')->where('user_id', '=', self::$user_id)->get();
+
+        foreach ($cart_items as $cart_item) {
+            $book_details = books::where('book_id', '=', $cart_item->book_id)->first();
+            $cart_item->book_details = $book_details;
+        }
+        return view('users.cart', compact('cart_items'));
+    }
+
+    public function favourite()
+    {
+        return view('users.favourites');
+    }
+    /**
+     * API logic code starts here
+     */
     public function addcart(Request $request)
     {
         /**
@@ -228,6 +252,57 @@ class UserController extends Controller
         ], Response::HTTP_ACCEPTED);
     }
 
+    public function updatecart(Request $request)
+    {
+        $request->validate([
+            'book_id' => ['required'],
+            'quantity' => ['required']
+        ]);
+
+        DB::table('user_cart')->updateOrInsert(['book_id' => $request->book_id, 'user_id' => self::$user_id], [
+            'quantity' => $request->quantity,
+            'updated_at' => now()
+        ]);
+
+        $cart_count = DB::table('user_cart')->where('user_id', '=', self::$user_id)->count();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'An item has been successfully updated within your cart!',
+            'payload' => [
+                'cart_count' => $cart_count
+            ]
+        ], Response::HTTP_ACCEPTED);
+    }
+
+    public function removecart(Request $request)
+    {
+        $request->validate([
+            'method' => ['required']
+        ]);
+
+        if ($request->method === 'all') {
+            $message = "All items have been successfully removed from your cart!";
+            $deleted =  DB::table('user_cart')->where('user_id', '=', self::$user_id)->delete();
+        } elseif ($request->method === 'partial') {
+            $request->validate([
+                'book_id' => ['required']
+            ]);
+            $message = "An item has been successfully removed from your cart!";
+            $deleted = DB::table('user_cart')->where('user_id', '=', self::$user_id)->where('book_id', '=', $request->book_id)->delete();
+        }
+
+        if ($deleted) {
+            $cart_count = DB::table('user_cart')->where('user_id', '=', self::$user_id)->count();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => $message,
+                'payload' => [
+                    'cart_count' => $cart_count
+                ]
+            ], Response::HTTP_ACCEPTED);
+        }
+    }
     public function addfavourite(Request $request)
     {
         /**
