@@ -18,7 +18,6 @@
                 </h3>
             @else
                 <div class='kbs-book-listing-container'>
-
                     @foreach ($books as $book)
                         <div class="kbs-book-card">
                             <div class='kbs-book-card-container'>
@@ -109,7 +108,6 @@
             <div>
                 {{ $books->links() }}
             </div>
-
         </section>
     </section>
 @endsection
@@ -128,8 +126,6 @@
             }
         }
         $(document).ready(function() {
-            $("small.cart-count").html('{{ $cart_count }}');
-            $("small.favourite-count").html('{{ $favourite_count }}');
             $(window).resize(function() {
                 setBookListingHeightDynamically();
             });
