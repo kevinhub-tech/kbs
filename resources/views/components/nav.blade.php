@@ -2,7 +2,11 @@
     {{-- This will be universally used --}}
     <div class="main-nav-container d-flex flex-column flex-lg-row align-items-center justify-content-between">
         {{-- Logo --}}
-        <a class="nav-logo d-flex align-items-center ms-md-5 ms-0 mb-3" href='#'>
+        <a class="nav-logo d-flex align-items-center ms-md-5 ms-0 mb-3"
+            @if (session('userSignedIn') && session('userRole') === 'user') href='{{ route('user.home') }}' @elseif(session('userSignedIn') && session('userRole') === 'vendor') 
+
+             href='{{ route('vendor.home') }}'
+            @elseif(session('userSignedIn') && session('userRole') === 'admin') href='{{ route('admin.home') }}' @else  href='{{ route('home') }}' @endif()>
             <i class="fa-regular fa-lightbulb"></i>
             <h2 class="m-0">
                 KBS
@@ -21,11 +25,11 @@
                 <i class="fa-solid fa-magnifying-glass" data-route="{{ route('user.home') }}"></i>
             </div>
             <ul>
-                <li><a class="nav-links"href="#"><i class="fa-solid fa-cart-shopping"></i><small
-                            class="cart-count">0</small></a>
+                <li><a class="nav-links" href="{{ route('user.cart') }}"><i class="fa-solid fa-cart-shopping"></i><small
+                            class="cart-count">{{ $cart_count }}</small></a>
                 </li>
                 <li><a class="nav-links" href="#"><i class="fa-solid fa-heart"></i><small
-                            class="favourite-count">0</small></a></li>
+                            class="favourite-count">{{ $favourite_count }}</small></a></li>
                 <li>
                     <div class="dropdown show">
                         <a class="nav-links" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
