@@ -3,7 +3,7 @@
 @endpush
 @extends('main')
 @section('main.content')
-    <section class="kbs-cart-header">
+    <section class="kbs-header">
         <h3> <i class="fa-solid fa-cart-shopping me-3"></i>My Cart</h3>
         <div class="kbs-cart-link-container">
             <h3><a href="{{ route('user.home') }}">Continue to Shopping <i class="fa-solid fa-arrow-right"></i></a></h3>
