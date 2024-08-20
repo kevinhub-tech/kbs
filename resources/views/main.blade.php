@@ -51,7 +51,14 @@
     </main>
     <x-footer></x-footer>
 </body>
+@if (session('userSignedIn') && session('userRole') === 'user')
+    <script type="text/javascript" src='{{ asset('js/user-section.js') }}'></script>
+@elseif(session('userSignedIn') && session('userRole') === 'vendor')
+    <script type="text/javascript" src='{{ asset('js/vendor-section.js') }}'></script>
+@elseif(session('userSignedIn') && session('userRole') === 'admin')
+    <script type="text/javascript" src='{{ asset('js/admin-section.js') }}'></script>
+@endif
+<script></script>
 @stack('scripts')
-
 
 </html>
