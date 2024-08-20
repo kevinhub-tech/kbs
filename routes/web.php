@@ -35,6 +35,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
         Route::get('/cart', 'cart')->name("user.cart");
         Route::get('/favourite', 'favourite')->name("user.favourite");
         Route::get('/logout', 'logout')->name("user.logout");
+        Route::get('/book/{id}', 'book')->name('user.book');
     });
     Route::post('/signin', 'signin')->name('user.manuallogin');
     Route::post('/signup', 'signup')->name('user.manualregister');
@@ -49,4 +50,4 @@ Route::get('/accessDenied', function () {
 
 Route::get('/', function () {
     return view('main');
-});
+})->name('home');
