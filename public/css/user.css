@@ -352,7 +352,8 @@ section.kbs-header div.kbs-cart-link-container {
     align-items: center;
 }
 
-section.kbs-cart-empty {
+section.kbs-cart-empty,
+section.kbs-favourite-empty {
     margin-top: 1rem;
     height: 100dvh;
     background-color: #f2f3f5;
@@ -362,7 +363,8 @@ section.kbs-cart-empty {
     align-items: center;
 }
 
-section.kbs-cart-empty h3 {
+section.kbs-cart-empty h3,
+section.kbs-favourite-empty h3 {
     font-family: var(--heading-nav-bar-title);
     color: var(--shades);
 }
@@ -604,8 +606,6 @@ div.kbs-favourite-book-card i.fa-solid.fa-x:hover {
     color: var(--main-color);
     transition: all 0.4s ease;
 }
-
-div.kbs-favourite-book-card a.kbs-button {}
 
 
 @media screen and (max-width: 1640px) {
