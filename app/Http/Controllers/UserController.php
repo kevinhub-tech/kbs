@@ -7,6 +7,7 @@ use App\Models\books;
 use App\Models\category;
 use App\Models\roles;
 use App\Models\users;
+use App\Models\vendorPartnership;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -224,8 +225,26 @@ class UserController extends Controller
         }
         return view('users.favourites', compact('favourited_books'));
     }
+
+    public function book(String $id)
+    {
+        $book = books::where('book_id', '=', $id)->first();
+        $review_count = DB::table('book_review')->where('book_id', '=', $id)->count();
+        if ($review_count > 0) {
+            $avg_review = DB::table('book_review')->where('book_id', '=', $id)->avg('rating');
+            $book->review = $avg_review;
+        } else {
+            $book->review = 0;
+        }
+        $vendor_info = vendorPartnership::where('vendor_id', '=', $book->created_by)->first();
+        return view('users.book', compact('book', 'vendor_info'));
+    }
     /**
      * API logic code starts here
+     */
+
+    /**
+     * Cart API logic code starts here
      */
     public function addcart(Request $request)
     {
@@ -315,6 +334,10 @@ class UserController extends Controller
             ], Response::HTTP_ACCEPTED);
         }
     }
+
+    /**
+     * Favourite API logic code starts here
+     */
     public function addfavourite(Request $request)
     {
         /**
@@ -324,7 +347,7 @@ class UserController extends Controller
             'book_id' => ['required']
         ]);
 
-        $book_found_count = DB::table('user_favourites')->where('book_id', '=', $request->book_id)->count();
+        $book_found_count = DB::table('user_favourites')->where('user_id', "=", self::$user_id)->where('book_id', '=', $request->book_id)->count();
 
         if ($book_found_count > 0) {
             return response()->json([
@@ -348,5 +371,35 @@ class UserController extends Controller
                 'favourite_count' => $favourite_count
             ]
         ], Response::HTTP_ACCEPTED);
+    }
+
+    public function removefavourite(Request $request)
+    {
+        $request->validate([
+            'method' => ['required']
+        ]);
+
+        if ($request->method === 'all') {
+            $message = "All items have been successfully removed from your cart!";
+            $deleted =  DB::table('user_favourites')->where('user_id', '=', self::$user_id)->delete();
+        } elseif ($request->method === 'partial') {
+            $request->validate([
+                'book_id' => ['required']
+            ]);
+            $message = "An item has been successfully removed from your favourite!";
+            $deleted = DB::table('user_favourites')->where('user_id', '=', self::$user_id)->where('book_id', '=', $request->book_id)->delete();
+        }
+
+        if ($deleted) {
+            $favourite_count = DB::table('user_favourites')->where('user_id', '=', self::$user_id)->count();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => $message,
+                'payload' => [
+                    'favourite_count' => $favourite_count
+                ]
+            ], Response::HTTP_ACCEPTED);
+        }
     }
 }
