@@ -430,6 +430,209 @@ form.register-form div.google-register:hover a {
     color: #d34836 !important;
 }
 
+section.kbs-book-desc-container {
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc-image img {
+    width: 15rem;
+    height: 20rem;
+    object-fit: cover;
+}
+
+
+section.kbs-book-desc-container div.kbs-book-desc h3.book-title {
+    font-size: 2rem;
+    font-family: var(--heading-nav-bar-title);
+}
+
+section.kbs-book-desc-container div.kbs-book-desc p.author {
+    margin: 0;
+    font-family: var(--author-vendor-user);
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.star-rating span.rating {
+    font-family: var(--author-vendor-user);
+}
+
+section.kbs-book-desc-container div.kbs-book-desc h4.book-price,
+section.kbs-book-desc-container div.kbs-book-desc div.modal-body h4 {
+    font-size: 1.3rem;
+    font-family: var(--heading-nav-bar-title);
+    margin: 1rem 0;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc h4 span.stock,
+section.kbs-book-desc-container div.kbs-book-desc div.modal-body small.stock {
+    font-family: var(--general-font);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.2rem;
+    border: 2px dashed var(--shades);
+    border-radius: 0.5rem;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc p.book-desc {
+    font-size: 1rem;
+    font-family: var(--general-font);
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.seller-info {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.seller-info h4.seller {
+    font-size: 1rem;
+    font-family: var(--author-vendor-user);
+    margin: 0;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.seller-info a.seller-link {
+    text-decoration: none;
+    color: var(--shades);
+    font-size: 1rem;
+    font-family: var(--author-vendor-user);
+    font-weight: 600;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.seller-info a.seller-link::after {
+    content: '';
+    height: 4px;
+    width: 0%;
+    background-color: var(--shades);
+    display: block;
+    transition: 0.4s ease-in-out;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.seller-info a.seller-link:hover::after {
+    content: '';
+    height: 2px;
+    width: 100%;
+    background-color: var(--shades);
+    display: block;
+    transition: 0.4s ease-in-out;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper button.kbs-purchase {
+    margin-top: 1rem;
+    font-family: var(--heading-nav-bar-title);
+    font-weight: 600;
+    padding: 0.6rem 0;
+    width: 20%;
+    background-color: var(--shades);
+    color: var(--main-color);
+    border-radius: 0.5rem;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper button.kbs-purchase:hover {
+    background-color: var(--main-color);
+    border: 1px dashed #000000;
+    color: var(--shades);
+    transition: all .4s ease;
+}
+
+
+
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper i,
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper i {
+    font-size: 1.5rem;
+    color: #000000;
+    cursor: pointer;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper i.fa-cart-shopping:hover,
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapperi.fa-cart-shopping:hover {
+    color: #3b5998;
+    transition: all 0.5s;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper i.fa-heart:hover {
+    color: #F02F2F;
+    transition: all 0.5s;
+}
+
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-header h3 {
+    font-family: var(--heading-nav-bar-title);
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-body img {
+    width: 10rem;
+    height: 15rem;
+    object-fit: cover;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-body p.book-author {
+    margin-top: 0;
+    font-size: 0.9rem;
+    font-family: var(--author-vendor-user);
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-body small.stock {
+    width: max-content;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-body label {
+    font-family: var(--general-font);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-body .cart-quantity {
+    margin-top: 0.4rem;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-body .cart-quantity button {
+    width: 2.2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+section.kbs-book-desc-container div.kbs-book-descdiv.modal-body .cart-quantity button:hover {
+    border: 3px solid var(--shades);
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-footer button {
+    font-family: var(--heading-nav-bar-title);
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-footer button.kbs-btn {
+    background-color: var(--shades);
+    color: var(--main-color);
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-footer button.btn-secondary:hover {
+    background-color: var(--main-color);
+    border: 1px dashed #000000;
+    color: var(--shades);
+    transition: all .4s ease;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc div.modal-footer button.kbs-btn:hover {
+    background-color: var(--main-color);
+    border: 1px dashed #000000;
+    color: var(--shades);
+    transition: all .4s ease;
+}
+
+
 div.denied-card {
     padding: 10rem;
     background-color: var(--main-color);
