@@ -570,10 +570,6 @@ section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapp
     transition: all 0.5s;
 }
 
-{
-
-}
-
 section.kbs-book-desc-container div.kbs-book-desc div.modal-header h3 {
     font-family: var(--heading-nav-bar-title);
     font-weight: 600;
