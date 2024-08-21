@@ -41,6 +41,7 @@
         href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
 
+    @livewireStyles
     @stack('head')
 </head>
 
@@ -58,7 +59,8 @@
 @elseif(session('userSignedIn') && session('userRole') === 'admin')
     <script type="text/javascript" src='{{ asset('js/admin-section.js') }}'></script>
 @endif
-<script></script>
+
+@livewireScripts
 @stack('scripts')
 
 </html>
