@@ -81,6 +81,8 @@ const formValidate = () => {
 }
 
 $(document).ready(function () {
+
+    $('[data-toggle="tooltip"]').tooltip(); 
     // Getting user cart + favourite count and showing the count only if it is not 0
     let cartCount = parseInt($("small.cart-count").html());
     let favouriteCount = parseInt($("small.favourite-count").html());
@@ -104,4 +106,7 @@ $(document).ready(function () {
 
         window.location.href = route + '?c=' + category + '&v=' + searchValue;
     })
+
+  
+    
 });
