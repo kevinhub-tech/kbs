@@ -7,6 +7,7 @@ use App\Models\books;
 use App\Models\category;
 use App\Models\roles;
 use App\Models\users;
+use App\Models\vendorPartnership;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +26,10 @@ class VendorController extends Controller
             self::$user_id = session('userId');
         }
     }
+      /**
+     * Login Process logic code starts here
+     */
+
     public function login()
     {
         if (SessionHandler::checkUserSession()) {
@@ -66,9 +71,25 @@ class VendorController extends Controller
         }
     }
 
+    /**
+     * Web logic code starts here
+     */
     public function booklisting()
-    {
+    {   
         return view('vendors.listing-book');
+    }
+
+    public function bookdescription(String $id){
+        $book = books::where('book_id', '=', $id)->first();
+        $review_count = DB::table('book_review')->where('book_id', '=', $id)->count();
+        if ($review_count > 0) {
+            $avg_review = DB::table('book_review')->where('book_id', '=', $id)->avg('rating');
+            $book->review = $avg_review;
+        } else {
+            $book->review = 0;
+        }
+        $vendor_info = vendorPartnership::where('vendor_id', '=', $book->created_by)->first();
+        return view('vendors.book-desc', compact('book', 'vendor_info'));
     }
 
     public function book()
@@ -77,6 +98,22 @@ class VendorController extends Controller
         return view('vendors.book', compact('categories'));
     }
 
+    public function editbook(String $id)
+    {
+
+        $book = books::find($id);
+        $categories = category::all();
+        $book_categories = DB::table('book_categories')->where('book_id', '=', $id)->get();
+        return view('vendors.book', compact('book', 'categories', 'book_categories'));
+    }
+
+    /**
+     * API logic code starts here
+     */
+
+    /**
+     * Book API logic code starts here
+     */
     public function postbook(Request $request)
     {
         $request->validate([
@@ -130,18 +167,8 @@ class VendorController extends Controller
         }
     }
 
-    public function editbook(String $id)
-    {
-
-        $book = books::find($id);
-        $categories = category::all();
-        $book_categories = DB::table('book_categories')->where('book_id', '=', $id)->get();
-        return view('vendors.book', compact('book', 'categories', 'book_categories'));
-    }
-
     public function updatebook(Request $request)
     {
-
         $request->validate([
             'book_id' => ['required'],
             'book_name' => ['required'],
@@ -188,26 +215,5 @@ class VendorController extends Controller
             'payload' => [],
             'error' => []
         ], Response::HTTP_OK);
-    }
-    public function demopost(Request $request)
-    {
-        return response()->json([
-            'status' => 'success',
-            'message' => 'You have successfully posted some info on user route',
-            'payload' => [
-                $request->name,
-                $request->email,
-            ]
-        ], Response::HTTP_ACCEPTED);
-    }
-
-    public function demoget(Request $request)
-    {
-        $get_data = ['1' => 'data 1', '2' => 'data 2'];
-        return response()->json([
-            'status' => 'success',
-            'message' => 'You have successfully posted some info on user route',
-            'payload' => $get_data
-        ], Response::HTTP_ACCEPTED);
     }
 }

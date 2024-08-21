@@ -1,4 +1,12 @@
 @extends('main')
+@push('head')
+    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}">
+@endpush
 @section('main.content')
-    <h2>Vendor Home Page</h2>
+    <section class="kbs-vendor-header">
+        <h1>
+            Manage Books
+        </h1>
+    </section>
+    <livewire:search-books />
 @endsection

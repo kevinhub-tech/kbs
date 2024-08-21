@@ -1,3 +1,39 @@
+/* 
+    Common Vendor css starts here
+*/
+section.kbs-vendor-header{
+    background-color: var(--main-color);
+    padding: 1rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+section.kbs-vendor-header h1{
+    font-size: 2rem;
+    font-family: var(--heading-nav-bar-title);
+}
+
+section.kbs-vendor-empty {
+    margin-top: 1rem;
+    height: 100dvh;
+    background-color: #f2f3f5;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section.kbs-vendor-empty h3{
+    font-family: var(--heading-nav-bar-title);
+    color: var(--shades);
+}
+
+/* 
+Book Form css starts here
+*/
+
+
 form.book-form {
     width: 35rem;
     background-color: #FFFFF0;
@@ -68,4 +104,102 @@ form.book-form button[type='reset']:hover {
 form.book-form button[type='reset']:hover {
     color: #000000;
     border: 1px dashed red;
+}
+
+/* 
+Book Listing css starts here
+*/
+
+section.kbs-book-listing-main-container{
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+section.kbs-book-listing-main-container div.kbs-search-wrapper input{
+    background-color: #f2f3f5;
+    width: 100%;
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
+    font-family: var(--general-font);
+    border-radius: 0.5rem;
+}
+
+section.kbs-book-listing-main-container div.kbs-search-wrapper input:focus{
+    box-shadow: 0.1rem 0.1rem 0.5rem 0.01rem var(--shades);
+}
+
+section.kbs-book-listing-main-container div.kbs-button-wrapper button, 
+section.kbs-book-listing-main-container div.kbs-button-wrapper a{
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background-color: var(--shades);
+    color: var(--main-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: var(--general-font);
+}
+
+section.kbs-book-listing-main-container div.kbs-button-wrapper button:hover, 
+section.kbs-book-listing-main-container div.kbs-button-wrapper a:hover {
+    background-color: transparent;
+    color: var(--shades);
+    border: 1px dashed #000000;
+    transition: all .4s ease;
+}
+section.kbs-table-wrapper{
+    padding: 1rem;
+    margin-top: 1rem;
+}
+section.kbs-table-wrapper table.table-container tr{
+    border-bottom: 1px solid var(--shades);
+}
+section.kbs-table-wrapper table.table-container{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+section.kbs-table-wrapper table.table-container th,td{
+    padding: 1rem;
+}
+
+section.kbs-table-wrapper table.table-container th {
+    font-size: 1.2rem;
+    font-family: var(--heading-nav-bar-title);
+}
+
+section.kbs-table-wrapper table.table-container tr{
+    font-size: 1rem;
+    font-family: var(--general-font);
+    font-weight: 700;
+    text-align: center;
+}
+
+section.kbs-table-wrapper table.table-container tr img{
+    width: 5rem;
+    height: 8rem;
+    object-fit: cover;
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i{
+    font-size: 1.2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-eye{
+    background-color: var(--shades);
+    color: var(--main-color);
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-pen-to-square{
+    background-color: #3b5998;
+    color: var(--main-color);
 }
