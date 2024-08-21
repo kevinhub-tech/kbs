@@ -52,15 +52,15 @@ class UserController extends Controller
             }
         }
 
+        $user_role = roles::where('role_name', '=', 'user')->first();
         $new_user = users::create([
             'name' => $request->name,
             'email' => $request->email,
             'token' => Uuid::uuid4()->toString(),
             'password' => Hash::make($request->password),
-            'role_id' => 'eaf20dd0-81cf-4115-8e9a-9ac5fe43ac21'
+            'role_id' => $user_role->role_id
         ]);
 
-        $user_role = roles::find('eaf20dd0-81cf-4115-8e9a-9ac5fe43ac21');
         if ($new_user) {
             SessionHandler::storeSessionDetails($new_user->user_id, $new_user->name, $user_role->role_name, $new_user->token);
             return redirect()->route('user.home');
@@ -149,6 +149,8 @@ class UserController extends Controller
                 return redirect()->route('user.home');
             }
         }
+
+        $user_role = roles::where('role_name', '=', 'user')->first();
         $new_user = users::create([
             'name' => $auth_user->name,
             'email' => $auth_user->email,
@@ -156,9 +158,9 @@ class UserController extends Controller
             'auth_provider' => $social,
             'image' => $avatar,
             'token' => Uuid::uuid4()->toString(),
-            'role_id' => 'eaf20dd0-81cf-4115-8e9a-9ac5fe43ac21'
+            'role_id' => $user_role->role_id
         ]);
-        $user_role = roles::where($new_user->role_id);
+     
         SessionHandler::storeSessionDetails($new_user->user_id, $new_user->name, $user_role->role_name, $new_user->token);
         return redirect()->route('user.home');
     }
@@ -170,16 +172,22 @@ class UserController extends Controller
     public function home(Request $request)
     {
         $categories = category::all()->sortBy('category');
-        $query = books::query();
-        if ($request->c) {
-            if ($request->c === 'books') {
-                $query->where('book_name', 'like', '%' . $request->v  . '%');
-            } else {
-                $query->where('author_name', 'like', '%' . $request->v  . '%');
+        if($request->category){
+            $books = DB::table('book_categories as bc')->join('books as b', 'b.book_id' , '=', 'bc.book_id')->where('category_id', '=', $request->category)->paginate(30);
+        }else{
+            $query = books::query();
+            if ($request->c) {
+                if ($request->c === 'books') {
+                    $query->where('book_name', 'like', '%' . $request->v  . '%');
+                } else {
+                    $query->where('author_name', 'like', '%' . $request->v  . '%');
+                }
             }
+    
+            $books = $query->orderBy('book_name')->paginate(30);
         }
-
-        $books = $query->orderBy('book_name')->paginate(30);
+       
+        
         foreach ($books as $book) {
             $review_count = DB::table('book_review')->where('book_id', '=', $book->book_id)->count();
             if ($review_count > 0) {
@@ -193,7 +201,6 @@ class UserController extends Controller
             $count = DB::table('book_categories')->where('category_id', '=', $category->category_id)->count();
             $category->count = $count;
         }
-
 
         return view('users.home', compact('categories', 'books'));
     }

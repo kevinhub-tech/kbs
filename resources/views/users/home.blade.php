@@ -8,7 +8,7 @@
             <h3>Book Categories</h3>
             <ul>
                 @foreach ($categories as $category)
-                    <li><a href="">{{ $category->category }} ({{ $category->count }})</a></li>
+                    <li><a href="#" data-route="{{route('user.home')}}" @if(Request::get('category') === $category->category_id) class="active" @endif data-category-id="{{$category->category_id}}">{{ $category->category }} ({{ $category->count }})</a></li>
                 @endforeach
             </ul>
         </aside>

@@ -330,6 +330,13 @@ const homeFunction = () => {
         setBookListingHeightDynamically();
 
     });
+
+    $('aside.kbs-book-categories ul li a').on('click', (e) => {
+        let searchIcon = e.currentTarget;
+        let route = e.currentTarget.dataset.route;
+        let category = e.currentTarget.dataset.categoryId;
+        window.location.href = route + '?category=' + category;
+    })
 }
 
 /**
