@@ -10,6 +10,13 @@ class vendorApplication extends Model
 {
     use HasFactory, HasUuids;
 
+     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'vendor_partnership_applications';
+
 
     /**
      * The primary key associated with the table.
