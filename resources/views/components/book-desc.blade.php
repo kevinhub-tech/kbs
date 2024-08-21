@@ -86,7 +86,7 @@
                 <i class="fa-solid fa-heart add-to-favourite" data-book-id="{{ $book->book_id }}"
                     data-route="{{ route('user.addfavourite') }}" data-token="{{ session('userToken') }}"></i>
             @elseif (session('userSignedIn') && session('userRole') === 'vendor')
-                <a href="" class='kbs-purchase'>
+                <a href="{{route('vendor.book-edit', ['id'=> $book->book_id])}}" class='kbs-edit'>
                     Edit Book
                 </a>
             @endif
