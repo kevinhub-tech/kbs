@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\roles;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,12 +17,14 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         //
+        $admin = roles::where('role_name', '=', 'admin')->first();
+        $vendor = roles::where('role_name', '=', 'vendor')->first();
 
         DB::table('users')->insert([
             'user_id' => Uuid::uuid4()->toString(),
             'name' => 'admin',
             'password' => Hash::make('admin'),
-            'role_id' => '1455643c-c622-4191-b0e5-982b308db92c',
+            'role_id' => $admin->role_id,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -30,7 +33,7 @@ class UserSeeder extends Seeder
             'user_id' => Uuid::uuid4()->toString(),
             'name' => 'vendor1',
             'password' => Hash::make('vendor1'),
-            'role_id' => 'f59817b6-b4eb-43e0-af3d-9c8500f15dd1',
+            'role_id' => $vendor->role_id,
             'created_at' => now(),
             'updated_at' => now()
         ]);
