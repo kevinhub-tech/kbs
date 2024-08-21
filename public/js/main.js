@@ -93,7 +93,6 @@ $(document).ready(function () {
     }
 
     $('div.search-bar i.fa-solid.fa-magnifying-glass').on('click', (e) => {
-        console.log(e.currentTarget.dataset.route);
         let searchIcon = e.currentTarget;
         let route = searchIcon.dataset.route;
         let category = searchIcon.previousElementSibling.previousElementSibling.value;
