@@ -528,7 +528,8 @@ section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapp
     margin-top: 1rem;
 }
 
-section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper button.kbs-purchase {
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper button.kbs-purchase,
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper a.kbs-edit{
     margin-top: 1rem;
     font-family: var(--heading-nav-bar-title);
     font-weight: 600;
@@ -537,9 +538,12 @@ section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapp
     background-color: var(--shades);
     color: var(--main-color);
     border-radius: 0.5rem;
+    text-decoration: none;
+    text-align: center;
 }
 
-section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper button.kbs-purchase:hover {
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper button.kbs-purchase:hover,
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper a.kbs-edit:hover {
     background-color: var(--main-color);
     border: 1px dashed #000000;
     color: var(--shades);
@@ -566,6 +570,9 @@ section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapp
     transition: all 0.5s;
 }
 
+{
+
+}
 
 section.kbs-book-desc-container div.kbs-book-desc div.modal-header h3 {
     font-family: var(--heading-nav-bar-title);
