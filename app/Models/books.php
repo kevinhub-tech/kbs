@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class books extends Model
 {
@@ -58,4 +59,9 @@ class books extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function discount() :HasOne
+    {
+        return $this->hasOne(discounts::class, 'discount_id', 'discount_id');
+    }
 }
