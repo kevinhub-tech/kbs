@@ -130,6 +130,8 @@ section.kbs-book-listing-main-container div.kbs-search-wrapper input:focus{
 }
 
 section.kbs-book-listing-main-container div.kbs-button-wrapper button.kbs-button, 
+section.kbs-book-listing-main-container section.kbs-table-wrapper button.kbs-button,
+section.kbs-book-listing-main-container section.kbs-table-wrapper button.kbs-remove-all-button,
 section.kbs-book-listing-main-container div.kbs-button-wrapper a{
     text-decoration: none;
     padding: 0.5rem 1rem;
@@ -140,42 +142,75 @@ section.kbs-book-listing-main-container div.kbs-button-wrapper a{
     font-family: var(--general-font);
 }
 
+section.kbs-book-listing-main-container section.kbs-table-wrapper button.kbs-remove-all-button{
+    background-color: red;
+    color: var(--main-color);
+}
+
 section.kbs-book-listing-main-container div.kbs-button-wrapper button:hover, 
+section.kbs-book-listing-main-container section.kbs-table-wrapper div.modal-footer button:hover,
 section.kbs-book-listing-main-container div.kbs-button-wrapper a:hover {
     background-color: transparent;
     color: var(--shades);
     border: 1px dashed #000000;
     transition: all .4s ease;
 }
-
-section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-header h3{
+section.kbs-book-listing-main-container section.kbs-table-wrapper button.kbs-remove-all-button:hover{
+    background-color: transparent;
+    color: red;
+    border: 1px dashed red;
+    transition: all .4s ease; 
+}
+section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-header h3,
+section.kbs-book-listing-main-container section.kbs-table-wrapper div.modal-header h3{
     font-size: 1.5rem;
     font-family: var(--heading-nav-bar-title);
     font-weight: 600;
 }
-section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-body h3{
+section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-body h3,
+section.kbs-book-listing-main-container section.kbs-table-wrapper div.modal-body h3{
     font-size: 1.2rem;
     font-family: var(--general-font);
     font-weight: 600;
     color: var(--shades);
 }
-section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-body label{
+section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-body label,
+section.kbs-book-listing-main-container section.kbs-table-wrapper div.modal-body label{
     font-size: 1rem;
     font-family: var(--general-font);
     font-weight: 600;
 }
 section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-body input.kbs-input,
+section.kbs-book-listing-main-container section.kbs-table-wrapper div.modal-body input.kbs-input,
 section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-body select.kbs-select{
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem;
     box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #8d9bb6;
     font-family: var(--general-font);
     border-radius: 0.5rem;
 }
 
 section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-body input.kbs-input:focus,
+section.kbs-book-listing-main-container section.kbs-table-wrapper div.modal-body input.kbs-input:focus,
 section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-body select.kbs-select:focus{
     box-shadow: 0.1rem 0.1rem 0.5rem 0.01rem var(--shades);
+}
+section.kbs-book-listing-main-container section.kbs-table-wrapper div#removeDiscount h4{
+    font-size: 1.2rem;
+    font-family: var(--general-font);
+}
+
+section.kbs-book-listing-main-container section.kbs-table-wrapper div#removeDiscount i.fa-solid.fa-x {
+    background-color: #f2f3f5;
+    padding: 0.6rem 0.8rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+section.kbs-book-listing-main-container section.kbs-table-wrapper div#removeDiscount i.fa-solid.fa-x:hover {
+    background-color: var(--shades);
+    color: var(--main-color);
+    transition: all 0.4s ease;
 }
 
 section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-body div.drawer.shadow.rounded {
@@ -193,6 +228,10 @@ section.kbs-table-wrapper{
     margin-top: 1rem;
 }
 section.kbs-table-wrapper table.table-container tr{
+    font-size: 1rem;
+    font-family: var(--general-font);
+    font-weight: 700;
+    text-align: center;
     border-bottom: 1px solid var(--shades);
 }
 section.kbs-table-wrapper table.table-container{
@@ -209,13 +248,13 @@ section.kbs-table-wrapper table.table-container th {
     font-family: var(--heading-nav-bar-title);
 }
 
-section.kbs-table-wrapper table.table-container tr{
-    font-size: 1rem;
-    font-family: var(--general-font);
-    font-weight: 700;
-    text-align: center;
+section.kbs-table-wrapper table.table-container tr td ul li{
+    list-style: none;
 }
-
+section.kbs-table-wrapper table.table-container tr td ul li a{
+    text-decoration: none;
+    color: var(--shades);
+}
 section.kbs-table-wrapper table.table-container tr img{
     width: 5rem;
     height: 8rem;
@@ -244,3 +283,14 @@ section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-pen-t
     background-color: #3b5998;
     color: var(--main-color);
 }
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-tag{
+    background-color: var(--shades);
+    color: var(--main-color);
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-trash{
+    background-color: red;
+    color: var(--main-color);
+}
+
