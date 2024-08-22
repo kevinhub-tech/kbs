@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\books;
+use App\Models\discounts;
 use Livewire\Component;
 
 class SearchBooks extends Component
@@ -15,6 +16,7 @@ class SearchBooks extends Component
         }else{
             $books = books::paginate(15);
         }
-        return view('livewire.search-books', compact('books'));
+        $discounts = discounts::all();
+        return view('livewire.search-books', compact('books', 'discounts'));
     }
 }

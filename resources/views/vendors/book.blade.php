@@ -41,10 +41,7 @@
         <label for="categories">Category:</label>
         <select name="categories[]" id="categories" validate='true' multiple>
             @foreach ($categories as $category)
-                <option value="{{ $category->category_id }}"
-                    @if ($form_method === 'PUT') @foreach ($book_categories as $book_category) @if ($book_category->category_id === $category->category_id) selected @endif
-                    @endforeach
-            @endif>
+                <option value="{{ $category->category_id }}">
             {{ $category->category }}</option>
             @endforeach
         </select>
