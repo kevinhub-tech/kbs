@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Route;
 Route::controller(VendorController::class)->prefix('vendor')->group(function () {
     Route::middleware('vendor-only')->group(function () {
         Route::post('/post-book', 'postbook')->name('vendor.book-post');
+        Route::post('/create-discount', 'creatediscount')->name('vendor.discount-create');
+        Route::post('/apply-discount', 'applydiscount')->name('vendor.discount-apply');
+        Route::post('/edit-discount', 'editdiscount')->name('vendor.discount-edit');
+        Route::post('/remove-discount', 'removediscount')->name('vendor.discount-remove');
+        Route::delete('/delete-discount', 'deletediscount')->name('vendor.discount-delete');
         Route::put('/update-book', 'updatebook')->name('vendor.book-update');
     });
 });
