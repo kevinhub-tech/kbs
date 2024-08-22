@@ -10,17 +10,3 @@
     </section>
     <livewire:search-books />
 @endsection
-@push('scripts')
-    <script>
-            new MultiSelectTag('books', {
-            rounded: true, // default true
-            shadow: true, // default false
-            placeholder: 'Search', // default Search...
-            tagColor: {
-                textColor: '#005D6C',
-                borderColor: '#005D6C',
-                bgColor: '#eaffe6',
-            }
-        });
-    </script>
-@endpush
