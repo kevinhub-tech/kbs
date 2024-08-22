@@ -21,7 +21,7 @@ return new class extends Migration
             $table->double('price');
             $table->double('delivery_fee');
             $table->uuid('discount_id')->nullable();
-            $table->foreign('discount_id')->references('discount_id')->on("discounts");
+            $table->foreign('discount_id')->references('discount_id')->on("discounts")->nullOnDelete();
             $table->uuid('created_by')->nullable();
             $table->foreign('created_by')->references('user_id')->on("users")->cascadeOnUpdate()->cascadeOnDelete();
             $table->uuid('updated_by')->nullable();
