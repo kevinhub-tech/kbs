@@ -17,7 +17,7 @@ class SearchDiscount extends Component
         }else{
             $discounts = discounts::where('created_by', '=', session('userId'))->paginate(15);
         }
-        $books = books::all();
+        $books = books::where('created_by', '=', session('userId'))->get();
         $discounts_dropdown = discounts::where('created_by', '=', session('userId'))->get();
         return view('livewire.search-discount', compact('books','discounts','discounts_dropdown'));
     }
