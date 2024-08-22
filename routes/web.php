@@ -11,6 +11,7 @@ Route::controller(VendorController::class)->prefix('vendor')->group(function () 
     Route::middleware('vendor-only')->group(function () {
         Route::get('/book/{id}', 'bookdescription')->name('vendor.bookdesc');
         Route::get('/book-listing', 'booklisting')->name('vendor.book-listing');
+        Route::get('/discount', 'discountlisting')->name('vendor.discount-listing');
         Route::get('/post-book', 'book')->name('vendor.book');
         Route::get('/edit-book/{id?}', 'editbook')->name('vendor.book-edit');
         Route::get('/logout', 'logout')->name("vendor.logout");

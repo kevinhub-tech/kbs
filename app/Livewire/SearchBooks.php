@@ -12,11 +12,10 @@ class SearchBooks extends Component
     public function render()
     {   
         if($this->search){
-            $books = books::where('book_name', 'like', '%'. $this->search . '%')->paginate(15);
+            $books = books::where('book_name', 'like', '%'. $this->search . '%')->where('created_by', '=', session('userId'))->paginate(15);
         }else{
-            $books = books::paginate(15);
+            $books = books::where('created_by', '=', session('userId'))->paginate(15);
         }
-        $discounts = discounts::all();
-        return view('livewire.search-books', compact('books', 'discounts'));
+        return view('livewire.search-books', compact('books'));
     }
 }
