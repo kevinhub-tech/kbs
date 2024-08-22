@@ -16,6 +16,11 @@
                 <span class="rating">{{ $book->review }} stars</span>
             </div>
         </div>
+        <div class="category-wrapper">
+            @foreach($book->categories as $category) 
+                <h5>{{$category->category}}</h5>
+            @endforeach
+        </div>
         <h4 class="book-price">
             Price : {{ $book->price }} <span class="stock">Stock: {{ $book->stock }}</span>
         </h4>

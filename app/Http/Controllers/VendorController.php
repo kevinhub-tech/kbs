@@ -81,6 +81,8 @@ class VendorController extends Controller
 
     public function bookdescription(String $id){
         $book = books::where('book_id', '=', $id)->first();
+        $categories = DB::table('book_categories as bc')->join('categories as c', 'c.category_id' , '=', 'bc.category_id')->where('book_id', '=', $id)->orderBy('c.category')->get();
+        $book->categories = $categories;
         $review_count = DB::table('book_review')->where('book_id', '=', $id)->count();
         if ($review_count > 0) {
             $avg_review = DB::table('book_review')->where('book_id', '=', $id)->avg('rating');
