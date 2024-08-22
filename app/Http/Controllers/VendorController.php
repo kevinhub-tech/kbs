@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\SessionHandler;
 use App\Models\books;
 use App\Models\category;
+use App\Models\discounts;
 use App\Models\roles;
 use App\Models\users;
 use App\Models\vendorPartnership;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
 class VendorController extends Controller
@@ -26,7 +28,7 @@ class VendorController extends Controller
             self::$user_id = session('userId');
         }
     }
-      /**
+    /**
      * Login Process logic code starts here
      */
 
@@ -75,13 +77,14 @@ class VendorController extends Controller
      * Web logic code starts here
      */
     public function booklisting()
-    {   
+    {
         return view('vendors.listing-book');
     }
 
-    public function bookdescription(String $id){
+    public function bookdescription(String $id)
+    {
         $book = books::where('book_id', '=', $id)->first();
-        $categories = DB::table('book_categories as bc')->join('categories as c', 'c.category_id' , '=', 'bc.category_id')->where('book_id', '=', $id)->orderBy('c.category')->get();
+        $categories = DB::table('book_categories as bc')->join('categories as c', 'c.category_id', '=', 'bc.category_id')->where('book_id', '=', $id)->orderBy('c.category')->get();
         $book->categories = $categories;
         $review_count = DB::table('book_review')->where('book_id', '=', $id)->count();
         if ($review_count > 0) {
@@ -109,6 +112,10 @@ class VendorController extends Controller
         return view('vendors.book', compact('book', 'categories', 'book_categories'));
     }
 
+    public function discountlisting()
+    {
+        return view('vendors.discounts');
+    }
     /**
      * API logic code starts here
      */
@@ -119,7 +126,7 @@ class VendorController extends Controller
     public function postbook(Request $request)
     {
         $request->validate([
-            'book_name' => ['required'],
+            'book_name' => ['required', 'unique:App\Models\books,book_name'],
             'book_desc' => ['required'],
             'author_name' => ['required'],
             'stock' => ['required'],
@@ -217,5 +224,128 @@ class VendorController extends Controller
             'payload' => [],
             'error' => []
         ], Response::HTTP_OK);
+    }
+
+    /**
+     * Discount API logic code starts here
+     */
+    public function creatediscount(Request $request)
+    {
+        $validated_discount = $request->validate([
+            'discount_percentage' => ['required', 'unique:App\Models\Discounts,discount_percentage']
+        ]);
+
+        $validated_discount['created_by'] = self::$user_id;
+        $validated_discount['created_at'] = now();
+
+        discounts::create($validated_discount);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'You have successfully added a discount!',
+            'payload' => [],
+            'error' => []
+        ], Response::HTTP_OK);
+    }
+
+    public function applydiscount(Request $request)
+    {
+        $request->validate([
+            'discount_id' => ['required'],
+            'books' => ['required'],
+        ]);
+
+        foreach ($request->books as $book_id) {
+            $book = books::find($book_id);
+            if (!$book) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Book cannot be found! Please kindly check first in book listing.',
+                    'payload' => [],
+                    'error' => []
+                ], Response::HTTP_CONFLICT);
+            }
+
+            $book->discount_id = $request->discount_id;
+            $book->save();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'You have successfully applied discount on books',
+            'payload' => [],
+            'error' => []
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * Discount API logic code starts here
+     */
+    public function editdiscount(Request $request)
+    {
+        $request->validate([
+            'discount_id' => ['required'],
+            'discount_percentage' => ['required',  Rule::unique('discounts', 'discount_percentage')->ignore($request->discount_id, 'discount_id')]
+        ]);
+
+        $discount = discounts::find($request->discount_id);
+       
+        $discount->discount_percentage = $request->discount_percentage;
+        $discount->updated_by = self::$user_id;
+        $discount->updated_at = now();
+        $discount->save();
+
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'You have successfully updated the discount percentage!',
+            'payload' => [],
+            'error' => []
+        ], Response::HTTP_OK);
+    }
+
+    public function removediscount(Request $request){
+        $request->validate([
+            'method' => ['required'],
+            'discount_id' => ['required']
+        ]);
+
+        if ($request->method === 'all') {
+            $message = "All books' discount has been successfully removed!";
+            $removed =  books::where('discount_id', $request->discount_id)->update(['discount_id' => null]);
+        } elseif ($request->method === 'partial') {
+            $request->validate([
+                'book_id' => ['required']
+            ]);
+            $message = "Discount has been successfully removed from the book!";
+            $removed = books::where('book_id', $request->book_id)->update(['discount_id' => null]);
+        }
+
+        if ($removed) {
+            $discount_count = books::where("discount_id" , '=', $request->discount_id)->count();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => $message,
+                'payload' => [
+                    'discount_count' => $discount_count
+                ]
+            ], Response::HTTP_ACCEPTED);
+        }
+    }
+
+    public function deletediscount(Request $request){
+        $request->validate([
+            'discount_id' => ['required']
+        ]);
+
+        $deleted = discounts::destroy($request->discount_id);
+        if ($deleted) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'A discount has been successfully deleted!',
+                'payload' => []
+            ], Response::HTTP_ACCEPTED);
+        }
     }
 }
