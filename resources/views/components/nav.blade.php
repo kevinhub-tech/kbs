@@ -1,4 +1,4 @@
-<nav>
+<nav class="kbs-nav-bar">
     {{-- This will be universally used --}}
     <div class="main-nav-container d-flex flex-column flex-lg-row align-items-center justify-content-between">
         {{-- Logo --}}

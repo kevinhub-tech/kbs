@@ -97,7 +97,17 @@ div.swal2-actions button.swal2-cancel:hover {
     transition: all .4s ease;
 }
 
-nav {
+ul.pagination li.page-item a.page-link{
+    color: var(--shades);
+}
+
+ul.pagination li.page-item.active>span.page-link{
+    background-color: var(--shades);
+}
+nav{
+    font-family: var(--general-font);
+}
+nav.kbs-nav-bar {
     background-color: #fff;
     padding: 0.6rem 0;
     height: max-content;
@@ -124,25 +134,25 @@ a.nav-logo i.fa-lightbulb {
     margin-right: 0.4rem;
 }
 
-nav div.search-bar {
+nav.kbs-nav-bar div.search-bar {
     border: 1px solid var(--shades);
     width: 25rem;
     font-family: var(--author-vendor-user);
 
 }
 
-nav div.search-bar select {
+nav.kbs-nav-bar div.search-bar select {
     color: var(--shades);
     padding: 0.6rem 0.3rem 0.6rem 0.3rem;
 }
 
-nav div.search-bar input[type='text'] {
+nav.kbs-nav-bar div.search-bar input[type='text'] {
     border-left: 1px solid #000000;
     padding: 0.6rem;
     font-family: var(--author-vendor-user);
 }
 
-nav div.search-bar i.fa-magnifying-glass {
+nav.kbs-nav-bar div.search-bar i.fa-magnifying-glass {
     position: relative;
     right: 0;
     top: 0;
@@ -153,17 +163,17 @@ nav div.search-bar i.fa-magnifying-glass {
 }
 
 
-nav div.main-nav-container ul {
+nav.kbs-nav-bar div.main-nav-container ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-nav div.main-nav-container ul li {
+nav.kbs-nav-bar div.main-nav-container ul li {
     float: left;
 }
 
-nav div.main-nav-container ul li a {
+nav.kbs-nav-bar div.main-nav-container ul li a {
     margin-right: 2rem;
     text-decoration: none;
     font-family: var(--heading-nav-bar-title);
@@ -171,33 +181,33 @@ nav div.main-nav-container ul li a {
     position: relative;
 }
 
-nav div.main-nav-container ul li a:hover {
+nav.kbs-nav-bar div.main-nav-container ul li a:hover {
     color: var(--shades);
     transition: all 0.5s;
 }
 
-nav div.main-nav-container ul li a i {
+nav.kbs-nav-bar div.main-nav-container ul li a i {
     font-size: 1.3rem;
 }
 
 
-nav div.main-nav-container ul li a i.fa-cart-shopping:hover {
+nav.kbs-nav-bar div.main-nav-container ul li a i.fa-cart-shopping:hover {
     color: #3b5998;
     transition: all 0.5s;
 }
 
-nav div.main-nav-container ul li a i.fa-heart:hover {
+nav.kbs-nav-bar div.main-nav-container ul li a i.fa-heart:hover {
     color: #F02F2F;
     transition: all 0.5s;
 }
 
-nav div.main-nav-container ul li a i.fa-user:hover {
+nav.kbs-nav-bar div.main-nav-container ul li a i.fa-user:hover {
     color: var(--shades);
     transition: all 0.5s;
 }
 
-nav small.cart-count,
-nav small.favourite-count {
+nav.kbs-nav-bar small.cart-count,
+nav.kbs-nav-bar small.favourite-count {
     position: absolute;
     top: -10px;
     right: -10px;
@@ -813,5 +823,9 @@ section.copy-right {
         align-items: center;
         gap: 3rem;
     }
-    
+
+    nav.kbs-nav-bar div.main-nav-container ul li a,
+    nav.kbs-nav-bar div.main-nav-container ul li a i{
+        font-size: 0.8rem;
+    }
 }

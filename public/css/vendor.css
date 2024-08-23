@@ -114,6 +114,7 @@ section.kbs-book-listing-main-container{
     background-color: var(--main-color);
     padding: 1rem;
     border-radius: 0.5rem;
+    position: relative;
 }
 
 section.kbs-book-listing-main-container div.kbs-search-wrapper input{
@@ -145,6 +146,11 @@ section.kbs-book-listing-main-container div.kbs-button-wrapper a{
 section.kbs-book-listing-main-container section.kbs-table-wrapper button.kbs-remove-all-button{
     background-color: red;
     color: var(--main-color);
+}
+
+section.kbs-book-listing-main-container div.kbs-button-wrapper {
+    display: flex;
+    gap: 1rem;
 }
 
 section.kbs-book-listing-main-container div.kbs-button-wrapper button:hover, 
@@ -226,6 +232,7 @@ section.kbs-book-listing-main-container div.kbs-button-wrapper div.modal-body di
 section.kbs-table-wrapper{
     padding: 1rem;
     margin-top: 1rem;
+    width: 100%;
 }
 section.kbs-table-wrapper table.table-container tr{
     font-size: 1rem;
@@ -237,6 +244,7 @@ section.kbs-table-wrapper table.table-container tr{
 section.kbs-table-wrapper table.table-container{
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 2rem;
 }
 
 section.kbs-table-wrapper table.table-container th,td{
@@ -292,5 +300,54 @@ section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-tag{
 section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-trash{
     background-color: red;
     color: var(--main-color);
+}
+
+@media screen and (max-width: 1200px) {
+    section.kbs-table-wrapper table.table-container th{
+        font-size: 0.8rem;
+    }
+    section.kbs-table-wrapper table.table-container tr{
+        font-size: 0.6rem;
+    }
+    section.kbs-table-wrapper table.table-container tr div.action-wrapper i{
+        font-size: 0.6rem;
+        padding: 0.5rem;
+        border-radius: 0.2rem;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    section.kbs-table-wrapper table.table-container thead{
+        display: none;
+    }
+    section.kbs-table-wrapper table.table-container tbody tr{
+        display: flex;
+        flex-direction: column;
+        padding: 4px;
+        box-shadow: 0.1rem 0.1rem 0.3rem 0.01rem var(--shades);
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.8rem;
+    }
+
+
+    section.kbs-table-wrapper table.table-container tbody td{
+        display: flex;
+        justify-content: space-evenly;
+        border: 0;
+    }
+    section.kbs-table-wrapper table.table-container tbody td.mob-display-heading:before{
+        content: attr(data-title);
+        text-transform: capitalize;
+        text-align: left;
+        font-weight: normal;
+        font-family: var(--heading-nav-bar-title);
+    }
+
+    section.kbs-table-wrapper table.table-container tr div.action-wrapper i{
+        font-size: 0.8rem;
+        padding: 0.8rem;
+        border-radius: 0.4rem;
+    }
 }
 

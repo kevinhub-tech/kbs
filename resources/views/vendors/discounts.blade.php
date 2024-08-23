@@ -12,16 +12,8 @@
 @endsection
 @push('scripts')
     <script>
-        new MultiSelectTag('books', {
-            rounded: true, // default true
-            shadow: true, // default false
-            placeholder: 'Search', // default Search...
-            tagColor: {
-                textColor: '#005D6C',
-                borderColor: '#005D6C',
-                bgColor: '#eaffe6',
-            }
-        });
+        
+       
         $('div.modal-footer button[type="button"].kbs-button').on('click', function(e) {
             let route = $(this).data('route');
             let token = $(this).data('token');
@@ -34,6 +26,8 @@
             } else {
                 var formData = $('form[name="apply-discount"]').serializeArray();
             }
+            console.log("Button clicked");
+            
             $.ajax({
                 url: route,
                 method: 'POST',
@@ -348,5 +342,16 @@
                 }
             })
         })
+
+        new MultiSelectTag('books', {
+            rounded: true, // default true
+            shadow: true, // default false
+            placeholder: 'Search', // default Search...
+            tagColor: {
+                textColor: '#005D6C',
+                borderColor: '#005D6C',
+                bgColor: '#eaffe6',
+            }
+        });
     </script>
 @endpush
