@@ -51,11 +51,24 @@
                         </div>
                         <div class="kbs-cart-book-price">
                             <h3>Book Price</h3>
-                            <h4>{{ $cart_item->book_details->price }}</h4>
+                            @if ($cart_item->book_details->discount === null)
+                                <h4 data-price={{$cart_item->book_details->price}}> ${{ $cart_item->book_details->price }}</h4>
+                            @else
+                                <h4 data-price={{$cart_item->book_details->discount_price}}> <span class="original-price"> ${{ $cart_item->book_details->price }}</span><span
+                                        class="discounted-price"> ${{ $cart_item->book_details->discount_price }}</span>
+                                </h4>
+                            @endif
+
+
                         </div>
                         <div class="kbs-cart-book-subtotal-price">
                             <h3>Sub Total</h3>
-                            <h4>{{ $cart_item->book_details->price * $cart_item->quantity }}</h4>
+                            @if ($cart_item->book_details->discount === null)
+                                <h4>{{ $cart_item->book_details->price * $cart_item->quantity }}</h4>
+                            @else
+                                <h4>{{ $cart_item->book_details->discount_price * $cart_item->quantity }}</h4>
+                            @endif
+
                         </div>
                         <div class="kbs-cart-action">
                             <i class="fa-solid fa-check" data-quantity="{{ $cart_item->quantity }}"
@@ -75,12 +88,15 @@
 
                     @foreach ($cart_items as $cart_item)
                         <div class="kbs-cart-book-details" data-book-id="{{ $cart_item->book_details->book_id }}"
-                            data-original-price="{{ $cart_item->book_details->price }}"
+                            data-original-price="@if($cart_item->book_details->discount === null) {{$cart_item->book_details->price}} @else {{ $cart_item->book_details->discount_price }} @endif"
                             data-delivery-price="{{ $cart_item->book_details->delivery_fee }}">
                             <h5>{{ $cart_item->book_details->book_name }} x <span
                                     class="quantity">{{ $cart_item->quantity }}</span></h5>
-
-                            <h5>{{ $cart_item->book_details->price * $cart_item->quantity }}</h5>
+                            @if ($cart_item->book_details->discount === null)
+                                <h5>{{ $cart_item->book_details->price * $cart_item->quantity }}</h5>
+                            @else
+                                <h5>{{ $cart_item->book_details->discount_price * $cart_item->quantity }}</h5>
+                            @endif
                         </div>
                     @endforeach
 
@@ -93,21 +109,25 @@
                     @foreach ($cart_items as $cart_item)
                         @php
                             $total_delivery_fee += $cart_item->book_details->delivery_fee;
-                            $total_item_fee += $cart_item->book_details->price * $cart_item->quantity;
+                            if ($cart_item->book_details->discount === null) {
+                                $total_item_fee += $cart_item->book_details->price * $cart_item->quantity;
+                            } else {
+                                $total_item_fee += $cart_item->book_details->discount_price * $cart_item->quantity;
+                            }
                         @endphp
                     @endforeach
                     <div class="kbs-cart-book-cost">
                         <h5 class="total-price">Total Book Price:</h5>
-                        <h5>{{ $total_item_fee }}</h5>
+                        <h5>${{ $total_item_fee }}</h5>
                     </div>
                     <div class="kbs-cart-book-delivery-cost">
                         <h5>Delivery Fee:</h5>
-                        <h5> {{ $total_delivery_fee / $cart_items->count() }}</h5>
+                        <h5>{{ $total_delivery_fee / $cart_items->count() }}</h5>
                     </div>
                     <hr>
                     <div class="kbs-cart-book-total-cost">
                         <h5>Total Cost:</h5>
-                        <h5> {{ $total_delivery_fee / $cart_items->count() + $total_item_fee }}</h5>
+                        <h5>{{ $total_delivery_fee / $cart_items->count() + $total_item_fee }}</h5>
                     </div>
                     <button class="kbs-check-out">Check Out</button>
 

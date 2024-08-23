@@ -17,13 +17,16 @@
             </div>
         </div>
         <div class="category-wrapper">
-            @foreach($book->categories as $category) 
-                <h5>{{$category->category}}</h5>
+            @foreach ($book->categories as $category)
+                <h5>{{ $category->category }}</h5>
             @endforeach
         </div>
-        <h4 class="book-price">
-            Price : {{ $book->price }} <span class="stock">Stock: {{ $book->stock }}</span>
-        </h4>
+        @if ($book->discount === null)
+            <h4 class="book-price">Price : ${{ $book->price }}<span class="stock">Stock: {{ $book->stock }}</span></h4>
+        @else
+            <h4 class="book-price">Price : <span class="original-price">{{ $book->price }}</span><span class="discounted-price">
+                    {{ $book->discount_price }}</span> <span class="stock">Stock: {{ $book->stock }}</span></h4>
+        @endif
         <p class="book-desc">
             {{ $book->book_desc }}
         </p>
@@ -91,7 +94,7 @@
                 <i class="fa-solid fa-heart add-to-favourite" data-book-id="{{ $book->book_id }}"
                     data-route="{{ route('user.addfavourite') }}" data-token="{{ session('userToken') }}"></i>
             @elseif (session('userSignedIn') && session('userRole') === 'vendor')
-                <a href="{{route('vendor.book-edit', ['id'=> $book->book_id])}}" class='kbs-edit'>
+                <a href="{{ route('vendor.book-edit', ['id' => $book->book_id]) }}" class='kbs-edit'>
                     Edit Book
                 </a>
             @endif

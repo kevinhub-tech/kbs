@@ -25,7 +25,7 @@
                                     class="book-image">
                                 <div class='kbs-book-details'>
                                     <a href="{{ route('user.book', ['id' => $book->book_id]) }}" class="book-title">
-                                        <h4>{{ $book->book_name }}</h4>
+                                        <h4 class="book-title">{{ $book->book_name }}</h4>
                                     </a>
                                     <div class="star-rating" rating='{{ $book->review }}'>
                                         <span class="fa fa-star"></span>
@@ -36,7 +36,12 @@
                                         <span class="rating">{{ $book->review }} stars</span>
                                     </div>
                                     <p class='book-author'>{{ $book->author_name }}</p>
-                                    <h4>Price : ${{ $book->price }}</h4>
+                                    @if($book->discount === null)
+                                    <h4>Price : ${{ $book->price }}</h4>    
+                                    @else
+                                    <h4>Price : <span class="original-price">{{$book->price}}</span><span class="discounted-price"> {{$book->discount_price}}</span></h4>
+                                    @endif
+                                    
                                     <small class="stock">Stock : {{ $book->stock }}</small><br>
                                     <button class='kbs-purchase'>Purchase Now</button>
                                     <div class="d-flex justify-content-evenly align-items-center mt-3">
@@ -64,7 +69,13 @@
                                                             <div class="d-flex flex-column justify-content-around">
                                                                 <h4>{{ $book->book_name }}</h4>
                                                                 <p class='book-author'>By {{ $book->author_name }}</p>
-                                                                <h4>Price : ${{ $book->price }}</h4>
+                                                                @if($book->discount === null)
+                                                                <h4>Price : ${{ $book->price }}</h4>    
+                                                                @else
+                                                                <h4>Price : <span class="original-price">{{$book->price}}</span><span class="discounted-price"> {{$book->discount_price}}</span></h4>
+                
+                                                                @endif
+                                                                
                                                                 <small class="stock">Stock :
                                                                     <span>{{ $book->stock }}</span></small><br>
                                                                 <label for="">Quantity:</label>
@@ -79,7 +90,7 @@
                                                                 </div>
                                                                 <label for="" class="mt-3">Total Price:
                                                                     $<span id="total-price"
-                                                                        original-price='{{ $book->price }}'>{{ $book->price }}</span>
+                                                                        original-price='@if($book->discount === null) {{$book->price}} @else {{ $book->discount_price }} @endif'>@if($book->discount === null) {{$book->price}} @else {{ $book->discount_price }} @endif</span>
                                                                 </label>
                                                             </div>
                                                         </div>

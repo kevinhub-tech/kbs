@@ -41,7 +41,12 @@
                                 <span class="rating">{{ $book->book_details->review }} stars</span>
                             </div>
                             <p class='book-author'>{{ $book->book_details->author_name }}</p>
-                            <h4>Price : ${{ $book->book_details->price }}</h4>
+                            @if ($book->book_details->discount === null)
+                                <h4>Price : ${{ $book->book_details->price }}</h4>
+                            @else
+                                <h4>Price : <span class="original-price">{{ $book->book_details->price }}</span><span
+                                        class="discounted-price"> {{ $book->book_details->discount_price }}</span></h4>
+                            @endif
                             <small class="stock">Stock : {{ $book->book_details->stock }}</small><br>
 
                             <div class="d-flex justify-content-center align-items-center mt-3">
@@ -71,7 +76,14 @@
                                                         <h4>{{ $book->book_details->book_name }}</h4>
                                                         <p class='book-author'>By {{ $book->book_details->author_name }}
                                                         </p>
-                                                        <h4>Price : ${{ $book->book_details->price }}</h4>
+                                                        @if ($book->book_details->discount === null)
+                                                            <h4>Price : ${{ $book->price }}</h4>
+                                                        @else
+                                                            <h4>Price : <span
+                                                                    class="original-price">{{ $book->book_details->price }}</span><span
+                                                                    class="discounted-price">
+                                                                    {{ $book->book_details->discount_price }}</span></h4>
+                                                        @endif
                                                         <small class="stock">Stock :
                                                             <span>{{ $book->book_details->stock }}</span></small><br>
                                                         <label for="">Quantity:</label>
@@ -86,7 +98,7 @@
                                                         </div>
                                                         <label for="" class="mt-3">Total Price:
                                                             $<span id="total-price"
-                                                                original-price='{{ $book->book_details->price }}'>{{ $book->book_details->price }}</span>
+                                                            original-price='@if($book->book_details->discount === null) {{$book->book_details->price}} @else {{ $book->book_details->discount_price }} @endif'>@if($book->book_details->discount === null) {{$book->book_details->price}} @else {{ $book->book_details->discount_price }} @endif</span>
                                                         </label>
                                                     </div>
                                                 </div>

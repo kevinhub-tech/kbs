@@ -491,6 +491,15 @@ section.kbs-book-desc-container div.kbs-book-desc div.modal-body h4 {
     margin: 1rem 0;
 }
 
+section.kbs-book-desc-container div.kbs-book-desc h4.book-price span.original-price
+{
+    text-decoration: line-through;
+}
+
+section.kbs-book-desc-container div.kbs-book-desc h4.book-price span.discounted-price{
+    color: var(--shades);
+}
+
 section.kbs-book-desc-container div.kbs-book-desc h4 span.stock,
 section.kbs-book-desc-container div.kbs-book-desc div.modal-body small.stock {
     font-family: var(--general-font);

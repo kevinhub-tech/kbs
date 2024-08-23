@@ -378,7 +378,7 @@ const cartFunction = () => {
 
         let totalPriceElement = button.parentElement.nextElementSibling.nextElementSibling.children[1];
         let totalPrice = parseFloat(button.parentElement.nextElementSibling.children[1]
-            .innerHTML);
+            .dataset.price);
         let addButton = button.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[
             0];
         $(addButton).css('display', 'inline-block');
@@ -396,7 +396,7 @@ const cartFunction = () => {
                 quantityElement.innerHTML = quantity;
             }
             totalPrice *= quantity;
-            totalPriceElement.innerHTML = totalPrice;
+            totalPriceElement.innerHTML = totalPrice.toFixed(2);
             addButton.dataset.quantity = quantity;
         } else {
             let quantityElement = button.nextElementSibling;
@@ -463,7 +463,7 @@ const cartFunction = () => {
                             let latestSubTotal = originalPrice * updatedBookQuantity;
 
                             $(`div.kbs-cart-book-details[data-book-id='${bookId}']`)
-                                .children().eq(1).html(latestSubTotal);
+                                .children().eq(1).html(latestSubTotal.toFixed(2));
 
                             updateTotalSection();
                         }

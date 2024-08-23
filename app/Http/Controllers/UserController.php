@@ -189,6 +189,10 @@ class UserController extends Controller
        
         
         foreach ($books as $book) {
+            if($book->discount !== null){
+                $discounted_price = $book->price * $book->discount->discount_percentage / 100;
+                $book->discount_price =  number_format($book->price -  $discounted_price, 2, '.', "");
+            }   
             $review_count = DB::table('book_review')->where('book_id', '=', $book->book_id)->count();
             if ($review_count > 0) {
                 $avg_review = DB::table('book_review')->where('book_id', '=', $book->book_id)->avg('rating');
@@ -211,6 +215,10 @@ class UserController extends Controller
 
         foreach ($cart_items as $cart_item) {
             $book_details = books::where('book_id', '=', $cart_item->book_id)->first();
+            if($book_details->discount !== null){
+                $discounted_price = $book_details->price * $book_details->discount->discount_percentage / 100;
+                $book_details->discount_price =  number_format($book_details->price -  $discounted_price, 2, '.', "");
+            }
             $cart_item->book_details = $book_details;
         }
         return view('users.cart', compact('cart_items'));
@@ -222,6 +230,10 @@ class UserController extends Controller
         foreach ($favourited_books as $favourited_book) {
             $book_details = books::where('book_id', '=', $favourited_book->book_id)->first();
             $review_count = DB::table('book_review')->where('book_id', '=', $favourited_book->book_id)->count();
+            if($book_details->discount !== null){
+                $discounted_price = $book_details->price * $book_details->discount->discount_percentage / 100;
+                $book_details->discount_price =  number_format($book_details->price -  $discounted_price, 2, '.', "");
+            }
             if ($review_count > 0) {
                 $avg_review = DB::table('book_review')->where('book_id', '=', $favourited_book->book_id)->avg('rating');
                 $book_details->review = $avg_review;
@@ -239,6 +251,10 @@ class UserController extends Controller
         $categories = DB::table('book_categories as bc')->join('categories as c', 'c.category_id' , '=', 'bc.category_id')->where('book_id', '=', $id)->orderBy('c.category')->get();
         $book->categories = $categories;
         $review_count = DB::table('book_review')->where('book_id', '=', $id)->count();
+        if($book->discount !== null){
+            $discounted_price = $book->price * $book->discount->discount_percentage / 100;
+            $book->discount_price =  number_format($book->price -  $discounted_price, 2, '.', "");
+        }   
         if ($review_count > 0) {
             $avg_review = DB::table('book_review')->where('book_id', '=', $id)->avg('rating');
             $book->review = $avg_review;

@@ -129,7 +129,7 @@ div.kbs-favourite-book-card-container a.book-title:hover {
 }
 
 
-div.kbs-book-card-container h4,
+div.kbs-book-card-container h4.book-title,
 div.kbs-favourite-book-card-container h4 {
     font-size: 1.2rem;
     font-family: var(--heading-nav-bar-title);
@@ -137,6 +137,24 @@ div.kbs-favourite-book-card-container h4 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+div.kbs-book-card-container h4.book-title{
+    font-size: 1.2rem;
+    font-family: var(--heading-nav-bar-title);
+}
+
+div.kbs-book-card-container h4 span.original-price,
+section.kbs-cart-container h4 span.original-price,
+div.kbs-favourite-book-card h4 span.original-price
+{
+    text-decoration: line-through;
+}
+
+div.kbs-book-card-container h4 span.discounted-price,
+section.kbs-cart-container h4 span.discounted-price,
+div.kbs-favourite-book-card h4 span.discounted-price{
+    color: var(--shades);
 }
 
 div.kbs-book-card-container div.star-rating span.fa.fa-star.checked,
