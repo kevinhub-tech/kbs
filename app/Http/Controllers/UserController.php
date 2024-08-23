@@ -173,7 +173,7 @@ class UserController extends Controller
     {
         $categories = category::all()->sortBy('category');
         if($request->category){
-            $books = DB::table('book_categories as bc')->join('books as b', 'b.book_id' , '=', 'bc.book_id')->where('category_id', '=', $request->category)->paginate(30);
+            $books = DB::table('book_categories as bc')->join('books as b', 'b.book_id' , '=', 'bc.book_id')->where('category_id', '=', $request->category)->paginate(20);
         }else{
             $query = books::query();
             if ($request->c) {
@@ -184,7 +184,7 @@ class UserController extends Controller
                 }
             }
     
-            $books = $query->orderBy('book_name')->paginate(30);
+            $books = $query->orderBy('book_name')->paginate(20);
         }
        
         
