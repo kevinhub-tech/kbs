@@ -38,6 +38,8 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
         Route::get('/favourite', 'favourite')->name("user.favourite");
         Route::get('/logout', 'logout')->name("user.logout");
         Route::get('/book/{id}', 'book')->name('user.book');
+        Route::get('/checkout/{location?}', 'checkout')->name('user.checkout');
+        Route::get('/order','orderdetail')->name('user.orderdetail');
     });
     Route::post('/signin', 'signin')->name('user.manuallogin');
     Route::post('/signup', 'signup')->name('user.manualregister');

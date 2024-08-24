@@ -10,7 +10,8 @@ aside.kbs-book-categories {
     width: 17%;
     background-color: var(--main-color);
     padding: 2rem;
-    box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem #f2f3f5, -0.1rem -0.1rem 0.1rem 0.01rem #f2f3f5;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem #f2f3f5,
+        -0.1rem -0.1rem 0.1rem 0.01rem #f2f3f5;
     border-radius: 0.5rem;
     min-height: 100dvh;
 }
@@ -41,7 +42,7 @@ aside.kbs-book-categories ul li a {
 }
 
 aside.kbs-book-categories ul li a::after {
-    content: '';
+    content: "";
     height: 4px;
     width: 0%;
     background-color: var(--main-color);
@@ -49,13 +50,12 @@ aside.kbs-book-categories ul li a::after {
     transition: 0.4s ease-in-out;
 }
 
-
 aside.kbs-book-categories ul li a:hover {
     color: var(--shades);
 }
 
 aside.kbs-book-categories ul li a:hover::after {
-    content: '';
+    content: "";
     height: 3px;
     width: 100%;
     background-color: var(--shades);
@@ -107,14 +107,13 @@ div.kbs-book-card {
     background-color: var(--main-color);
     flex: 0 0 calc(33% - 1rem);
     /* Two cards per row with space for the gap */
-    box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem #cbb9b9, -0.1rem -0.1rem 0.1rem 0.01rem #cbb9b9;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem #cbb9b9,
+        -0.1rem -0.1rem 0.1rem 0.01rem #cbb9b9;
     border-radius: 0.5rem;
     max-height: 40rem;
     height: max-content;
     padding: 2rem;
 }
-
-
 
 div.kbs-book-card-container a.book-title,
 div.kbs-favourite-book-card-container a.book-title {
@@ -125,9 +124,8 @@ div.kbs-favourite-book-card-container a.book-title {
 div.kbs-book-card-container a.book-title:hover,
 div.kbs-favourite-book-card-container a.book-title:hover {
     color: var(--shades);
-    transition: all .4s ease;
+    transition: all 0.4s ease;
 }
-
 
 div.kbs-book-card-container h4.book-title,
 div.kbs-favourite-book-card-container h4 {
@@ -139,21 +137,20 @@ div.kbs-favourite-book-card-container h4 {
     text-overflow: ellipsis;
 }
 
-div.kbs-book-card-container h4.book-title{
+div.kbs-book-card-container h4.book-title {
     font-size: 1.2rem;
     font-family: var(--heading-nav-bar-title);
 }
 
 div.kbs-book-card-container h4 span.original-price,
 section.kbs-cart-container h4 span.original-price,
-div.kbs-favourite-book-card h4 span.original-price
-{
+div.kbs-favourite-book-card h4 span.original-price {
     text-decoration: line-through;
 }
 
 div.kbs-book-card-container h4 span.discounted-price,
 section.kbs-cart-container h4 span.discounted-price,
-div.kbs-favourite-book-card h4 span.discounted-price{
+div.kbs-favourite-book-card h4 span.discounted-price {
     color: var(--shades);
 }
 
@@ -201,7 +198,7 @@ div.kbs-favourite-book-card-container button.kbs-purchase:hover {
     background-color: var(--main-color);
     border: 1px dashed #000000;
     color: var(--shades);
-    transition: all .4s ease;
+    transition: all 0.4s ease;
 }
 
 div.kbs-book-card-container i,
@@ -218,10 +215,9 @@ div.kbs-favourite-book-card-container i.fa-cart-shopping:hover {
 }
 
 div.kbs-book-card-container i.fa-heart:hover {
-    color: #F02F2F;
+    color: #f02f2f;
     transition: all 0.5s;
 }
-
 
 img.book-image {
     width: 10rem;
@@ -288,7 +284,7 @@ div.kbs-favourite-book-card-container div.modal-footer button.btn-secondary:hove
     background-color: var(--main-color);
     border: 1px dashed #000000;
     color: var(--shades);
-    transition: all .4s ease;
+    transition: all 0.4s ease;
 }
 
 div.kbs-book-card-container div.modal-footer button.kbs-btn:hover,
@@ -296,7 +292,7 @@ div.kbs-favourite-book-card-container div.modal-footer button.kbs-btn:hover {
     background-color: var(--main-color);
     border: 1px dashed #000000;
     color: var(--shades);
-    transition: all .4s ease;
+    transition: all 0.4s ease;
 }
 
 /* 
@@ -323,7 +319,7 @@ section.kbs-header h4 {
 }
 
 section.kbs-header h3 i.fa-solid.fa-heart {
-    color: #F02F2F;
+    color: #f02f2f;
 }
 
 section.kbs-header div.kbs-cart-link-container h3 a {
@@ -331,7 +327,8 @@ section.kbs-header div.kbs-cart-link-container h3 a {
     color: #000000;
 }
 
-section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right {
+section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right,
+section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-left {
     border: 2px solid var(--shades);
     color: var(--shades);
     padding: 0.5rem 0.6rem;
@@ -339,7 +336,8 @@ section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right {
     border-radius: 50%;
 }
 
-section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right:hover {
+section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right:hover,
+section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-left:hover {
     border: 2px dashed var(--shades);
     transition: all 1s ease;
 }
@@ -356,7 +354,6 @@ section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-x:hover {
     border: 2px dashed red;
     transition: all 1s ease;
 }
-
 
 section.kbs-header div.kbs-cart-link-container h3 {
     color: red;
@@ -386,7 +383,6 @@ section.kbs-favourite-empty h3 {
     font-family: var(--heading-nav-bar-title);
     color: var(--shades);
 }
-
 
 section.kbs-main-cart-container {
     display: flex;
@@ -429,14 +425,14 @@ div.kbs-cart-card div.kbs-cart-book-image img {
 div.kbs-cart-card div.kbs-cart-book-title h3,
 div.kbs-cart-card div.kbs-cart-book-quantity h3,
 div.kbs-cart-card div.kbs-cart-book-price h3,
-div.kbs-cart-card div.kbs-cart-book-subtotal-price h3 {
+div.kbs-cart-card div.kbs-cart-book-subtotal-price h3,
+section.kbs-address-container div.kbs-address-card h4 {
     font-size: 1.2rem;
     text-align: center;
     background-color: #f2f3f5;
     padding: 0.5rem 0.8rem;
     margin-bottom: 1rem;
     border-radius: 1rem;
-
 }
 
 div.kbs-cart-card div.kbs-cart-book-title h4,
@@ -455,7 +451,6 @@ div.kbs-cart-card div.kbs-cart-book-subtotal-price h4 {
     margin-top: 1.5rem;
     text-align: center;
 }
-
 
 div.kbs-cart-card div.kbs-cart-book-quantity small {
     font-family: var(--general-font);
@@ -480,7 +475,7 @@ div.kbs-cart-card div.kbs-cart-book-quantity button:hover {
 div.kbs-cart-card i.fa-solid.fa-trash {
     margin-top: 3rem;
     font-size: 1.2rem;
-    background-color: #F02F2F;
+    background-color: #f02f2f;
     color: var(--main-color);
     padding: 1rem 1.2rem;
     border-radius: 50%;
@@ -501,8 +496,8 @@ div.kbs-cart-card i.fa-solid.fa-check {
 
 div.kbs-cart-card i.fa-solid.fa-trash:hover {
     background-color: var(--main-color);
-    border: 1px dashed #F02F2F;
-    color: #F02F2F;
+    border: 1px dashed #f02f2f;
+    color: #f02f2f;
     transition: all 0.4s ease;
 }
 
@@ -513,7 +508,6 @@ div.kbs-cart-card i.fa-solid.fa-check:hover {
     transition: all 0.4s ease;
 }
 
-
 aside.kbs-cart-summary-container {
     width: 20%;
     background-color: var(--main-color);
@@ -522,7 +516,8 @@ aside.kbs-cart-summary-container {
     height: max-content;
 }
 
-aside.kbs-cart-summary-container div.kbs-cart-summary h3 {
+aside.kbs-cart-summary-container div.kbs-cart-summary h3,
+aside.kbs-order-container div.kbs-order-summary h3 {
     font-family: var(--heading-nav-bar-title);
     font-weight: 700;
     text-align: center;
@@ -531,30 +526,40 @@ aside.kbs-cart-summary-container div.kbs-cart-summary h3 {
 aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-details,
 aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-cost,
 aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-delivery-cost,
-aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-total-cost {
+aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-total-cost,
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-details,
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-cost,
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-delivery-cost,
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-total-cost {
     display: flex;
     justify-content: space-between;
-
 }
 
 aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-details h5,
-aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-details small.quantity {
+aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-details span.quantity,
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-details h5,
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-details span.quantity  {
     font-size: 1rem;
     margin-top: 1.3rem;
 }
 
 aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-cost h5,
 aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-delivery-cost h5,
-aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-total-cost h5 {
+aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-total-cost h5,
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-cost h5,
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-delivery-cost h5,
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-total-cost h5 {
     font-size: 1rem;
 }
 
-aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-total-cost h5 {
+aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-total-cost h5,
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-total-cost h5 {
     color: var(--shades);
     font-weight: 700;
 }
 
-aside.kbs-cart-summary-container button.kbs-check-out {
+aside.kbs-cart-summary-container button.kbs-check-out,
+aside.kbs-order-container button.kbs-confirm-order {
     background-color: var(--shades);
     padding: 0.5rem 2rem;
     font-family: var(--heading-nav-bar-title);
@@ -575,10 +580,12 @@ aside.kbs-cart-summary-container button.kbs-check-out:hover {
 }
 
 /* 
-    Favourite page css starts here
+    Cart Page CSS ends here
 */
 
-
+/* 
+    Favourite page css starts here
+*/
 section.kbs-favourite-listing-container {
     margin: 0;
     padding: 0;
@@ -601,7 +608,8 @@ div.kbs-favourite-book-card {
     background-color: var(--main-color);
     flex: 0 0 calc(25% - 1rem);
     /* Two cards per row with space for the gap */
-    box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem #cbb9b9, -0.1rem -0.1rem 0.1rem 0.01rem #cbb9b9;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem #cbb9b9,
+        -0.1rem -0.1rem 0.1rem 0.01rem #cbb9b9;
     border-radius: 0.5rem;
     max-height: 40rem;
     height: max-content;
@@ -625,9 +633,227 @@ div.kbs-favourite-book-card i.fa-solid.fa-x:hover {
     transition: all 0.4s ease;
 }
 
+/* 
+    Favourite Page CSS ends here
+*/
+
+/* 
+    Checkout Page CSS ends here
+*/
+section.kbs-checkout-main-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+section.kbs-checkout-addresspayment-container {
+    width: 70%;
+}
+
+section.kbs-checkout-addresspayment-container i.fa-solid.fa-plus {
+    background-color: var(--shades);
+    color: var(--main-color);
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+section.kbs-checkout-addresspayment-container i.fa-solid.fa-plus:hover{
+    background-color: var(--main-color);
+    border: 1px dashed #000000;
+    color: var(--shades);
+    transition: all 0.4s ease;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container,
+section.kbs-checkout-addresspayment-container section.kbs-payment-container {
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container h3,
+section.kbs-checkout-addresspayment-container section.kbs-payment-container h3,
+aside.kbs-order-container h3 {
+    font-size: 1.5rem;
+    font-family: var(--heading-nav-bar-title);
+    font-weight: 700;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container h4.address-warning{
+    font-size: 1rem;
+    font-family: var(--heading-nav-bar-title);
+    font-weight: 700;
+    color: #f02f2f;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+    background-color: #f2f3f5;
+    border-radius: 1rem;
+    margin-top: 1rem;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container form label,
+section.kbs-checkout-addresspayment-container section.kbs-address-container form input {
+    font-family: var(--general-font);
+    font-weight: 600;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container form input[type="text"],
+section.kbs-checkout-addresspayment-container section.kbs-address-container form input[type="number"] {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container form input[type="text"]:focus ,
+section.kbs-checkout-addresspayment-container section.kbs-address-container form input[type="number"]:focus{
+    box-shadow: 0.1rem 0.1rem 0.3rem 0.01rem var(--shades);
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container form button {
+    background-color: var(--shades);
+    padding: 0.7rem 2rem;
+    color: var(--main-color);
+    font-family: var(--general-font);
+    font-weight: 600;
+    border-radius: 0.5rem;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container form button:hover {
+    background-color: var(--main-color);
+    border: 1px dashed #000000;
+    color: var(--shades);
+    transition: all 0.4s ease;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0.1rem 0.1rem 0.3rem 0.01rem var(--shades),
+        -0.1rem 0.1rem 0.3rem 0.01rem var(--shades);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div
+{
+    flex: 0 0 calc(20% - 1rem);
+    text-align: center;
+}
+section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round + h3{
+    font-family: var(--general-font);
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0;
+}
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round,
+section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round,
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round {
+    position: relative;
+    margin: auto 0;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round label,
+section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round label.checkbox,
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card  div.round label{
+    background-color: #fff;
+    border: 1px solid var(--shades);
+    border-radius: 50%;
+    cursor: pointer;
+    height: 28px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 28px;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round label:after,
+section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round label.checkbox:after,
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round label:after{
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+    content: "";
+    height: 6px;
+    left: 7px;
+    opacity: 0;
+    position: absolute;
+    top: 8px;
+    transform: rotate(-45deg);
+    width: 12px;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round input[type="checkbox"],
+section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round input[type="checkbox"],
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"] {
+    visibility: hidden;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round input[type="checkbox"]:checked+label,
+section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round input[type="checkbox"]:checked+label.checkbox,
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"]:checked+label {
+    background-color: var(--shades);
+    border-color: var(--shades);
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round input[type="checkbox"]:checked+label:after,
+section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round input[type="checkbox"]:checked+label.checkbox:after,
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"]:checked+label:after{
+    opacity: 1;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card p {
+    font-family: var(--general-font);
+    font-weight: 600;
+    text-align: center;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card i.fa-solid.fa-trash{
+    color: var(--main-color);
+    background-color: #f02f2f;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+section.kbs-checkout-addresspayment-container section.kbs-payment-container small{
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-family: var(--author-vendor-user);
+    color: red;
+}
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card{
+    display: flex;
+    gap: 3rem;
+    margin-top: 1rem;
+    box-shadow: 0.1rem 0.1rem 0.3rem 0.01rem var(--shades),
+        -0.1rem 0.1rem 0.3rem 0.01rem var(--shades);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card h4{
+    margin: 0;
+    font-family: var(--heading-nav-bar-title);
+
+}
+
+aside.kbs-order-container {
+    width: 30%;
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    height: max-content;
+}
 
 @media screen and (max-width: 1640px) {
-
     div.kbs-book-card {
         flex: 0 0 calc(50% - 1rem);
     }
@@ -651,7 +877,6 @@ div.kbs-favourite-book-card i.fa-solid.fa-x:hover {
 }
 
 @media screen and (max-width: 992px) {
-
     section.kbs-cart-container div.kbs-cart-card {
         flex-direction: column;
         justify-content: center;
@@ -683,7 +908,7 @@ div.kbs-favourite-book-card i.fa-solid.fa-x:hover {
     }
 
     aside.kbs-book-categories ul li::after {
-        content: '|';
+        content: "|";
         margin: 0 0.5rem;
     }
 

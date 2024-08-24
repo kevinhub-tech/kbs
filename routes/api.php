@@ -33,6 +33,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
         Route::post('/update-cart', 'updatecart')->name('user.updatecart');
         Route::post('/remove-cart', 'removecart')->name('user.removecart');
         Route::post('/remove-favourite', 'removefavourite')->name('user.removefavourite');
+        Route::post('/send-order', 'sendorder')->name('user.sendorder');
     });
 });
 
