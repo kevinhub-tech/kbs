@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('order_id')->primary();
-            $table->double('order_number');
+            $table->string('order_number', 300);
             $table->enum('payment_method', ['cod', 'debit/credit']);
             $table->boolean('refund_state');
             $table->boolean('is_cancelled');
+            $table->double('total');
             $table->uuid('address_id')->nullable();
             $table->foreign('address_id')->references('address_id')->on('user_addresses')->cascadeOnUpdate()->nullOnDelete();
+            $table->uuid('billing_address_id')->nullable();
+            $table->foreign('billing_address_id')->references('address_id')->on('user_addresses')->cascadeOnUpdate()->nullOnDelete();
             $table->uuid('created_by');
             $table->foreign('created_by')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamp('paid_at')->nullable();
