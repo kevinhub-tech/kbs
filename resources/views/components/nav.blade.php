@@ -60,8 +60,6 @@
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Orders</a>
-                            <a class="dropdown-item" href="#">Reviews</a>
                             <a class="dropdown-item" href="{{ route('vendor.logout') }}">Log Out</a>
                         </div>
                     </div>
