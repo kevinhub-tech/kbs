@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('order_status', function (Blueprint $table) {
             $table->uuid('order_id');
             $table->foreign('order_id')->references('order_id')->on('orders')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->enum('status', ['packing', 'hand-over', 'shipped', 'delivering', 'completed']);
+            $table->enum('status', ['confirming','packing', 'hand-over', 'shipped', 'delivering', 'completed']);
             $table->integer('sequence');
             $table->timestamp('created_at')->useCurrent();
         });
