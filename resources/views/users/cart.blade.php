@@ -129,8 +129,8 @@
                         <h5>Total Cost:</h5>
                         <h5>{{ $total_delivery_fee / $cart_items->count() + $total_item_fee }}</h5>
                     </div>
-                    <button class="kbs-check-out">Check Out</button>
-
+                    <button class="kbs-check-out" onclick="window.location.href = '{{route('user.checkout',['location' => 'c'])}}'">Check Out</button>
+                </div>
             </aside>
         </section>
     @endif
