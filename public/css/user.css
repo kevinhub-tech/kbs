@@ -926,6 +926,27 @@ aside.kbs-order-container {
     }
 }
 
+@media screen and (max-width: 992px) {
+    section.kbs-checkout-main-container {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    section.kbs-checkout-addresspayment-container {
+        width: 100%;
+    }
+    section.kbs-checkout-addresspayment-container section.kbs-address-container h3,
+    section.kbs-checkout-addresspayment-container section.kbs-payment-container h3{
+        font-size: 1.2rem;
+    }
+    section.kbs-checkout-addresspayment-container div.kbs-address-card h4,
+    section.kbs-checkout-addresspayment-container div.kbs-address-card{
+        font-size: 0.8rem;
+    }
+    aside.kbs-order-container{
+        width: 100%;
+    }
+}
 @media screen and (max-width: 768px) {
     div.kbs-book-card {
         flex: 0 0 100%;
