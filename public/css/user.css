@@ -638,7 +638,7 @@ div.kbs-favourite-book-card i.fa-solid.fa-x:hover {
 */
 
 /* 
-    Checkout Page CSS ends here
+    Checkout Page CSS starts here
 */
 section.kbs-checkout-main-container {
     display: flex;
@@ -851,6 +851,40 @@ aside.kbs-order-container {
     padding: 1rem;
     border-radius: 0.5rem;
     height: max-content;
+}
+/* 
+    Checkout Page CSS ends here
+*/
+
+/* 
+    Order Detail Page CSS starts here
+*/
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    float: left;
+}
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.line{
+    width: 20%;
+    height: 1px;
+    background-color: red;
+}
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li i{
+    padding: 1rem;
+    background-color: red;
+    color: var(--main-color);
+    border-radius: 50%;
+
+}
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li i:after{
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: red;
 }
 
 @media screen and (max-width: 1640px) {
