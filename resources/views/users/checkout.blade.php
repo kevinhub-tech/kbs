@@ -35,7 +35,8 @@
                     @foreach ($order_items as $order_item)
                         <div class="kbs-order-book-details" data-book-id="{{ $order_item->book_details->book_id }}"
                             data-original-price="@if ($order_item->book_details->discount === null) {{ $order_item->book_details->price }} @else {{ $order_item->book_details->discount_price }} @endif"
-                            data-delivery-price="{{ $order_item->book_details->delivery_fee }}" data-quantity="{{$order_item->quantity}}">
+                            data-delivery-price="{{ $order_item->book_details->delivery_fee }}"
+                            data-quantity="{{ $order_item->quantity }}">
                             <h5>{{ $order_item->book_details->book_name }} x <span
                                     class="quantity">{{ $order_item->quantity }}</span></h5>
                             @if ($order_item->book_details->discount === null)
@@ -112,7 +113,8 @@
                 @endif
 
                 <button class="kbs-confirm-order" data-route="{{ route('user.sendorder') }}"
-                    data-token="{{ session('userToken') }}" data-redirect-url="{{route('user.orderdetail')}}">Check Out</button>
+                    data-token="{{ session('userToken') }}" data-redirect-url="{{ route('user.orderdetail') }}">Check
+                    Out</button>
             </div>
         </aside>
     </section>
@@ -172,7 +174,7 @@
                 success: (res) => {
                     if (res.status === 'success') {
                         toast('success', res.message);
-                        
+
                         let order_number = res.payload.order_number
                         setTimeout(() => {
                             window.location.href = redirectUrl + '?' + 'id=' + order_number;
@@ -220,11 +222,6 @@
                     toast("error", errorMessage);
                 }
             })
-            console.log(orderedBooks);
-            console.log(addressId);
-            console.log(billingAddressId);
-            console.log(payment);
-            console.log(total);
         })
     </script>
 @endpush
