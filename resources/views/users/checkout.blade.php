@@ -5,7 +5,7 @@
 @section('main.content')
     <section class="kbs-header">
         <h3> <i class="fa-solid fa-credit-card me-3"></i>Check Out</h3>
-        <div class="kbs-cart-link-container">
+        <div class="kbs-link-container">
             <h3><a href="javascript:history.back()">Go Back<i class="fa-solid fa-arrow-left ms-2"></i></a></h3>
         </div>
     </section>

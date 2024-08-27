@@ -322,13 +322,13 @@ section.kbs-header h3 i.fa-solid.fa-heart {
     color: #f02f2f;
 }
 
-section.kbs-header div.kbs-cart-link-container h3 a {
+section.kbs-header div.kbs-link-container h3 a {
     text-decoration: none;
     color: #000000;
 }
 
-section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right,
-section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-left {
+section.kbs-header div.kbs-link-container i.fa-solid.fa-arrow-right,
+section.kbs-header div.kbs-link-container i.fa-solid.fa-arrow-left {
     border: 2px solid var(--shades);
     color: var(--shades);
     padding: 0.5rem 0.6rem;
@@ -336,13 +336,13 @@ section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-left {
     border-radius: 50%;
 }
 
-section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-right:hover,
-section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-arrow-left:hover {
+section.kbs-header div.kbs-link-container i.fa-solid.fa-arrow-right:hover,
+section.kbs-header div.kbs-link-container i.fa-solid.fa-arrow-left:hover {
     border: 2px dashed var(--shades);
     transition: all 1s ease;
 }
 
-section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-x {
+section.kbs-header div.kbs-link-container i.fa-solid.fa-x {
     border: 2px solid red;
     color: red;
     padding: 0.5rem 0.6rem;
@@ -350,17 +350,17 @@ section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-x {
     border-radius: 50%;
 }
 
-section.kbs-header div.kbs-cart-link-container i.fa-solid.fa-x:hover {
+section.kbs-header div.kbs-link-container i.fa-solid.fa-x:hover {
     border: 2px dashed red;
     transition: all 1s ease;
 }
 
-section.kbs-header div.kbs-cart-link-container h3 {
+section.kbs-header div.kbs-link-container h3 {
     color: red;
     cursor: pointer;
 }
 
-section.kbs-header div.kbs-cart-link-container {
+section.kbs-header div.kbs-link-container {
     display: flex;
     justify-content: space-around;
     gap: 2rem;
@@ -517,7 +517,8 @@ aside.kbs-cart-summary-container {
 }
 
 aside.kbs-cart-summary-container div.kbs-cart-summary h3,
-aside.kbs-order-container div.kbs-order-summary h3 {
+aside.kbs-order-container div.kbs-order-summary h3,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details h3 {
     font-family: var(--heading-nav-bar-title);
     font-weight: 700;
     text-align: center;
@@ -530,7 +531,11 @@ aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-total-co
 aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-details,
 aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-cost,
 aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-delivery-cost,
-aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-total-cost {
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-total-cost,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details div.kbs-book-details,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details div.kbs-book-cost,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details div.kbs-book-delivery-cost,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details div.kbs-book-total-cost {
     display: flex;
     justify-content: space-between;
 }
@@ -538,7 +543,9 @@ aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-total-cost {
 aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-details h5,
 aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-details span.quantity,
 aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-details h5,
-aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-details span.quantity  {
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-details span.quantity,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details div.kbs-book-details h5,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details div.kbs-book-details span.quantity {
     font-size: 1rem;
     margin-top: 1.3rem;
 }
@@ -548,18 +555,23 @@ aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-delivery
 aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-total-cost h5,
 aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-cost h5,
 aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-delivery-cost h5,
-aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-total-cost h5 {
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-total-cost h5,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details div.kbs-book-cost h5,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details div.kbs-book-delivery-cost h5,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details div.kbs-book-total-cost h5 {
     font-size: 1rem;
 }
 
 aside.kbs-cart-summary-container div.kbs-cart-summary div.kbs-cart-book-total-cost h5,
-aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-total-cost h5 {
+aside.kbs-order-container div.kbs-order-summary div.kbs-order-book-total-cost h5,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details div.kbs-book-total-cost h5 {
     color: var(--shades);
     font-weight: 700;
 }
 
 aside.kbs-cart-summary-container button.kbs-check-out,
-aside.kbs-order-container button.kbs-confirm-order {
+aside.kbs-order-container button.kbs-confirm-order,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details button {
     background-color: var(--shades);
     padding: 0.5rem 2rem;
     font-family: var(--heading-nav-bar-title);
@@ -572,10 +584,23 @@ aside.kbs-order-container button.kbs-confirm-order {
     border-radius: 0.5rem;
 }
 
-aside.kbs-cart-summary-container button.kbs-check-out:hover {
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details button.kbs-cancel-order {
+    background-color: #f02f2f;
+}
+
+aside.kbs-cart-summary-container button.kbs-check-out:hover,
+aside.kbs-order-container button.kbs-confirm-order:hover,
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details button.kbs-confirm-order:hover {
     background-color: var(--main-color);
     color: var(--shades);
     border: 1px dashed var(--shades);
+    transition: all 0.4s ease;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details button.kbs-cancel-order:hover {
+    background-color: var(--main-color);
+    color: #f02f2f;
+    border: 1px dashed #f02f2f;
     transition: all 0.4s ease;
 }
 
@@ -658,7 +683,8 @@ section.kbs-checkout-addresspayment-container i.fa-solid.fa-plus {
     border-radius: 50%;
     cursor: pointer;
 }
-section.kbs-checkout-addresspayment-container i.fa-solid.fa-plus:hover{
+
+section.kbs-checkout-addresspayment-container i.fa-solid.fa-plus:hover {
     background-color: var(--main-color);
     border: 1px dashed #000000;
     color: var(--shades);
@@ -682,7 +708,7 @@ aside.kbs-order-container h3 {
     font-weight: 700;
 }
 
-section.kbs-checkout-addresspayment-container section.kbs-address-container h4.address-warning{
+section.kbs-checkout-addresspayment-container section.kbs-address-container h4.address-warning {
     font-size: 1rem;
     font-family: var(--heading-nav-bar-title);
     font-weight: 700;
@@ -712,8 +738,8 @@ section.kbs-checkout-addresspayment-container section.kbs-address-container form
     border-radius: 0.5rem;
 }
 
-section.kbs-checkout-addresspayment-container section.kbs-address-container form input[type="text"]:focus ,
-section.kbs-checkout-addresspayment-container section.kbs-address-container form input[type="number"]:focus{
+section.kbs-checkout-addresspayment-container section.kbs-address-container form input[type="text"]:focus,
+section.kbs-checkout-addresspayment-container section.kbs-address-container form input[type="number"]:focus {
     box-shadow: 0.1rem 0.1rem 0.3rem 0.01rem var(--shades);
 }
 
@@ -733,7 +759,7 @@ section.kbs-checkout-addresspayment-container section.kbs-address-container form
     transition: all 0.4s ease;
 }
 
-section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card{
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card {
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -743,17 +769,19 @@ section.kbs-checkout-addresspayment-container section.kbs-address-container div.
     padding: 1rem;
     border-radius: 0.5rem;
 }
-section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div
-{
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div {
     flex: 0 0 calc(20% - 1rem);
     text-align: center;
 }
-section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round + h3{
+
+section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round+h3 {
     font-family: var(--general-font);
     font-weight: 500;
     font-size: 1rem;
     margin: 0;
 }
+
 section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round,
 section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round,
 section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round {
@@ -763,7 +791,7 @@ section.kbs-checkout-addresspayment-container section.kbs-payment-container div.
 
 section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round label,
 section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round label.checkbox,
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card  div.round label{
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round label {
     background-color: #fff;
     border: 1px solid var(--shades);
     border-radius: 50%;
@@ -777,7 +805,7 @@ section.kbs-checkout-addresspayment-container section.kbs-payment-container div.
 
 section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round label:after,
 section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round label.checkbox:after,
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round label:after{
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round label:after {
     border: 2px solid #fff;
     border-top: none;
     border-right: none;
@@ -806,7 +834,7 @@ section.kbs-checkout-addresspayment-container section.kbs-payment-container div.
 
 section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round input[type="checkbox"]:checked+label:after,
 section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round input[type="checkbox"]:checked+label.checkbox:after,
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"]:checked+label:after{
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"]:checked+label:after {
     opacity: 1;
 }
 
@@ -816,20 +844,22 @@ section.kbs-checkout-addresspayment-container section.kbs-address-container div.
     text-align: center;
 }
 
-section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card i.fa-solid.fa-trash{
+section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card i.fa-solid.fa-trash {
     color: var(--main-color);
     background-color: #f02f2f;
     padding: 1rem;
     border-radius: 0.5rem;
     cursor: pointer;
 }
-section.kbs-checkout-addresspayment-container section.kbs-payment-container small{
+
+section.kbs-checkout-addresspayment-container section.kbs-payment-container small {
     font-size: 0.8rem;
     font-weight: 500;
     font-family: var(--author-vendor-user);
     color: red;
 }
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card{
+
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card {
     display: flex;
     gap: 3rem;
     margin-top: 1rem;
@@ -839,7 +869,7 @@ section.kbs-checkout-addresspayment-container section.kbs-payment-container div.
     border-radius: 0.5rem;
 }
 
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card h4{
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card h4 {
     margin: 0;
     font-family: var(--heading-nav-bar-title);
 
@@ -852,6 +882,7 @@ aside.kbs-order-container {
     border-radius: 0.5rem;
     height: max-content;
 }
+
 /* 
     Checkout Page CSS ends here
 */
@@ -859,33 +890,167 @@ aside.kbs-order-container {
 /* 
     Order Detail Page CSS starts here
 */
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline {
+    margin-top: 1rem;
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
 
-section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li{
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: var(--heading-nav-bar-title);
+    font-weight: 600;
+    margin: 1rem 0;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 4rem;
+    position: relative;
+}
+
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li {
+    margin: 0 auto;
     list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li div.content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    float: left;
-}
-section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.line{
-    width: 20%;
-    height: 1px;
-    background-color: red;
-}
-section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li i{
-    padding: 1rem;
-    background-color: red;
-    color: var(--main-color);
-    border-radius: 50%;
-
-}
-
-section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li i:after{
-    content: '';
     width: 100%;
-    height: 1px;
-    background-color: red;
 }
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li i,
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li i.in-progress {
+    padding: 1rem;
+    background-color: var(--shades);
+    border-radius: 50%;
+    color: var(--main-color);
+}
+
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li i.in-complete {
+    background-color: #aab5ca;
+    color: var(--main-color);
+}
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li i.cancelled {
+    background-color: #f02f2f;
+    color: var(--main-color);
+}
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li p {
+    margin-top: 0.6rem;
+    font-size: 1rem;
+    font-family: var(--general-font);
+    font-weight: 700;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li::before,
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li::after {
+    content: " ";
+    position: relative;
+    top: -1.2rem;
+    left: 0.2rem;
+    display: flex;
+    width: 100%;
+    height: 5px;
+    background-color: #aab5ca;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.complete::before,
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.complete::after,
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.in-progress::before,
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.in-progress::after {
+    content: " ";
+    position: relative;
+    top: -1.2rem;
+    left: 0.2rem;
+    display: flex;
+    width: 100%;
+    height: 5px;
+    background-color: var(--shades);
+}
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.cancelled::before,
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.cancelled::after {
+    content: " ";
+    position: relative;
+    top: -1.2rem;
+    left: 0.2rem;
+    display: flex;
+    width: 100%;
+    height: 5px;
+    background-color: #f02f2f;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline section.kbs-order-tracking-log {
+    background-color: #f2f3f5;
+    width: 45%;
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-tracking-timeline section.kbs-order-tracking-log p {
+    font-size: 1rem;
+    font-family: var(--general-font);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-detail-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-detail-container h3 {
+    font-size: 1.5rem;
+    font-family: var(--heading-nav-bar-title);
+    font-weight: 600;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-details {
+    flex: 70%;
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-details p {
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    font-family: var(--general-font);
+    font-weight: 600;
+}
+
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-details p:not(:last-child) {
+    border-bottom: 1px solid var(--shades);
+}
+
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-details p.total {
+    font-weight: 700;
+    color: var(--shades);
+}
+
+section.kbs-order-detail-main-container section.kbs-order-detail-container section.kbs-order-book-details {
+    flex: 30%;
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
 
 @media screen and (max-width: 1640px) {
     div.kbs-book-card {
@@ -907,18 +1072,6 @@ section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul l
 
     aside.kbs-cart-summary-container {
         width: 100%;
-    }
-}
-
-@media screen and (max-width: 992px) {
-    section.kbs-cart-container div.kbs-cart-card {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    section.kbs-cart-container div.kbs-cart-card div {
-        margin-top: 1rem;
     }
 }
 
@@ -965,24 +1118,96 @@ section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul l
         display: flex;
         flex-direction: column;
     }
-    
+
     section.kbs-checkout-addresspayment-container {
         width: 100%;
     }
+
     section.kbs-checkout-addresspayment-container section.kbs-address-container h3,
-    section.kbs-checkout-addresspayment-container section.kbs-payment-container h3{
+    section.kbs-checkout-addresspayment-container section.kbs-payment-container h3 {
         font-size: 1.2rem;
     }
+
     section.kbs-checkout-addresspayment-container div.kbs-address-card h4,
-    section.kbs-checkout-addresspayment-container div.kbs-address-card{
+    section.kbs-checkout-addresspayment-container div.kbs-address-card {
         font-size: 0.8rem;
     }
-    aside.kbs-order-container{
+
+    aside.kbs-order-container {
         width: 100%;
     }
+
+    section.kbs-cart-container div.kbs-cart-card {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    section.kbs-cart-container div.kbs-cart-card div {
+        margin-top: 1rem;
+    }
 }
+
 @media screen and (max-width: 768px) {
     div.kbs-book-card {
         flex: 0 0 100%;
     }
+
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul {
+        flex-direction: column;
+        margin: 4rem 0 0 0;
+        padding: 0;
+    }
+
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li {
+        flex-direction: column;
+    }
+
+
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li::before,
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li::after {
+        content: " ";
+        position: relative;
+        top: -1.2rem;
+        left: 0;
+        display: flex;
+        width: 10px;
+        height: 100px;
+        background-color: #aab5ca;
+    }
+
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li::after {
+        margin-top: 1rem;
+    }
+
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.complete::before,
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.complete::after,
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.in-progress::before,
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.in-progress::after {
+        content: " ";
+        position: relative;
+        top: -1.2rem;
+        left: 0;
+        display: flex;
+        width: 10px;
+        height: 100px;
+        background-color: var(--shades);
+    }
+
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.cancelled::before,
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline ul li.cancelled::after {
+        content: " ";
+        position: relative;
+        top: -1.2rem;
+        left: 0;
+        display: flex;
+        width: 10px;
+        height: 100px;
+        background-color: #f02f2f;
+    }
+
+    section.kbs-order-detail-main-container section.kbs-order-tracking-timeline section.kbs-order-tracking-log {
+        width: 100%;
+    }
+
 }

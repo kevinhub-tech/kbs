@@ -5,7 +5,7 @@
 @section('main.content')
     <section class="kbs-header">
         <h3> <i class="fa-solid fa-heart me-3"></i>My Favourite</h3>
-        <div class="kbs-cart-link-container">
+        <div class="kbs-link-container">
             <h3><a href="{{ route('user.home') }}">Continue to Shopping <i class="fa-solid fa-arrow-right"></i></a></h3>
             @if ($favourited_books->isNotEmpty())
                 <h3 class="kbs-remove-all" data-remove-type="favourite" data-route="{{ route('user.removefavourite') }}"
@@ -77,7 +77,7 @@
                                                         <p class='book-author'>By {{ $book->book_details->author_name }}
                                                         </p>
                                                         @if ($book->book_details->discount === null)
-                                                            <h4>Price : ${{ $book->price }}</h4>
+                                                            <h4>Price : ${{ $book->book_details->price }}</h4>
                                                         @else
                                                             <h4>Price : <span
                                                                     class="original-price">{{ $book->book_details->price }}</span><span
@@ -98,7 +98,13 @@
                                                         </div>
                                                         <label for="" class="mt-3">Total Price:
                                                             $<span id="total-price"
-                                                            original-price='@if($book->book_details->discount === null) {{$book->book_details->price}} @else {{ $book->book_details->discount_price }} @endif'>@if($book->book_details->discount === null) {{$book->book_details->price}} @else {{ $book->book_details->discount_price }} @endif</span>
+                                                                original-price='@if ($book->book_details->discount === null) {{ $book->book_details->price }} @else {{ $book->book_details->discount_price }} @endif'>
+                                                                @if ($book->book_details->discount === null)
+                                                                    {{ $book->book_details->price }}
+                                                                @else
+                                                                    {{ $book->book_details->discount_price }}
+                                                                @endif
+                                                            </span>
                                                         </label>
                                                     </div>
                                                 </div>

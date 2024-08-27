@@ -163,7 +163,7 @@ class UserController extends Controller
             'token' => Uuid::uuid4()->toString(),
             'role_id' => $user_role->role_id
         ]);
-     
+
         SessionHandler::storeSessionDetails($new_user->user_id, $new_user->name, $user_role->role_name, $new_user->token);
         return redirect()->route('user.home');
     }
@@ -175,9 +175,9 @@ class UserController extends Controller
     public function home(Request $request)
     {
         $categories = category::all()->sortBy('category');
-        if($request->category){
-            $books = DB::table('book_categories as bc')->join('books as b', 'b.book_id' , '=', 'bc.book_id')->where('category_id', '=', $request->category)->paginate(20);
-        }else{
+        if ($request->category) {
+            $books = DB::table('book_categories as bc')->join('books as b', 'b.book_id', '=', 'bc.book_id')->where('category_id', '=', $request->category)->paginate(20);
+        } else {
             $query = books::query();
             if ($request->c) {
                 if ($request->c === 'books') {
@@ -186,16 +186,16 @@ class UserController extends Controller
                     $query->where('author_name', 'like', '%' . $request->v  . '%');
                 }
             }
-    
+
             $books = $query->orderBy('book_name')->paginate(20);
         }
-       
+
         foreach ($books as $book) {
-            if($book->discount_id !== null){
-                $discount = discounts::where('discount_id' , '=', $book->discount_id)->first();
+            if ($book->discount_id !== null) {
+                $discount = discounts::where('discount_id', '=', $book->discount_id)->first();
                 $discounted_price = $book->price * $discount->discount_percentage / 100;
                 $book->discount_price =  number_format($book->price -  $discounted_price, 2, '.', "");
-            }   
+            }
             $review_count = DB::table('book_review')->where('book_id', '=', $book->book_id)->count();
             if ($review_count > 0) {
                 $avg_review = DB::table('book_review')->where('book_id', '=', $book->book_id)->avg('rating');
@@ -218,7 +218,7 @@ class UserController extends Controller
 
         foreach ($cart_items as $cart_item) {
             $book_details = books::where('book_id', '=', $cart_item->book_id)->first();
-            if($book_details->discount !== null){
+            if ($book_details->discount !== null) {
                 $discounted_price = $book_details->price * $book_details->discount->discount_percentage / 100;
                 $book_details->discount_price =  number_format($book_details->price -  $discounted_price, 2, '.', "");
             }
@@ -233,7 +233,7 @@ class UserController extends Controller
         foreach ($favourited_books as $favourited_book) {
             $book_details = books::where('book_id', '=', $favourited_book->book_id)->first();
             $review_count = DB::table('book_review')->where('book_id', '=', $favourited_book->book_id)->count();
-            if($book_details->discount !== null){
+            if ($book_details->discount !== null) {
                 $discounted_price = $book_details->price * $book_details->discount->discount_percentage / 100;
                 $book_details->discount_price =  number_format($book_details->price -  $discounted_price, 2, '.', "");
             }
@@ -251,13 +251,13 @@ class UserController extends Controller
     public function book(String $id)
     {
         $book = books::where('book_id', '=', $id)->first();
-        $categories = DB::table('book_categories as bc')->join('categories as c', 'c.category_id' , '=', 'bc.category_id')->where('book_id', '=', $id)->orderBy('c.category')->get();
+        $categories = DB::table('book_categories as bc')->join('categories as c', 'c.category_id', '=', 'bc.category_id')->where('book_id', '=', $id)->orderBy('c.category')->get();
         $book->categories = $categories;
         $review_count = DB::table('book_review')->where('book_id', '=', $id)->count();
-        if($book->discount !== null){
+        if ($book->discount !== null) {
             $discounted_price = $book->price * $book->discount->discount_percentage / 100;
             $book->discount_price =  number_format($book->price -  $discounted_price, 2, '.', "");
-        }   
+        }
         if ($review_count > 0) {
             $avg_review = DB::table('book_review')->where('book_id', '=', $id)->avg('rating');
             $book->review = $avg_review;
@@ -268,21 +268,22 @@ class UserController extends Controller
         return view('users.book', compact('book', 'vendor_info'));
     }
 
-    public function checkout(String $location){
-        if($location === 'c'){
+    public function checkout(String $location)
+    {
+        if ($location === 'c') {
             $order_items = DB::table('user_cart as uc')->where('user_id', '=', session('userId'))->get();
 
             foreach ($order_items as $order_item) {
                 $book_details = books::where('book_id', '=', $order_item->book_id)->first();
-                if($book_details->discount !== null){
+                if ($book_details->discount !== null) {
                     $discounted_price = $book_details->price * $book_details->discount->discount_percentage / 100;
                     $book_details->discount_price =  number_format($book_details->price -  $discounted_price, 2, '.', "");
                 }
                 $order_item->book_details = $book_details;
             }
-        }else{
+        } else {
             $order_items = books::where('book_id', '=', $location)->first();
-            if($order_items->discount !== null){
+            if ($order_items->discount !== null) {
                 $discounted_price = $order_items->price * $order_items->discount->discount_percentage / 100;
                 $order_items->discount_price =  number_format($order_items->price -  $discounted_price, 2, '.', "");
             }
@@ -291,9 +292,12 @@ class UserController extends Controller
         return view('users.checkout', compact('location', 'order_items', 'addresses'));
     }
 
-    public function orderdetail(Request $request){
-        $order = orders::where('order_number', '=', $request->id)->first();
-        return view('users.order-detail', compact('order'));
+    public function orderdetail(Request $request)
+    {
+        $order = orders::where('order_number', '=', $request->id)->where('created_by', '=', self::$user_id)->first();
+        $book_details = DB::table('ordered_book as ob')->join('books as b', 'b.book_id', '=', 'ob.book_id')->where('order_id', '=', $order->order_id)->get();
+        $order_status = DB::table('order_status')->where('order_id', '=', $order->order_id)->get();
+        return view('users.order-detail', compact('order', 'order_status', 'book_details'));
     }
     /**
      * API logic code starts here
@@ -458,12 +462,13 @@ class UserController extends Controller
             ], Response::HTTP_ACCEPTED);
         }
     }
-  
+
     /**
      * Order API logic code starts here
      */
-    public function sendorder(Request $request){
-    
+    public function sendorder(Request $request)
+    {
+
         $request->validate([
             'address_id' => ['required'],
             'billing_address_id' => ['required'],
@@ -484,8 +489,8 @@ class UserController extends Controller
             'created_at' => now()
         ]);
 
-        if($order){
-            foreach($request->order_book_mapping as $order_book_mapping){
+        if ($order) {
+            foreach ($request->order_book_mapping as $order_book_mapping) {
                 DB::table('ordered_book')->insert([
                     'order_id' => $order->order_id,
                     'book_id' => $order_book_mapping['book_id'],
@@ -505,7 +510,7 @@ class UserController extends Controller
                 'sequence' => 0,
                 'created_at' => now()
             ]);
-            if($order_status){
+            if ($order_status) {
 
                 return response()->json([
                     'status' => 'success',
@@ -515,10 +520,6 @@ class UserController extends Controller
                     ]
                 ], Response::HTTP_ACCEPTED);
             }
-
         }
-   
-
-        
     }
 }

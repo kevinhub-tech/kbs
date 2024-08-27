@@ -5,7 +5,7 @@
 @section('main.content')
     <section class="kbs-header">
         <h3> <i class="fa-solid fa-cart-shopping me-3"></i>My Cart</h3>
-        <div class="kbs-cart-link-container">
+        <div class="kbs-link-container">
             <h3><a href="{{ route('user.home') }}">Continue to Shopping <i class="fa-solid fa-arrow-right"></i></a></h3>
             @if ($cart_items->isNotEmpty())
                 <h3 class="kbs-remove-all" data-remove-type="cart" data-route="{{ route('user.removecart') }}"
@@ -52,9 +52,11 @@
                         <div class="kbs-cart-book-price">
                             <h3>Book Price</h3>
                             @if ($cart_item->book_details->discount === null)
-                                <h4 data-price={{$cart_item->book_details->price}}> ${{ $cart_item->book_details->price }}</h4>
+                                <h4 data-price={{ $cart_item->book_details->price }}>
+                                    ${{ $cart_item->book_details->price }}</h4>
                             @else
-                                <h4 data-price={{$cart_item->book_details->discount_price}}> <span class="original-price"> ${{ $cart_item->book_details->price }}</span><span
+                                <h4 data-price={{ $cart_item->book_details->discount_price }}> <span
+                                        class="original-price"> ${{ $cart_item->book_details->price }}</span><span
                                         class="discounted-price"> ${{ $cart_item->book_details->discount_price }}</span>
                                 </h4>
                             @endif
@@ -88,7 +90,7 @@
 
                     @foreach ($cart_items as $cart_item)
                         <div class="kbs-cart-book-details" data-book-id="{{ $cart_item->book_details->book_id }}"
-                            data-original-price="@if($cart_item->book_details->discount === null) {{$cart_item->book_details->price}} @else {{ $cart_item->book_details->discount_price }} @endif"
+                            data-original-price="@if ($cart_item->book_details->discount === null) {{ $cart_item->book_details->price }} @else {{ $cart_item->book_details->discount_price }} @endif"
                             data-delivery-price="{{ $cart_item->book_details->delivery_fee }}">
                             <h5>{{ $cart_item->book_details->book_name }} x <span
                                     class="quantity">{{ $cart_item->quantity }}</span></h5>
@@ -129,7 +131,9 @@
                         <h5>Total Cost:</h5>
                         <h5>{{ $total_delivery_fee / $cart_items->count() + $total_item_fee }}</h5>
                     </div>
-                    <button class="kbs-check-out" onclick="window.location.href = '{{route('user.checkout',['location' => 'c'])}}'">Check Out</button>
+                    <button class="kbs-check-out"
+                        onclick="window.location.href = '{{ route('user.checkout', ['location' => 'c']) }}'">Check
+                        Out</button>
                 </div>
             </aside>
         </section>
