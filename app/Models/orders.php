@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class orders extends Model
 {
@@ -59,4 +60,14 @@ class orders extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function delivery_address(): HasOne
+    {
+        return $this->hasOne(address::class, 'address_id', 'address_id');
+    }
+
+    public function billing_address(): HasOne
+    {
+        return $this->hasOne(address::class, 'address_id', 'billing_address_id');
+    }
 }
