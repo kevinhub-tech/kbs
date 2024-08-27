@@ -97,23 +97,25 @@ div.swal2-actions button.swal2-cancel:hover {
     transition: all .4s ease;
 }
 
-ul.pagination li.page-item a.page-link{
+ul.pagination li.page-item a.page-link {
     color: var(--shades);
 }
 
-ul.pagination li.page-item.active>span.page-link{
+ul.pagination li.page-item.active>span.page-link {
     background-color: var(--shades);
 }
-nav{
+
+nav {
     font-family: var(--general-font);
 }
+
 nav.kbs-nav-bar {
     background-color: #fff;
     padding: 0.6rem 0;
     height: max-content;
     position: sticky;
     top: 0;
-    z-index: 10000;
+    z-index: 20000;
     box-shadow: 0.1rem 0rem 0.2rem 0.01rem #000000;
 }
 
@@ -469,12 +471,14 @@ section.kbs-book-desc-container div.kbs-book-desc p.author {
 section.kbs-book-desc-container div.kbs-book-desc div.star-rating span.rating {
     font-family: var(--author-vendor-user);
 }
-section.kbs-book-desc-container div.kbs-book-desc div.category-wrapper{
+
+section.kbs-book-desc-container div.kbs-book-desc div.category-wrapper {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
-section.kbs-book-desc-container div.kbs-book-desc div.category-wrapper h5{
+
+section.kbs-book-desc-container div.kbs-book-desc div.category-wrapper h5 {
     font-size: 0.8rem;
     font-family: var(--general-font);
     font-weight: 600;
@@ -491,12 +495,11 @@ section.kbs-book-desc-container div.kbs-book-desc div.modal-body h4 {
     margin: 1rem 0;
 }
 
-section.kbs-book-desc-container div.kbs-book-desc h4.book-price span.original-price
-{
+section.kbs-book-desc-container div.kbs-book-desc h4.book-price span.original-price {
     text-decoration: line-through;
 }
 
-section.kbs-book-desc-container div.kbs-book-desc h4.book-price span.discounted-price{
+section.kbs-book-desc-container div.kbs-book-desc h4.book-price span.discounted-price {
     color: var(--shades);
 }
 
@@ -564,7 +567,7 @@ section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapp
 }
 
 section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper button.kbs-purchase,
-section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper a.kbs-edit{
+section.kbs-book-desc-container div.kbs-book-desc div.kbs-book-desc-button-wrapper a.kbs-edit {
     margin-top: 1rem;
     font-family: var(--heading-nav-bar-title);
     font-weight: 600;
@@ -834,7 +837,7 @@ section.copy-right {
     }
 
     nav.kbs-nav-bar div.main-nav-container ul li a,
-    nav.kbs-nav-bar div.main-nav-container ul li a i{
+    nav.kbs-nav-bar div.main-nav-container ul li a i {
         font-size: 0.8rem;
     }
 }
