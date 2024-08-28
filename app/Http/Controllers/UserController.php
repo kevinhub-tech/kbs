@@ -294,10 +294,10 @@ class UserController extends Controller
 
     public function orderdetail(Request $request)
     {
-        $order = orders::where('order_number', '=', $request->id)->where('created_by', '=', self::$user_id)->first();
+        $order = orders::where('order_number', '=', $request->id)->first();
         $book_details = DB::table('ordered_book as ob')->join('books as b', 'b.book_id', '=', 'ob.book_id')->where('order_id', '=', $order->order_id)->get();
         $order_status = DB::table('order_status')->where('order_id', '=', $order->order_id)->get();
-        return view('users.order-detail', compact('order', 'order_status', 'book_details'));
+        return view('order-detail', compact('order', 'order_status', 'book_details'));
     }
     /**
      * API logic code starts here
