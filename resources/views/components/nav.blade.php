@@ -49,9 +49,9 @@
 
         @if (session('userSignedIn') && session('userRole') === 'vendor')
             <ul>
-                <li><a href="#">Manage Orders</a></li>
-                <li><a href="{{route('vendor.book-listing')}}">Manage Books</a></li>
-                <li><a href="{{route('vendor.discount-listing')}}">Manage Discounts</a></li>
+                <li><a href="{{ route('vendor.order-listing') }}">Manage Orders</a></li>
+                <li><a href="{{ route('vendor.book-listing') }}">Manage Books</a></li>
+                <li><a href="{{ route('vendor.discount-listing') }}">Manage Discounts</a></li>
                 <li>
                     <div class="dropdown show">
                         <a class="nav-links" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
