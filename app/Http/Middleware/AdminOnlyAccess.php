@@ -57,7 +57,7 @@ class AdminOnlyAccess
             if (SessionHandler::isUserAccessAllowed($this->role)) {
                 return $next($request);
             } else {
-                return redirect()->route('accessDeny')->with('accessDeny', $error_message);
+                return redirect()->route('accessDeny')->with('accessDeny', $error_message)->with('roleAccess', 'admin');
             }
         }
     }
