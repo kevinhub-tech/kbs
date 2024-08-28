@@ -14,16 +14,23 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('order_id')->primary();
             $table->string('order_number', 300);
+            $table->uuid('book_id');
+            $table->foreign('book_id')->references('book_id')->on('books')->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('payment_method', ['cod', 'debit/credit']);
+            $table->double('quantity');
+            $table->double('book_price');
+            $table->double('book_deli_price');
+            $table->double('total');
             $table->boolean('refund_state');
             $table->boolean('is_cancelled');
-            $table->double('total');
             $table->uuid('address_id')->nullable();
             $table->foreign('address_id')->references('address_id')->on('user_addresses')->cascadeOnUpdate()->nullOnDelete();
             $table->uuid('billing_address_id')->nullable();
             $table->foreign('billing_address_id')->references('address_id')->on('user_addresses')->cascadeOnUpdate()->nullOnDelete();
-            $table->uuid('created_by');
-            $table->foreign('created_by')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->uuid('vendor_id');
+            $table->foreign('vendor_id')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->uuid('ordered_by');
+            $table->foreign('ordered_by')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamp('paid_at')->nullable();
             $table->timestamp('delivered_at')->nullable();
             $table->timestamp('created_at')->useCurrent();

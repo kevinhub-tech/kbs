@@ -70,4 +70,9 @@ class orders extends Model
     {
         return $this->hasOne(address::class, 'address_id', 'billing_address_id');
     }
+
+    public function order_user(): HasOne
+    {
+        return $this->hasOne(users::class, 'user_id', 'ordered_by');
+    }
 }
