@@ -5,9 +5,11 @@
 @section('main.content')
     <section class="kbs-header">
         <h3> Order #{{ $order->order_number }}</h3>
-        <div class="kbs-link-container">
-            <h3><a href="{{ route('user.home') }}">Continue to Shopping <i class="fa-solid fa-arrow-right"></i></a></h3>
-        </div>
+        @if (session('userSignedIn') && session('userRole') === 'user')
+            <div class="kbs-link-container">
+                <h3><a href="{{ route('user.home') }}">Continue to Shopping <i class="fa-solid fa-arrow-right"></i></a></h3>
+            </div>
+        @endif
     </section>
     <section class="kbs-order-detail-main-container">
         <section class="kbs-order-tracking-timeline">
@@ -147,7 +149,7 @@
         <section class="kbs-order-detail-container">
             <section class="kbs-order-details">
                 <h3>Order Details</h3>
-
+                <p>Order By: {{ $order->order_user->name }}</p>
                 <p>Order Number: {{ $order->order_number }}</p>
                 <p>Order Payment: {{ Str::upper($order->payment_method) }}</p>
                 <p>Order Refund State:
@@ -227,11 +229,12 @@
                     <h5>Total Cost:</h5>
                     <h5>${{ $total_delivery_fee / $book_details->count() + $total_item_fee }}</h5>
                 </div>
-
-                @if (!$is_packed)
-                    <button class="kbs-cancel-order">Cancel Order</button>
-                @elseif($is_delivered)
-                    <button class="kbs-cancel-order">Confirm Order</button>
+                @if (session('userSignedIn') && session('userRole') === 'user')
+                    @if (!$is_packed)
+                        <button class="kbs-cancel-order">Cancel Order</button>
+                    @elseif($is_delivered)
+                        <button class="kbs-cancel-order">Confirm Order</button>
+                    @endif
                 @endif
             </section>
         </section>
