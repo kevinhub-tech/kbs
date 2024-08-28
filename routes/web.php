@@ -11,6 +11,7 @@ Route::controller(VendorController::class)->prefix('vendor')->group(function () 
     Route::middleware('vendor-only')->group(function () {
         Route::get('/book/{id}', 'bookdescription')->name('vendor.bookdesc');
         Route::get('/book-listing', 'booklisting')->name('vendor.book-listing');
+        Route::get('/order-listing', 'orderlisting')->name('vendor.order-listing');
         Route::get('/discount', 'discountlisting')->name('vendor.discount-listing');
         Route::get('/post-book', 'book')->name('vendor.book');
         Route::get('/edit-book/{id?}', 'editbook')->name('vendor.book-edit');
@@ -39,8 +40,11 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
         Route::get('/logout', 'logout')->name("user.logout");
         Route::get('/book/{id}', 'book')->name('user.book');
         Route::get('/checkout/{location?}', 'checkout')->name('user.checkout');
-        Route::get('/order','orderdetail')->name('user.orderdetail');
     });
+    Route::get('/order', 'orderdetail')->name('user.orderdetail');
+    Route::get('/ordertracking', function () {
+        return view('order-tracking');
+    })->name('user.ordertracking');
     Route::post('/signin', 'signin')->name('user.manuallogin');
     Route::post('/signup', 'signup')->name('user.manualregister');
 
