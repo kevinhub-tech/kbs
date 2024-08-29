@@ -14,12 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('order_id')->primary();
             $table->string('order_number', 300);
-            $table->uuid('book_id');
-            $table->foreign('book_id')->references('book_id')->on('books')->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('payment_method', ['cod', 'debit/credit']);
-            $table->double('quantity');
-            $table->double('book_price');
-            $table->double('book_deli_price');
             $table->double('total');
             $table->boolean('refund_state');
             $table->boolean('is_cancelled');
