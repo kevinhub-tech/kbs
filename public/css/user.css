@@ -386,13 +386,12 @@ section.kbs-favourite-empty h3 {
 
 section.kbs-main-cart-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 1rem;
     margin-top: 1rem;
 }
 
 section.kbs-cart-container {
-    width: 80%;
     display: flex;
     flex-direction: column;
 }
@@ -426,6 +425,8 @@ div.kbs-cart-card div.kbs-cart-book-title h3,
 div.kbs-cart-card div.kbs-cart-book-quantity h3,
 div.kbs-cart-card div.kbs-cart-book-price h3,
 div.kbs-cart-card div.kbs-cart-book-subtotal-price h3,
+div.kbs-cart-card div.kbs-cart-delivery-fee-price h3,
+div.kbs-cart-card div.kbs-cart-total-price h3,
 section.kbs-address-container div.kbs-address-card h4 {
     font-size: 1.2rem;
     text-align: center;
@@ -437,6 +438,8 @@ section.kbs-address-container div.kbs-address-card h4 {
 
 div.kbs-cart-card div.kbs-cart-book-title h4,
 div.kbs-cart-card div.kbs-cart-book-price h4,
+div.kbs-cart-card div.kbs-cart-delivery-fee-price h4,
+div.kbs-cart-card div.kbs-cart-total-price h4,
 div.kbs-cart-card div.kbs-cart-book-subtotal-price h4 {
     margin: 0;
     padding: 0;
@@ -447,7 +450,9 @@ div.kbs-cart-card div.kbs-cart-book-subtotal-price h4 {
 }
 
 div.kbs-cart-card div.kbs-cart-book-price h4,
-div.kbs-cart-card div.kbs-cart-book-subtotal-price h4 {
+div.kbs-cart-card div.kbs-cart-book-subtotal-price h4,
+div.kbs-cart-card div.kbs-cart-delivery-fee-price h4,
+div.kbs-cart-card div.kbs-cart-total-price h4 {
     margin-top: 1.5rem;
     text-align: center;
 }
@@ -509,7 +514,6 @@ div.kbs-cart-card i.fa-solid.fa-check:hover {
 }
 
 aside.kbs-cart-summary-container {
-    width: 20%;
     background-color: var(--main-color);
     padding: 1rem 2rem;
     border-radius: 0.5rem;
@@ -775,7 +779,8 @@ section.kbs-checkout-addresspayment-container section.kbs-address-container div.
     text-align: center;
 }
 
-section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round+h3 {
+section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round+h3,
+section.kbs-main-cart-container section.kbs-cart-container div.kbs-cart-card div.round+h3 {
     font-family: var(--general-font);
     font-weight: 500;
     font-size: 1rem;
@@ -784,14 +789,16 @@ section.kbs-checkout-addresspayment-container section.kbs-address-container form
 
 section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round,
 section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round,
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round {
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round,
+section.kbs-main-cart-container section.kbs-cart-container div.kbs-cart-card div.round {
     position: relative;
     margin: auto 0;
 }
 
 section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round label,
 section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round label.checkbox,
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round label {
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round label,
+section.kbs-main-cart-container section.kbs-cart-container div.kbs-cart-card div.round label {
     background-color: #fff;
     border: 1px solid var(--shades);
     border-radius: 50%;
@@ -805,7 +812,8 @@ section.kbs-checkout-addresspayment-container section.kbs-payment-container div.
 
 section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round label:after,
 section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round label.checkbox:after,
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round label:after {
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round label:after,
+section.kbs-main-cart-container section.kbs-cart-container div.kbs-cart-card div.round label:after {
     border: 2px solid #fff;
     border-top: none;
     border-right: none;
@@ -821,20 +829,23 @@ section.kbs-checkout-addresspayment-container section.kbs-payment-container div.
 
 section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round input[type="checkbox"],
 section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round input[type="checkbox"],
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"] {
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"],
+section.kbs-main-cart-container section.kbs-cart-container div.kbs-cart-card div.round input[type="checkbox"] {
     visibility: hidden;
 }
 
 section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round input[type="checkbox"]:checked+label,
 section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round input[type="checkbox"]:checked+label.checkbox,
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"]:checked+label {
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"]:checked+label,
+section.kbs-main-cart-container section.kbs-cart-container div.kbs-cart-card div.round input[type="checkbox"]:checked+label {
     background-color: var(--shades);
     border-color: var(--shades);
 }
 
 section.kbs-checkout-addresspayment-container section.kbs-address-container div.kbs-address-card div.round input[type="checkbox"]:checked+label:after,
 section.kbs-checkout-addresspayment-container section.kbs-address-container form div.round input[type="checkbox"]:checked+label.checkbox:after,
-section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"]:checked+label:after {
+section.kbs-checkout-addresspayment-container section.kbs-payment-container div.kbs-payment-card div.round input[type="checkbox"]:checked+label:after,
+section.kbs-main-cart-container section.kbs-cart-container div.kbs-cart-card div.round input[type="checkbox"]:checked+label:after {
     opacity: 1;
 }
 

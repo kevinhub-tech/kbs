@@ -11,7 +11,6 @@
                 <h3 class="kbs-remove-all" data-remove-type="cart" data-route="{{ route('user.removecart') }}"
                     data-token="{{ session('userToken') }}">Remove All <i class="fa-solid fa-x"></i></h3>
             @endif
-
         </div>
 
     </section>
@@ -28,7 +27,20 @@
             {{-- Cart items --}}
             <section class="kbs-cart-container">
                 @foreach ($cart_items as $cart_item)
-                    <div class="kbs-cart-card" data-book-id={{ $cart_item->book_details->book_id }}>
+                    <div class="kbs-cart-card" data-book-id={{ $cart_item->book_details->book_id }}
+                        data-quantity="{{ $cart_item->quantity }}"
+                        data-delivery-fee="{{ $cart_item->book_details->delivery_fee }}">
+                        <div class="round">
+                            <input type="checkbox" value="{{ $cart_item->book_details->book_id }}"
+                                name="{{ $cart_item->book_details->book_id }}"
+                                data-original-price="@if ($cart_item->book_details->discount === null) {{ $cart_item->book_details->price }} @else {{ $cart_item->book_details->discount_price }} @endif "
+                                data-delivery-price="{{ $cart_item->book_details->delivery_fee }}"
+                                data-vendor-id="{{ $cart_item->book_details->created_by }}"
+                                data-quantity="{{ $cart_item->quantity }}"
+                                data-title="{{ $cart_item->book_details->book_name }}"
+                                id="{{ $cart_item->book_details->book_id }}" checked />
+                            <label class="checkbox" for="{{ $cart_item->book_details->book_id }}"></label>
+                        </div>
                         <h3 class="kbs-cart-serial-number">{{ $loop->iteration }}</h3>
                         <div class="kbs-cart-book-image">
                             <img src="{{ route('get-image', ['image' => $cart_item->book_details->image]) }}"
@@ -64,14 +76,38 @@
 
                         </div>
                         <div class="kbs-cart-book-subtotal-price">
-                            <h3>Sub Total</h3>
+                            <h3>Total Sub Book Cost</h3>
                             @if ($cart_item->book_details->discount === null)
-                                <h4>{{ $cart_item->book_details->price * $cart_item->quantity }}</h4>
+                                <h4>{{ $cart_item->book_details->price * $cart_item->quantity }}
+                                </h4>
                             @else
-                                <h4>{{ $cart_item->book_details->discount_price * $cart_item->quantity }}</h4>
+                                <h4>{{ $cart_item->book_details->discount_price * $cart_item->quantity }}
+                                </h4>
                             @endif
 
                         </div>
+                        <div class="kbs-cart-delivery-fee-price">
+                            <h3>Delivery Fee</h3>
+                            <h4>{{ $cart_item->book_details->delivery_fee }}</h4>
+                        </div>
+
+
+                        <div class="kbs-cart-total-price">
+                            <h3>Total</h3>
+                            @if ($cart_item->book_details->discount === null)
+                                <h4 data-price={{ $cart_item->book_details->price }}
+                                    data-delivery-fee={{ $cart_item->book_details->delivery_fee }}>
+                                    {{ $cart_item->book_details->price * $cart_item->quantity + $cart_item->book_details->delivery_fee }}
+                                </h4>
+                            @else
+                                <h4 data-price={{ $cart_item->book_details->discount_price }}
+                                    data-delivery-fee={{ $cart_item->book_details->delivery_fee }}>
+                                    {{ $cart_item->book_details->discount_price * $cart_item->quantity + $cart_item->book_details->delivery_fee }}
+                                </h4>
+                            @endif
+
+                        </div>
+
                         <div class="kbs-cart-action">
                             <i class="fa-solid fa-check" data-quantity="{{ $cart_item->quantity }}"
                                 data-book-id="{{ $cart_item->book_details->book_id }}"
@@ -87,54 +123,68 @@
             <aside class="kbs-cart-summary-container">
                 <div class="kbs-cart-summary">
                     <h3>Cart Summary</h3>
+                    <section class="kbs-cart-book-details-container">
 
-                    @foreach ($cart_items as $cart_item)
-                        <div class="kbs-cart-book-details" data-book-id="{{ $cart_item->book_details->book_id }}"
-                            data-original-price="@if ($cart_item->book_details->discount === null) {{ $cart_item->book_details->price }} @else {{ $cart_item->book_details->discount_price }} @endif"
-                            data-delivery-price="{{ $cart_item->book_details->delivery_fee }}">
-                            <h5>{{ $cart_item->book_details->book_name }} x <span
-                                    class="quantity">{{ $cart_item->quantity }}</span></h5>
-                            @if ($cart_item->book_details->discount === null)
-                                <h5>{{ $cart_item->book_details->price * $cart_item->quantity }}</h5>
-                            @else
-                                <h5>{{ $cart_item->book_details->discount_price * $cart_item->quantity }}</h5>
-                            @endif
-                        </div>
-                    @endforeach
 
+                        @foreach ($cart_items as $cart_item)
+                            <div class="kbs-cart-book-details" data-book-id="{{ $cart_item->book_details->book_id }}"
+                                data-original-price="@if ($cart_item->book_details->discount === null) {{ $cart_item->book_details->price }} @else {{ $cart_item->book_details->discount_price }} @endif"
+                                data-delivery-price="{{ $cart_item->book_details->delivery_fee }}"
+                                data-vendor-id="{{ $cart_item->book_details->created_by }}">
+                                <h5>{{ $cart_item->book_details->book_name }} x <span
+                                        class="quantity">{{ $cart_item->quantity }}</span></h5>
+                                @if ($cart_item->book_details->discount === null)
+                                    <h5>{{ $cart_item->book_details->price * $cart_item->quantity }}</h5>
+                                @else
+                                    <h5>{{ $cart_item->book_details->discount_price * $cart_item->quantity }}</h5>
+                                @endif
+                            </div>
+                        @endforeach
+                    </section>
                     <hr>
 
                     @php
                         $total_delivery_fee = 0;
                         $total_item_fee = 0;
-                    @endphp
-                    @foreach ($cart_items as $cart_item)
-                        @php
-                            $total_delivery_fee += $cart_item->book_details->delivery_fee;
-                            if ($cart_item->book_details->discount === null) {
-                                $total_item_fee += $cart_item->book_details->price * $cart_item->quantity;
-                            } else {
-                                $total_item_fee += $cart_item->book_details->discount_price * $cart_item->quantity;
+                        foreach ($sorted_books as $sorted_book) {
+                            $book_count = count($sorted_book);
+                            $delivery_fee = 0;
+                            foreach ($sorted_book as $book) {
+                                $cart_book = $cart_items
+                                    ->filter(function ($value, $key) use ($book) {
+                                        return $value->book_details->book_id === $book->book_id;
+                                    })
+                                    ->first();
+
+                                $delivery_fee += $book->delivery_fee;
+                                if ($book->discount === null) {
+                                    $total_item_fee += $book->price * $cart_book->quantity;
+                                } else {
+                                    $total_item_fee += $book->price * $cart_book->quantity;
+                                }
                             }
-                        @endphp
-                    @endforeach
+                            $total_delivery_fee = $delivery_fee / $book_count;
+                        }
+                    @endphp
+
                     <div class="kbs-cart-book-cost">
                         <h5 class="total-price">Total Book Price:</h5>
                         <h5>${{ $total_item_fee }}</h5>
                     </div>
                     <div class="kbs-cart-book-delivery-cost">
                         <h5>Delivery Fee:</h5>
-                        <h5>{{ $total_delivery_fee / $cart_items->count() }}</h5>
+                        <h5>{{ $total_delivery_fee }}</h5>
                     </div>
                     <hr>
                     <div class="kbs-cart-book-total-cost">
                         <h5>Total Cost:</h5>
-                        <h5>{{ $total_delivery_fee / $cart_items->count() + $total_item_fee }}</h5>
+                        <h5>{{ $total_delivery_fee + $total_item_fee }}</h5>
                     </div>
-                    <button class="kbs-check-out"
-                        onclick="window.location.href = '{{ route('user.checkout', ['location' => 'c']) }}'">Check
-                        Out</button>
+
                 </div>
+                <button class="kbs-check-out"
+                    onclick="window.location.href = '{{ route('user.checkout', ['location' => 'c']) }}'">Check
+                    Out</button>
             </aside>
         </section>
     @endif

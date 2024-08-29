@@ -113,115 +113,15 @@
                 @endif
 
                 <button class="kbs-confirm-order" data-route="{{ route('user.sendorder') }}"
-                    data-token="{{ session('userToken') }}" data-redirect-url="{{ route('user.orderdetail') }}">Check
-                    Out</button>
+                    data-token="{{ session('userToken') }}" data-redirect-url="{{ route('user.orderdetail') }}">Confirm
+                    Order
+                </button>
             </div>
         </aside>
     </section>
 @endsection
 @push('scripts')
     <script>
-        $('input[type="checkbox"]').on('click', function(event) {
-            let addressId = $(this).data('addressId');
-            let checkboxParentSection = $(this).parent().parent().parent();
-            $(checkboxParentSection).children().each((index, element) => {
-                if ($(element).prop('nodeName') === 'DIV') {
-                    let checkbox = $(element).children().eq(0).children().eq(0);
-                    if (checkbox.data('addressId') !== addressId) {
-                        checkbox.prop('checked', false);
-                    } else {
-                        checkbox.prop('checked', true);
-                    }
-                }
-            });
-        });
-
-        $('button.kbs-confirm-order').on('click', function(event) {
-            let addressId = $('input[type="checkbox"][name="address"]:checked').val();
-            let billingAddressId = $('input[type="checkbox"][name="billing_address"]:checked').val();
-            let payment = $('input[type="checkbox"][name="payment"]:checked').val();
-            let total = parseFloat($('div.kbs-order-book-total-cost').children().eq(1).children().eq(0).html());
-            let route = $(this).data('route');
-            let token = $(this).data('token');
-            let redirectUrl = $(this).data('redirectUrl');
-            let orderedBooks = [];
-            $('div.kbs-order-book-details').each((index, div) => {
-                let bookId = $(div).data('bookId');
-                let price = $(div).data('originalPrice');
-                let deliveryFee = $(div).data('deliveryPrice');
-                let quantity = $(div).data('quantity');
-                orderedBooks[index] = {
-                    book_id: bookId,
-                    quantity: quantity,
-                    ordered_book_price: price,
-                    ordered_book_delivery_fee: deliveryFee
-                }
-            })
-            $.ajax({
-                url: route,
-                method: 'POST',
-                headers: {
-                    Accept: "application/json",
-                    Authorization: token
-                },
-                data: {
-                    address_id: addressId,
-                    billing_address_id: billingAddressId,
-                    payment: payment,
-                    total: total,
-                    order_book_mapping: orderedBooks
-                },
-                success: (res) => {
-                    if (res.status === 'success') {
-                        toast('success', res.message);
-
-                        let order_number = res.payload.order_number
-                        setTimeout(() => {
-                            window.location.href = redirectUrl + '?' + 'id=' + order_number;
-                        }, 1500);
-                    }
-                },
-                error: (jqXHR, exception) => {
-                    var errorMessage = "";
-
-                    if (jqXHR.status === 0) {
-                        errorMessage =
-                            "Not connect.\n Verify Network.";
-                    } else if (jqXHR.status == 404) {
-                        errorMessage =
-                            "Requested page not found. [404]";
-                    } else if (jqXHR.status == 409) {
-                        errorMessage = jqXHR.responseJSON.message;
-                    } else if (jqXHR.status == 500) {
-                        errorMessage =
-                            "Internal Server Error [500].";
-                    } else if (exception === "parsererror") {
-                        errorMessage =
-                            "Requested JSON parse failed.";
-                    } else if (exception === "timeout") {
-                        errorMessage = "Time out error.";
-                    } else if (exception === "abort") {
-                        errorMessage = "Ajax request aborted.";
-                    } else {
-                        let html = ''
-                        Object.values(jqXHR.responseJSON.errors).forEach((
-                            err) => {
-                            err.forEach((e) => {
-                                html += `${e} <hr />`;
-                            });
-                        });
-                        Swal.fire({
-                            title: 'Error!',
-                            html: html,
-                            icon: 'error',
-                            animation: true,
-                            showConfirmButton: true,
-                        })
-                        return;
-                    }
-                    toast("error", errorMessage);
-                }
-            })
-        })
+        checkoutFunction();
     </script>
 @endpush

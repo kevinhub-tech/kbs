@@ -332,7 +332,6 @@ const homeFunction = () => {
     });
 
     $('aside.kbs-book-categories ul li a').on('click', (e) => {
-        let searchIcon = e.currentTarget;
         let route = e.currentTarget.dataset.route;
         let category = e.currentTarget.dataset.categoryId;
         window.location.href = route + '?category=' + category;
@@ -347,39 +346,76 @@ const cartFunction = () => {
 
         let totalLatestBookCost = 0;
         let totalDeliveryFee = 0;
-        let totalBookCount = 0;
+        let vendorId = [];
         $('div.kbs-cart-book-details').each((index, div) => {
-            totalLatestBookCost += parseFloat($(div).children()
-                .eq(1).html());
-
-
-            totalDeliveryFee += parseFloat($(div).data(
-                'deliveryPrice'));
-            totalBookCount = index + 1;
+            if (!vendorId.includes($(div).data(
+                'vendorId'))) {
+                vendorId.push($(div).data(
+                    'vendorId'))
+            }
         })
-        let finalUpdatedDeliveryFee = totalDeliveryFee / totalBookCount;
+
+        vendorId.forEach((id, index) => {
+            let deliveryFee = 0;
+            let bookCount = 0;
+            $(`div.kbs-cart-book-details[data-vendor-id=${id}]`).each((index, div) => {
+
+                totalLatestBookCost += parseFloat($(div).children()
+                    .eq(1).html());
+
+                deliveryFee += parseFloat($(div).data(
+                    'deliveryPrice'));
+                bookCount = index + 1;
+            })
+
+            totalDeliveryFee += deliveryFee / bookCount;
+        })
+
+
         $('div.kbs-cart-book-cost').children().eq(1).html(
             totalLatestBookCost);
 
         $('div.kbs-cart-book-delivery-cost').children().eq(1)
             .html(
-                finalUpdatedDeliveryFee);
+                totalDeliveryFee);
 
         let finalUpdatedSumCost = totalLatestBookCost +
-            finalUpdatedDeliveryFee;
+            totalDeliveryFee;
         $('div.kbs-cart-book-total-cost').children().eq(1)
             .html(
                 finalUpdatedSumCost.toFixed(2));
     }
+
+    $("input[type='checkbox']").on('click', function (e) {
+        let bookId = $(this).val();
+        let price = $(this).data('originalPrice');
+        let deliPrice = $(this).data('deliveryPrice');
+        let bookTitle = $(this).data('title');
+        let bookQuantity = $(this).data('quantity');
+        let vendorId = $(this).data('vendorId');
+        if ($(this).prop("checked")) {
+            let selectedBook = `
+            <div class="kbs-cart-book-details" data-book-id="${bookId}" data-original-price=" ${price} " data-delivery-price="${deliPrice}" data-vendor-id="${vendorId}">
+                            <h5>${bookTitle} x <span class="quantity">${bookQuantity}</span></h5>
+                                                            <h5>${price * bookQuantity}</h5>
+                                                    </div>`
+
+            $('section.kbs-cart-book-details-container').append(selectedBook);
+        } else {
+            $(`div.kbs-cart-book-details[data-book-id='${bookId}']`)
+                .remove();
+        }
+        updateTotalSection();
+    })
     $("div.kbs-cart-book-quantity button").on('click', function (e) {
         let button = e.currentTarget;
         let buttonClassName = e.currentTarget.className
         let stock = parseInt(button.dataset.stock);
-
-        let totalPriceElement = button.parentElement.nextElementSibling.nextElementSibling.children[1];
-        let totalPrice = parseFloat(button.parentElement.nextElementSibling.children[1]
-            .dataset.price);
-        let addButton = button.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[
+        let totalSubBookPriceElement = button.parentElement.nextElementSibling.nextElementSibling.children[1];
+        let totalPriceElement = button.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.children[1];
+        let totalPrice = parseFloat(totalPriceElement.dataset.price);
+        let DeliveryFee = parseFloat(totalPriceElement.dataset.deliveryFee);
+        let addButton = button.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.children[
             0];
         $(addButton).css('display', 'inline-block');
         if (buttonClassName === 'add-quantity') {
@@ -396,6 +432,8 @@ const cartFunction = () => {
                 quantityElement.innerHTML = quantity;
             }
             totalPrice *= quantity;
+            totalSubBookPriceElement.innerHTML = totalPrice.toFixed(2);
+            totalPrice += DeliveryFee;
             totalPriceElement.innerHTML = totalPrice.toFixed(2);
             addButton.dataset.quantity = quantity;
         } else {
@@ -413,7 +451,9 @@ const cartFunction = () => {
                 quantityElement.innerHTML = quantity;
             }
             totalPrice *= quantity;
-            totalPriceElement.innerHTML = totalPrice;
+            totalSubBookPriceElement.innerHTML = totalPrice.toFixed(2);
+            totalPrice += DeliveryFee;
+            totalPriceElement.innerHTML = totalPrice.toFixed(2);
             addButton.dataset.quantity = quantity;
         }
     })
@@ -724,6 +764,115 @@ const favouriteFunction = () => {
                 })
             } else if (result.isDenied) {
                 Swal.close();
+            }
+        })
+    })
+}
+
+/**
+ * Checkout function starts here
+ *  */
+
+const checkoutFunction = () => {
+    $('input[type="checkbox"]').on('click', function (event) {
+        let addressId = $(this).data('addressId');
+        let checkboxParentSection = $(this).parent().parent().parent();
+        $(checkboxParentSection).children().each((index, element) => {
+            if ($(element).prop('nodeName') === 'DIV') {
+                let checkbox = $(element).children().eq(0).children().eq(0);
+                if (checkbox.data('addressId') !== addressId) {
+                    checkbox.prop('checked', false);
+                } else {
+                    checkbox.prop('checked', true);
+                }
+            }
+        });
+    });
+
+    $('button.kbs-confirm-order').on('click', function (event) {
+        let addressId = $('input[type="checkbox"][name="address"]:checked').val();
+        let billingAddressId = $('input[type="checkbox"][name="billing_address"]:checked').val();
+        let payment = $('input[type="checkbox"][name="payment"]:checked').val();
+        let total = parseFloat($('div.kbs-order-book-total-cost').children().eq(1).children().eq(0).html());
+        let route = $(this).data('route');
+        let token = $(this).data('token');
+        let redirectUrl = $(this).data('redirectUrl');
+        let orderedBooks = [];
+        $('div.kbs-order-book-details').each((index, div) => {
+            let bookId = $(div).data('bookId');
+            let price = $(div).data('originalPrice');
+            let deliveryFee = $(div).data('deliveryPrice');
+            let quantity = $(div).data('quantity');
+            orderedBooks[index] = {
+                book_id: bookId,
+                quantity: quantity,
+                ordered_book_price: price,
+                ordered_book_delivery_fee: deliveryFee
+            }
+        })
+        $.ajax({
+            url: route,
+            method: 'POST',
+            headers: {
+                Accept: "application/json",
+                Authorization: token
+            },
+            data: {
+                address_id: addressId,
+                billing_address_id: billingAddressId,
+                payment: payment,
+                total: total,
+                order_book_mapping: orderedBooks
+            },
+            success: (res) => {
+                if (res.status === 'success') {
+                    toast('success', res.message);
+
+                    let order_number = res.payload.order_number
+                    setTimeout(() => {
+                        window.location.href = redirectUrl + '?' + 'id=' + order_number;
+                    }, 1500);
+                }
+            },
+            error: (jqXHR, exception) => {
+                var errorMessage = "";
+
+                if (jqXHR.status === 0) {
+                    errorMessage =
+                        "Not connect.\n Verify Network.";
+                } else if (jqXHR.status == 404) {
+                    errorMessage =
+                        "Requested page not found. [404]";
+                } else if (jqXHR.status == 409) {
+                    errorMessage = jqXHR.responseJSON.message;
+                } else if (jqXHR.status == 500) {
+                    errorMessage =
+                        "Internal Server Error [500].";
+                } else if (exception === "parsererror") {
+                    errorMessage =
+                        "Requested JSON parse failed.";
+                } else if (exception === "timeout") {
+                    errorMessage = "Time out error.";
+                } else if (exception === "abort") {
+                    errorMessage = "Ajax request aborted.";
+                } else {
+                    let html = ''
+                    Object.values(jqXHR.responseJSON.errors).forEach((
+                        err) => {
+                        err.forEach((e) => {
+                            html += `${e} <hr />`;
+                        });
+                    });
+                    Swal.fire({
+                        title: 'Error!',
+                        html: html,
+                        icon: 'error',
+                        animation: true,
+                        showConfirmButton: true,
+                    })
+                    return;
+                }
+                toast("error", errorMessage);
             }
         })
     })

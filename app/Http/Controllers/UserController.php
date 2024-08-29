@@ -215,16 +215,20 @@ class UserController extends Controller
     public function cart()
     {
         $cart_items = DB::table('user_cart')->where('user_id', '=', self::$user_id)->get();
-
+        $sorted_books = [];
         foreach ($cart_items as $cart_item) {
+
             $book_details = books::where('book_id', '=', $cart_item->book_id)->first();
             if ($book_details->discount !== null) {
                 $discounted_price = $book_details->price * $book_details->discount->discount_percentage / 100;
                 $book_details->discount_price =  number_format($book_details->price -  $discounted_price, 2, '.', "");
             }
+            $sorted_books[$book_details->created_by][] = $book_details;
             $cart_item->book_details = $book_details;
         }
-        return view('users.cart', compact('cart_items'));
+
+
+        return view('users.cart', compact('cart_items', 'sorted_books'));
     }
 
     public function favourite()
