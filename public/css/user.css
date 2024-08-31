@@ -888,11 +888,42 @@ section.kbs-checkout-addresspayment-container section.kbs-payment-container div.
 
 aside.kbs-order-container {
     width: 30%;
-    background-color: var(--main-color);
-    padding: 1rem;
+    /* background-color: var(--main-color); */
     border-radius: 0.5rem;
     height: max-content;
 }
+
+aside.kbs-order-container h3.kbs-order-container-heading {
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+aside.kbs-order-container div.kbs-order-summary {
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+aside.kbs-order-container div.kbs-order-summary h4 {
+    font-family: var(--heading-nav-bar-title);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+aside.kbs-order-container div.kbs-order-summary h5.kbs-order-book-vendor {
+    font-family: var(--author-vendor-user);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+aside.kbs-order-container div.kbs-order-summary h5.kbs-order-book-vendor a {
+    text-decoration: none;
+    color: var(--shades);
+}
+
 
 /* 
     Checkout Page CSS ends here

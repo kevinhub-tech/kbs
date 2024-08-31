@@ -663,6 +663,29 @@ const cartFunction = () => {
             }
         })
     })
+
+    $('button[name="cart-check-out"]').on('click', function (e) {
+        let route = $(this).data('route');
+        let bookIds = [];
+        $('input[type="checkbox"]').each((key, input) => {
+            if ($(input).prop('checked')) {
+                bookIds.push($(input).val());
+            }
+        })
+
+        let redirectRoute = route + '?';
+
+
+        bookIds.forEach((value, key) => {
+            if (bookIds.length - 1 === key) {
+                redirectRoute += `ids[]=${value}`;
+            } else {
+                redirectRoute += `ids[]=${value}&`;
+            }
+
+        })
+        window.location.href = redirectRoute
+    })
 }
 
 /**
@@ -774,11 +797,12 @@ const favouriteFunction = () => {
  *  */
 
 const checkoutFunction = () => {
+
     $('input[type="checkbox"]').on('click', function (event) {
         let addressId = $(this).data('addressId');
         let checkboxParentSection = $(this).parent().parent().parent();
         $(checkboxParentSection).children().each((index, element) => {
-            if ($(element).prop('nodeName') === 'DIV') {
+            if ($(element).prop('nodeName') === 'DIV' && $(element).hasClass('kbs-address-card')) {
                 let checkbox = $(element).children().eq(0).children().eq(0);
                 if (checkbox.data('addressId') !== addressId) {
                     checkbox.prop('checked', false);
@@ -790,26 +814,53 @@ const checkoutFunction = () => {
     });
 
     $('button.kbs-confirm-order').on('click', function (event) {
+        let orders = [];
+
         let addressId = $('input[type="checkbox"][name="address"]:checked').val();
         let billingAddressId = $('input[type="checkbox"][name="billing_address"]:checked').val();
         let payment = $('input[type="checkbox"][name="payment"]:checked').val();
-        let total = parseFloat($('div.kbs-order-book-total-cost').children().eq(1).children().eq(0).html());
+
+        $('div.kbs-order-summary').each((index, div) => {
+            let vendorId = null;
+            let totalPrice = 0;
+            let orderedBooks = [];
+            let key = 0;
+            $(div).children().each((index, child) => {
+                if ($(child).prop('nodeName') === 'H5') {
+                    vendorId = $(child).children().eq(0).data('vendorId');
+                }
+
+                if ($(child).hasClass('kbs-order-book-total-cost')) {
+                    totalPrice = parseFloat($(child).children().eq(1).children().eq(0).html());
+                }
+
+                if ($(child).hasClass('kbs-order-book-details')) {
+                    let bookId = $(child).data('bookId');
+                    let price = parseFloat($(child).data('originalPrice'));
+                    let deliveryFee = parseFloat($(child).data('deliveryPrice'));
+                    let quantity = $(child).data('quantity');
+                    orderedBooks[key] = {
+                        book_id: bookId,
+                        quantity: quantity,
+                        ordered_book_price: price,
+                        ordered_book_delivery_fee: deliveryFee
+                    }
+                    key++;
+                }
+            })
+            orders[index] = {
+                address_id: addressId,
+                billing_address_id: billingAddressId,
+                payment: payment,
+                vendor_id: vendorId,
+                total: totalPrice,
+                order_book_mapping: orderedBooks
+            }
+        })
         let route = $(this).data('route');
         let token = $(this).data('token');
         let redirectUrl = $(this).data('redirectUrl');
-        let orderedBooks = [];
-        $('div.kbs-order-book-details').each((index, div) => {
-            let bookId = $(div).data('bookId');
-            let price = $(div).data('originalPrice');
-            let deliveryFee = $(div).data('deliveryPrice');
-            let quantity = $(div).data('quantity');
-            orderedBooks[index] = {
-                book_id: bookId,
-                quantity: quantity,
-                ordered_book_price: price,
-                ordered_book_delivery_fee: deliveryFee
-            }
-        })
+
         $.ajax({
             url: route,
             method: 'POST',
@@ -818,11 +869,7 @@ const checkoutFunction = () => {
                 Authorization: token
             },
             data: {
-                address_id: addressId,
-                billing_address_id: billingAddressId,
-                payment: payment,
-                total: total,
-                order_book_mapping: orderedBooks
+                orders: orders
             },
             success: (res) => {
                 if (res.status === 'success') {

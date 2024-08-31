@@ -272,28 +272,43 @@ class UserController extends Controller
         return view('users.book', compact('book', 'vendor_info'));
     }
 
-    public function checkout(String $location)
+    public function checkout(Request $request)
     {
-        if ($location === 'c') {
-            $order_items = DB::table('user_cart as uc')->where('user_id', '=', session('userId'))->get();
-
-            foreach ($order_items as $order_item) {
-                $book_details = books::where('book_id', '=', $order_item->book_id)->first();
-                if ($book_details->discount !== null) {
-                    $discounted_price = $book_details->price * $book_details->discount->discount_percentage / 100;
-                    $book_details->discount_price =  number_format($book_details->price -  $discounted_price, 2, '.', "");
+        $order_items = [];
+        $vendor_ids = [];
+        $sorted_order_items = [];
+        foreach ($request->ids as $id) {
+            $book = books::find($id);
+            if ($book) {
+                $cart_quantity = DB::table('user_cart')->where("book_id", '=', $id)->where('user_id', '=', self::$user_id)->first();
+                if ($book->discount !== null) {
+                    $discounted_price = $book->price * $book->discount->discount_percentage / 100;
+                    $book->discount_price =  number_format($book->price -  $discounted_price, 2, '.', "");
                 }
-                $order_item->book_details = $book_details;
-            }
-        } else {
-            $order_items = books::where('book_id', '=', $location)->first();
-            if ($order_items->discount !== null) {
-                $discounted_price = $order_items->price * $order_items->discount->discount_percentage / 100;
-                $order_items->discount_price =  number_format($order_items->price -  $discounted_price, 2, '.', "");
+                if (!in_array($book->created_by, $vendor_ids)) {
+                    $vendor_ids[] = $book->created_by;
+                }
+                if ($cart_quantity) {
+                    $book->quantity = $cart_quantity->quantity;
+                } else {
+                    $book->quantity = 1;
+                }
+
+                $order_items[] = $book;
             }
         }
+
+        $order_items = collect($order_items);
+        foreach ($vendor_ids as $vendor_id) {
+            $vendor_info = vendorPartnership::where('vendor_id', '=', $vendor_id)->first();
+            $order_item = $order_items->filter(function ($value, $key) use ($vendor_id) {
+                return $value->created_by === $vendor_id;
+            });
+            $sorted_order_items[$vendor_info->vendor_name] = $order_item;
+        }
+
         $addresses = address::where('user_id', '=', session('userId'))->get();
-        return view('users.checkout', compact('location', 'order_items', 'addresses'));
+        return view('users.checkout', compact('sorted_order_items', 'addresses'));
     }
 
     public function orderdetail(Request $request)
@@ -474,56 +489,49 @@ class UserController extends Controller
     {
 
         $request->validate([
-            'address_id' => ['required'],
-            'billing_address_id' => ['required'],
-            'payment' => ['required'],
-            'total' => ['required'],
-            'order_book_mapping' => ['required']
+            'orders' => ['required']
         ]);
-        $order_number = uniqid('kbs');
-        $order = orders::create([
-            'order_number' => $order_number,
-            'payment_method' => $request->payment,
-            'refund_state' => 1,
-            'is_cancelled' => 0,
-            'total' => $request->total,
-            'address_id' => $request->address_id,
-            'billing_address_id' => $request->billing_address_id,
-            'created_by' => self::$user_id,
-            'created_at' => now()
-        ]);
-
-        if ($order) {
-            foreach ($request->order_book_mapping as $order_book_mapping) {
-                DB::table('ordered_book')->insert([
-                    'order_id' => $order->order_id,
-                    'book_id' => $order_book_mapping['book_id'],
-                    'quantity' => $order_book_mapping['quantity'],
-                    'ordered_book_price' => $order_book_mapping['ordered_book_price'],
-                    'ordered_book_delivery_fee' => $order_book_mapping['ordered_book_delivery_fee']
-                ]);
-
-                $book = books::find($order_book_mapping['book_id']);
-                $book->stock = $book->stock - $order_book_mapping['quantity'];
-                $book->save();
-                DB::table('user_cart')->where('user_id', '=', self::$user_id)->where('book_id', '=', $order_book_mapping['book_id'])->delete();
-            }
-            $order_status = DB::table('order_status')->insert([
-                'order_id' => $order->order_id,
-                'status' => 'confirming',
-                'sequence' => 0,
+        foreach ($request->orders as $order) {
+            $order_number = uniqid('kbs');
+            $created_order = orders::create([
+                'order_number' => $order_number,
+                'payment_method' => $order['payment'],
+                'refund_state' => 1,
+                'is_cancelled' => 0,
+                'total' => $order['total'],
+                'address_id' => $order['address_id'],
+                'billing_address_id' => $order['billing_address_id'],
+                'vendor_id' => $order['vendor_id'],
+                'ordered_by' => self::$user_id,
                 'created_at' => now()
             ]);
-            if ($order_status) {
+            if ($created_order) {
+                foreach ($order['order_book_mapping'] as $order_book_mapping) {
+                    DB::table('ordered_book')->insert([
+                        'order_id' => $created_order->order_id,
+                        'book_id' => $order_book_mapping['book_id'],
+                        'quantity' => $order_book_mapping['quantity'],
+                        'ordered_book_price' => $order_book_mapping['ordered_book_price'],
+                        'ordered_book_delivery_fee' => $order_book_mapping['ordered_book_delivery_fee']
+                    ]);
 
-                return response()->json([
-                    'status' => 'success',
-                    'message' => "Your order has been sent successfully!",
-                    'payload' => [
-                        'order_number' => $order->order_number
-                    ]
-                ], Response::HTTP_ACCEPTED);
+                    $book = books::find($order_book_mapping['book_id']);
+                    $book->stock = $book->stock - $order_book_mapping['quantity'];
+                    $book->save();
+                    DB::table('user_cart')->where('user_id', '=', self::$user_id)->where('book_id', '=', $order_book_mapping['book_id'])->delete();
+                }
+                DB::table('order_status')->insert([
+                    'order_id' => $created_order->order_id,
+                    'status' => 'pending',
+                    'sequence' => 0,
+                    'created_at' => now()
+                ]);
             }
         }
+        return response()->json([
+            'status' => 'success',
+            'message' => "Your order has been sent successfully!",
+            'payload' => []
+        ], Response::HTTP_ACCEPTED);
     }
 }

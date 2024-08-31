@@ -182,8 +182,7 @@
                     </div>
 
                 </div>
-                <button class="kbs-check-out"
-                    onclick="window.location.href = '{{ route('user.checkout', ['location' => 'c']) }}'">Check
+                <button name="cart-check-out" class="kbs-check-out" data-route="{{ route('user.checkout') }}">Check
                     Out</button>
             </aside>
         </section>
