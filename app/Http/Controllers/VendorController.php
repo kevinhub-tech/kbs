@@ -116,6 +116,11 @@ class VendorController extends Controller
     {
         return view('vendors.discounts');
     }
+
+    public function orderlisting()
+    {
+        return view('vendors.listing-order');
+    }
     /**
      * API logic code starts here
      */
@@ -289,7 +294,7 @@ class VendorController extends Controller
         ]);
 
         $discount = discounts::find($request->discount_id);
-       
+
         $discount->discount_percentage = $request->discount_percentage;
         $discount->updated_by = self::$user_id;
         $discount->updated_at = now();
@@ -304,7 +309,8 @@ class VendorController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function removediscount(Request $request){
+    public function removediscount(Request $request)
+    {
         $request->validate([
             'method' => ['required'],
             'discount_id' => ['required']
@@ -322,7 +328,7 @@ class VendorController extends Controller
         }
 
         if ($removed) {
-            $discount_count = books::where("discount_id" , '=', $request->discount_id)->count();
+            $discount_count = books::where("discount_id", '=', $request->discount_id)->count();
 
             return response()->json([
                 'status' => 'success',
@@ -334,7 +340,8 @@ class VendorController extends Controller
         }
     }
 
-    public function deletediscount(Request $request){
+    public function deletediscount(Request $request)
+    {
         $request->validate([
             'discount_id' => ['required']
         ]);
