@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('order_id');
             $table->foreign('order_id')->references('order_id')->on('orders')->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('status', ['pending', 'confirmed', 'packing', 'packed', 'handing-over', 'handed-over', 'delivering', 'delivered', 'completed', 'cancelled']);
+            $table->enum('state', ['completed', 'current']);
             $table->integer('sequence');
             $table->timestamp('created_at')->useCurrent();
         });

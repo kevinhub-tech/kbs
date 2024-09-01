@@ -523,6 +523,7 @@ class UserController extends Controller
                 DB::table('order_status')->insert([
                     'order_id' => $created_order->order_id,
                     'status' => 'pending',
+                    'state' => 'current',
                     'sequence' => 0,
                     'created_at' => now()
                 ]);
