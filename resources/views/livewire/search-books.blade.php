@@ -1,5 +1,6 @@
-<section class="kbs-book-listing-main-container">
-    <section class="d-flex justify-content-between align-items-center d-flex justify-content-between align-items-center flex-column flex-sm-row">
+<section class="kbs-listing-main-container">
+    <section
+        class="d-flex justify-content-between align-items-center d-flex justify-content-between align-items-center flex-column flex-sm-row">
         <div class="kbs-search-wrapper mb-2 mb-sm-0">
             <input wire:model.live="search" type="search" name="" id="" placeholder="Search Book here....">
         </div>

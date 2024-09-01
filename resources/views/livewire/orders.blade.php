@@ -1,4 +1,4 @@
-<section class="kbs-book-listing-main-container">
+<section class="kbs-listing-main-container">
     <section
         class="d-flex justify-content-between align-items-center d-flex justify-content-between align-items-center flex-column flex-sm-row">
         <div class="kbs-search-wrapper mb-2 mb-sm-0">
@@ -7,17 +7,17 @@
         </div>
         <div class="kbs-button-wrapper">
             <!-- Button trigger modal -->
-            <select name="" id="">
-                <option value="">Pending</option>
-                <option value="">Confirmed</option>
-                <option value="">Packing</option>
-                <option value="">Packed</option>
-                <option value="">Handing-Over</option>
-                <option value="">Handed-Over</option>
-                <option value="">Delivering</option>
-                <option value="">Delivered</option>
-                <option value="">Completed</option>
-                <option value="">Cancelled</option>
+            <select wire:model.live="status" name="status">
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="packing">Packing</option>
+                <option value="packed">Packed</option>
+                <option value="handing-over">Handing-Over</option>
+                <option value="handed-over">Handed-Over</option>
+                <option value="delivering">Delivering</option>
+                <option value="delivered">Delivered</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
             </select>
 
         </div>
@@ -30,7 +30,7 @@
         </section>
     @else
         <section class="kbs-table-wrapper">
-            <table class="table-container">
+            <table class="table-container order-listing">
                 <thead>
                     <tr>
                         <th>SI</th>
@@ -38,7 +38,6 @@
                         <th>Book Items</th>
                         <th>Payment Method</th>
                         <th>Refundable</th>
-                        <th>Is Cancelled</th>
                         <th>Delivery Address</th>
                         <th>Billing Address</th>
                         <th>Ordered By</th>
@@ -46,6 +45,8 @@
                         <th>Delivered At</th>
                         <th>Ordered At</th>
                         <th>Updated At</th>
+                        <th>Status</th>
+                        <th>Total</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -58,8 +59,8 @@
                                 <ul>
                                     @foreach ($order->books as $book)
                                         <li>
-                                            <a
-                                                href="{{ route('vendor.bookdesc', ['id' => $book->book_id]) }}">{{ $book->book_name }}</a>
+                                            <a href="{{ route('vendor.bookdesc', ['id' => $book->book_id]) }}">{{ $book->book_name }}
+                                                x {{ $book->quantity }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -73,13 +74,7 @@
                                     No
                                 @endif
                             </td>
-                            <td data-title="Is Cancelled" class="mob-display-heading">
-                                @if ($order->is_cancelled)
-                                    Yes
-                                @else
-                                    No
-                                @endif
-                            </td>
+
                             <td data-title="Delivery Address" class="mob-display-heading">
                                 {{ $order->delivery_address->address }}, {{ $order->delivery_address->state }},
                                 {{ $order->delivery_address->postal_code }}
@@ -91,6 +86,7 @@
                             <td data-title="Ordered By" class="mob-display-heading">
                                 {{ $order->order_user->name }}
                             </td>
+
                             <td data-title="Paid At" class="mob-display-heading">
                                 @if ($order->paid_at === null)
                                     Not Paid
@@ -119,14 +115,48 @@
                                     {{ date('d-m-Y', strtotime($order->updated_at)) }}
                                 @endif
                             </td>
+                            <td data-title="Status" class="mob-display-heading">
+                                <h5 class="status @if ($order->status->status === 'cancelled') text-danger @endif">
+                                    {{ ucfirst($order->status->status) }}</h5>
+                            </td>
+                            <td data-title="Total" class="mob-display-heading">
+
+                                ${{ $order->total }}
+                            </td>
                             <td>
                                 <div class="action-wrapper">
-                                    <a href="{{ route('vendor.bookdesc', ['id' => $book->book_id]) }}"
-                                        data-toggle="tooltip" data-placement="top" title="View Book Description"><i
-                                            class="fa-solid fa-eye"></i></a>
-                                    <a href="{{ route('vendor.book-edit', ['id' => $book->book_id]) }}"
-                                        data-toggle="tooltip" data-placement="top" title="Edit Book"><i
-                                            class="fa-solid fa-pen-to-square"></i></a>
+                                    @if ($order->status->status === 'pending')
+                                        <button class="complete" name="order-status-updater" data-status="confirming"
+                                            data-route="{{ route('vendor.updateorderstatus') }}"
+                                            data-token="{{ session('userToken') }}"> Confirm Order</button>
+                                    @elseif($order->status->status === 'confirmed')
+                                        <button class="start" name="order-status-updater" data-status="packing"
+                                            data-route="{{ route('vendor.updateorderstatus') }}"
+                                            data-token="{{ session('userToken') }}"> Start Packing</button>
+                                    @elseif($order->status->status === 'packing')
+                                        <button class="complete" name="order-status-updater" data-status="packed"
+                                            data-route="{{ route('vendor.updateorderstatus') }}"
+                                            data-token="{{ session('userToken') }}"> Complete Packing</button>
+                                    @elseif($order->status->status === 'packed')
+                                        <button class="start" name="order-status-updater" data-status="handing-over"
+                                            data-route="{{ route('vendor.updateorderstatus') }}"
+                                            data-token="{{ session('userToken') }}"> Start Hand-over</button>
+                                    @elseif($order->status->status === 'handing-over')
+                                        <button class="complete" name="order-status-updater" data-status="handed-over"
+                                            data-route="{{ route('vendor.updateorderstatus') }}"
+                                            data-token="{{ session('userToken') }}"> Complete Hand-over</button>
+                                    @elseif($order->status->status === 'handed-over')
+                                        <button class="start" name="order-status-updater" data-status="delivering"
+                                            data-route="{{ route('vendor.updateorderstatus') }}"
+                                            data-token="{{ session('userToken') }}"> Start Delivery</button>
+                                    @elseif($order->status->status === 'Delivering')
+                                        <button class="complete" name="order-status-updater" data-status="delivered"
+                                            data-route="{{ route('vendor.updateorderstatus') }}"
+                                            data-token="{{ session('userToken') }}"> Complete Delivery</button>
+                                    @else
+                                        <h5>NA</h5>
+                                    @endif
+
                                 </div>
                             </td>
                         </tr>

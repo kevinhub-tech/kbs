@@ -10,3 +10,12 @@
     </section>
     <livewire:orders />
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(() => {
+            $('button[name="order-status-updater"]').on('click', function(e) {
+                let status = $(this).data('status');
+            })
+        })
+    </script>
+@endpush

@@ -22,10 +22,13 @@
             @endforeach
         </div>
         @if ($book->discount === null)
-            <h4 class="book-price">Price : ${{ $book->price }}<span class="stock">Stock: {{ $book->stock }}</span></h4>
+            <h4 class="book-price">Price : ${{ $book->price }}<span class="stock ms-2">Stock:
+                    {{ $book->stock }}</span>
+            </h4>
         @else
-            <h4 class="book-price">Price : <span class="original-price">{{ $book->price }}</span><span class="discounted-price">
-                    {{ $book->discount_price }}</span> <span class="stock">Stock: {{ $book->stock }}</span></h4>
+            <h4 class="book-price">Price : <span class="original-price">{{ $book->price }}</span><span
+                    class="discounted-price">
+                    {{ $book->discount_price }}</span> <span class="stock ms-2">Stock: {{ $book->stock }}</span></h4>
         @endif
         <p class="book-desc">
             {{ $book->book_desc }}

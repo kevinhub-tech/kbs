@@ -1,6 +1,6 @@
-<section class="kbs-book-listing-main-container">
+<section class="kbs-listing-main-container">
     <section class="d-flex justify-content-between align-items-center flex-column flex-sm-row">
-        <div class="kbs-search-wrapper mb-2 mb-sm-0" >
+        <div class="kbs-search-wrapper mb-2 mb-sm-0">
             <input wire:model.live="search" type="search" name="" id=""
                 placeholder="Search Discount here....">
         </div>
@@ -108,7 +108,8 @@
                     @foreach ($discounts as $discount)
                         <tr>
                             <td data-title="SI" class="mob-display-heading">{{ $loop->iteration }}</td>
-                            <td data-title="Discount percentages" class="mob-display-heading">{{ $discount->discount_percentage }}</td>
+                            <td data-title="Discount percentages" class="mob-display-heading">
+                                {{ $discount->discount_percentage }}</td>
                             <td data-title="Books Applied" class="mob-display-heading">
                                 @if ($discount->books->isEmpty())
                                     NA
@@ -145,9 +146,9 @@
                                             class="fa-solid fa-pen-to-square"></i></button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="{{ $discount->discount_id }}" data-bs-backdrop="static"
-                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                        aria-hidden="true">
+                                    <div class="modal fade" id="{{ $discount->discount_id }}"
+                                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -220,7 +221,7 @@
                                             class="fa-solid fa-trash"
                                             data-route="{{ route('vendor.discount-delete') }}"
                                             data-discount-id="{{ $discount->discount_id }}"
-                                            data-token="{{ session('userToken') }}"></i></a>
+                                            data-token="{{ session('userToken') }}"></i></button>
                                 </div>
                             </td>
                         </tr>

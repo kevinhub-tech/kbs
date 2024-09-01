@@ -15,6 +15,7 @@ Route::controller(VendorController::class)->prefix('vendor')->group(function () 
         Route::post('/edit-discount', 'editdiscount')->name('vendor.discount-edit');
         Route::post('/remove-discount', 'removediscount')->name('vendor.discount-remove');
         Route::delete('/delete-discount', 'deletediscount')->name('vendor.discount-delete');
+        Route::post('/update-order-status', 'updateorderstatus')->name('vendor.updateorderstatus');
         Route::put('/update-book', 'updatebook')->name('vendor.book-update');
     });
 });
