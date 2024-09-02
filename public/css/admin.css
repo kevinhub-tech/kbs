@@ -1,0 +1,343 @@
+/* 
+    Common Admin css starts here
+*/
+section.kbs-admin-header {
+    background-color: var(--main-color);
+    padding: 1rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+section.kbs-admin-header h1 {
+    font-size: 2rem;
+    font-family: var(--heading-nav-bar-title);
+}
+
+section.kbs-admin-empty {
+    margin-top: 1rem;
+    height: 100dvh;
+    background-color: #f2f3f5;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section.kbs-admin-empty h3 {
+    font-family: var(--heading-nav-bar-title);
+    color: var(--shades);
+}
+
+
+section.kbs-admin-listing-main-container {
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+section.kbs-admin-listing-main-container div.kbs-search-wrapper input {
+    background-color: #f2f3f5;
+    width: 100%;
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
+    font-family: var(--general-font);
+    border-radius: 0.5rem;
+}
+
+section.kbs-admin-listing-main-container div.kbs-search-wrapper input:focus {
+    box-shadow: 0.1rem 0.1rem 0.5rem 0.01rem var(--shades);
+}
+
+section.kbs-admin-listing-main-container div.kbs-button-wrapper button.kbs-button,
+section.kbs-admin-listing-main-container section.kbs-table-wrapper button.kbs-button,
+section.kbs-admin-listing-main-container div.kbs-button-wrapper a {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background-color: var(--shades);
+    color: var(--main-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: var(--general-font);
+}
+
+section.kbs-admin-listing-main-container div.kbs-button-wrapper select {
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    background-color: var(--main-color);
+    color: var(--shades);
+    font-family: var(--general-font);
+    font-weight: 600;
+    border: 1px solid #8c8989;
+}
+
+section.kbs-admin-listing-main-container section.kbs-table-wrapper button.kbs-remove-all-button {
+    background-color: red;
+    color: var(--main-color);
+}
+
+section.kbs-admin-listing-main-container div.kbs-button-wrapper {
+    display: flex;
+    gap: 1rem;
+}
+
+section.kbs-admin-listing-main-container div.kbs-button-wrapper button:hover,
+section.kbs-admin-listing-main-container section.kbs-table-wrapper div.modal-footer button:hover,
+section.kbs-admin-listing-main-container div.kbs-button-wrapper a:hover {
+    background-color: transparent;
+    color: var(--shades);
+    border: 1px dashed #000000;
+    transition: all .4s ease;
+}
+
+section.kbs-admin-listing-main-container section.kbs-table-wrapper button.kbs-remove-all-button:hover {
+    background-color: transparent;
+    color: red;
+    border: 1px dashed red;
+    transition: all .4s ease;
+}
+
+
+section.kbs-listing-main-container div.kbs-button-wrapper select {
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    background-color: var(--main-color);
+    color: var(--shades);
+    font-family: var(--general-font);
+    font-weight: 600;
+    border: 1px solid #8c8989;
+}
+
+
+section.kbs-admin-listing-main-container div.kbs-button-wrapper div.modal-header h3,
+section.kbs-admin-listing-main-container section.kbs-table-wrapper div.modal-header h3 {
+    font-size: 1.5rem;
+    font-family: var(--heading-nav-bar-title);
+    font-weight: 600;
+}
+
+section.kbs-admin-listing-main-container div.kbs-button-wrapper div.modal-body h3,
+section.kbs-admin-listing-main-container section.kbs-table-wrapper div.modal-body h3 {
+    font-size: 1.2rem;
+    font-family: var(--general-font);
+    font-weight: 600;
+    color: var(--shades);
+}
+
+section.kbs-admin-listing-main-container div.kbs-button-wrapper div.modal-body div.drawer.shadow.rounded {
+    font-family: var(--general-font);
+    font-weight: 600;
+}
+
+
+
+section.kbs-table-wrapper {
+    padding: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+section.kbs-table-wrapper table.table-container tr {
+    font-size: 1rem;
+    font-family: var(--general-font);
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid var(--shades);
+}
+
+section.kbs-table-wrapper table.table-container.order-listing tr {
+    font-size: 0.8rem;
+    font-family: var(--general-font);
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid var(--shades);
+}
+
+section.kbs-table-wrapper table.table-container {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+section.kbs-table-wrapper table.table-container th,
+td {
+    padding: 1rem;
+}
+
+section.kbs-table-wrapper table.table-container th {
+    font-size: 1.2rem;
+    font-family: var(--heading-nav-bar-title);
+}
+
+section.kbs-table-wrapper table.table-container.order-listing th {
+    font-size: 1rem;
+}
+
+section.kbs-table-wrapper table.table-container tr td h5 {
+    font-size: 0.8rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+section.kbs-table-wrapper table.table-container tr td h5.status {
+    color: var(--shades);
+}
+
+section.kbs-table-wrapper table.table-container tr td p {
+    margin: 0;
+    padding: 0.5rem;
+    font-family: var(--author-vendor-user);
+}
+
+
+section.kbs-table-wrapper table.table-container tr td p.accepted {
+    background-color: var(--shades);
+    color: var(--main-color);
+}
+
+section.kbs-table-wrapper table.table-container tr td p.rejected {
+    background-color: red;
+    color: var(--main-color);
+}
+
+section.kbs-table-wrapper table.table-container tr td p.pending {
+    background-color: rgb(255, 208, 1);
+    color: rgb(135, 119, 52);
+}
+
+section.kbs-table-wrapper table.table-container tr td ul li {
+    list-style: none;
+}
+
+section.kbs-table-wrapper table.table-container tr td ul li a {
+    text-decoration: none;
+    color: var(--shades);
+}
+
+section.kbs-table-wrapper table.table-container tr img {
+    width: 5rem;
+    height: 8rem;
+    object-fit: cover;
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper button.complete {
+    background-color: var(--shades);
+    color: var(--main-color);
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper button.start {
+    background-color: rgb(255, 208, 1);
+    color: #000000;
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper button.complete:hover {
+    border: 1px dashed var(--shades);
+    background-color: var(--main-color);
+    color: var(--shades);
+    transition: all ease 0.4s;
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper button.start:hover {
+    border: 1px dashed rgb(255, 208, 1);
+    background-color: var(--main-color);
+    color: rgb(135, 119, 52);
+    transition: all ease 0.4s;
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i,
+section.kbs-table-wrapper table.table-container tr i {
+    font-size: 1.2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-eye,
+section.kbs-table-wrapper table.table-container tr i.fa-envelope {
+    background-color: var(--shades);
+    color: var(--main-color);
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-pen-to-square {
+    background-color: #3b5998;
+    color: var(--main-color);
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-tag {
+    background-color: var(--shades);
+    color: var(--main-color);
+}
+
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-trash {
+    background-color: red;
+    color: var(--main-color);
+}
+
+
+
+@media screen and (max-width: 1200px) {
+    section.kbs-table-wrapper table.table-container th {
+        font-size: 0.8rem;
+    }
+
+    section.kbs-table-wrapper table.table-container tr {
+        font-size: 0.6rem;
+    }
+
+    section.kbs-table-wrapper table.table-container tr div.action-wrapper i {
+        font-size: 0.6rem;
+        padding: 0.5rem;
+        border-radius: 0.2rem;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    section.kbs-table-wrapper table.table-container thead {
+        display: none;
+    }
+
+    section.kbs-table-wrapper table.table-container tbody tr {
+        display: flex;
+        flex-direction: column;
+        padding: 4px;
+        box-shadow: 0.1rem 0.1rem 0.3rem 0.01rem var(--shades);
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.8rem;
+    }
+
+
+    section.kbs-table-wrapper table.table-container tbody td {
+        display: flex;
+        justify-content: space-evenly;
+        border: 0;
+    }
+
+    section.kbs-table-wrapper table.table-container tbody td.mob-display-heading:before {
+        content: attr(data-title);
+        text-transform: capitalize;
+        text-align: left;
+        font-weight: normal;
+        font-family: var(--heading-nav-bar-title);
+    }
+
+    section.kbs-table-wrapper table.table-container tr div.action-wrapper i {
+        font-size: 0.8rem;
+        padding: 0.8rem;
+        border-radius: 0.4rem;
+    }
+}

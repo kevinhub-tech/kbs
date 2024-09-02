@@ -58,25 +58,8 @@ class AdminController extends Controller
         }
     }
 
-    public function demopost(Request $request)
+    public function vendors()
     {
-        return response()->json([
-            'status' => 'success',
-            'message' => 'You have successfully posted some info on user route',
-            'payload' => [
-                $request->name,
-                $request->email,
-            ]
-        ], Response::HTTP_ACCEPTED);
-    }
-
-    public function demoget(Request $request)
-    {
-        $get_data = ['1' => 'data 1', '2' => 'data 2'];
-        return response()->json([
-            'status' => 'success',
-            'message' => 'You have successfully posted some info on user route',
-            'payload' => $get_data
-        ], Response::HTTP_ACCEPTED);
+        return view('admins.vendors');
     }
 }

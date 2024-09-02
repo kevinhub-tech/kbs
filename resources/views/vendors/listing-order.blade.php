@@ -5,7 +5,7 @@
 @section('main.content')
     <section class="kbs-vendor-header">
         <h1>
-            Manage Books
+            Manage Orders
         </h1>
     </section>
     <livewire:orders />

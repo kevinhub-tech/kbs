@@ -167,86 +167,6 @@ section.kbs-listing-main-container div.kbs-button-wrapper div.modal-body div.dra
 }
 
 
-/* 
-Book Form css starts here
-*/
-
-
-form.book-form {
-    width: 35rem;
-    background-color: #FFFFF0;
-    border-radius: 1rem;
-    box-shadow: 0rem 0rem 0.5rem 0.1rem #000000;
-    margin: 0 auto;
-    padding: 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-form.book-form label {
-    font-family: var(--general-font);
-    font-size: 1rem;
-}
-
-
-form.book-form input:not([type='file'], [type='checkbox']),
-form.book-form textarea {
-    padding: 0.5rem;
-    background-color: #FFFFF0;
-    /* border-bottom: 1px solid var(--shades); */
-    margin-bottom: 1rem;
-    width: 100%;
-    font-family: var(--author-vendor-user);
-    border-radius: 0.5rem;
-    box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem #000000;
-}
-
-form.book-form input:focus,
-form.book-form textarea:focus {
-    box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem var(--shades);
-}
-
-form.book-form input[type='file'] {
-    font-family: var(--general-font) !important;
-}
-
-form.book-form div.button-container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-form.book-form button[type='submit'],
-form.book-form button[type='reset'] {
-    margin-top: 1rem;
-    padding: 0.5rem 2rem;
-    background-color: var(--shades);
-    color: var(--main-color);
-    font-weight: 500;
-    border-radius: 0.5rem;
-}
-
-form.book-form button[type='reset'] {
-    background-color: red;
-}
-
-form.book-form button[type='submit']:hover,
-form.book-form button[type='reset']:hover {
-    background-color: transparent;
-    color: var(--shades);
-    border: 1px dashed #000000;
-    transition: all .4s ease;
-}
-
-form.book-form button[type='reset']:hover {
-    color: #000000;
-    border: 1px dashed red;
-}
-
-/* 
-Book Listing css starts here
-*/
 section.kbs-table-wrapper {
     padding: 1rem;
     margin-top: 1rem;
@@ -375,6 +295,85 @@ section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-tag {
 section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-trash {
     background-color: red;
     color: var(--main-color);
+}
+
+
+
+/* 
+Book Form css starts here
+*/
+
+
+form.book-form {
+    width: 35rem;
+    background-color: #FFFFF0;
+    border-radius: 1rem;
+    box-shadow: 0rem 0rem 0.5rem 0.1rem #000000;
+    margin: 0 auto;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+form.book-form label {
+    font-family: var(--general-font);
+    font-size: 1rem;
+}
+
+
+form.book-form input:not([type='file'], [type='checkbox']),
+form.book-form textarea {
+    padding: 0.5rem;
+    background-color: #FFFFF0;
+    /* border-bottom: 1px solid var(--shades); */
+    margin-bottom: 1rem;
+    width: 100%;
+    font-family: var(--author-vendor-user);
+    border-radius: 0.5rem;
+    box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem #000000;
+}
+
+form.book-form input:focus,
+form.book-form textarea:focus {
+    box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem var(--shades);
+}
+
+form.book-form input[type='file'] {
+    font-family: var(--general-font) !important;
+}
+
+form.book-form div.button-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+form.book-form button[type='submit'],
+form.book-form button[type='reset'] {
+    margin-top: 1rem;
+    padding: 0.5rem 2rem;
+    background-color: var(--shades);
+    color: var(--main-color);
+    font-weight: 500;
+    border-radius: 0.5rem;
+}
+
+form.book-form button[type='reset'] {
+    background-color: red;
+}
+
+form.book-form button[type='submit']:hover,
+form.book-form button[type='reset']:hover {
+    background-color: transparent;
+    color: var(--shades);
+    border: 1px dashed #000000;
+    transition: all .4s ease;
+}
+
+form.book-form button[type='reset']:hover {
+    color: #000000;
+    border: 1px dashed red;
 }
 
 @media screen and (max-width: 1200px) {

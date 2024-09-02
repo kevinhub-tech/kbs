@@ -24,6 +24,7 @@ Route::controller(VendorController::class)->prefix('vendor')->group(function () 
 Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::middleware('admin-only')->group(function () {
         Route::get('/', 'home')->name('admin.home');
+        Route::get('/vendor', 'vendors')->name('admin.vendors');
         Route::get('/logout', 'logout')->name("admin.logout");
     });
     Route::get('/login', 'login')->name('admin.login');
