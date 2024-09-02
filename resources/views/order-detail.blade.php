@@ -18,6 +18,7 @@
                 $is_cancelled = false;
                 $is_delivered = false;
                 $is_packed = false;
+                $is_completed = false;
                 foreach ($order_status as $status) {
                     if ($status->status === 'cancelled') {
                         $is_cancelled = true;
@@ -29,6 +30,10 @@
 
                     if ($status->status === 'packed') {
                         $is_packed = true;
+                    }
+
+                    if ($status->status === 'completed') {
+                        $is_completed = true;
                     }
                 }
             @endphp
@@ -44,40 +49,39 @@
             @else
                 <ul>
                     <li
-                        @if ($order_status->count() === 1) class="in-progress" @elseif($order_status->count() === 2) class="complete" @endif>
+                        @if ($order_status->count() === 1) class="in-progress" @elseif($order_status->count() > 2) class="complete" @endif>
                         <div class="content-wrapper">
                             @if ($order_status->count() === 1)
                                 <i class="fa-solid fa-clock in-progress"></i>
                                 <p>Confirming</p>
-                            @elseif($order_status->count() === 2)
+                            @elseif($order_status->count() > 1)
                                 <i class="fa-solid fa-check"></i>
                                 <p>Confirmed</p>
                             @endif
                         </div>
                     </li>
                     <li
-                        @if ($order_status->count() === 3) class="in-progress" @elseif($order_status->count() === 4) class="complete" @endif>
+                        @if ($order_status->count() === 3) class="in-progress" @elseif($order_status->count() > 3) class="complete" @endif>
                         <div class="content-wrapper">
                             @if ($order_status->count() === 3)
                                 <i class="fa-solid fa-box in-progress"></i>
                                 <p>Packing</p>
-                            @elseif($order_status->count() === 4)
+                            @elseif($order_status->count() > 3)
                                 <i class="fa-solid fa-check"></i>
                                 <p>Packed</p>
                             @else
                                 <i class="fa-solid fa-box in-complete"></i>
                                 <p>Package</p>
                             @endif
-
                         </div>
                     </li>
                     <li
-                        @if ($order_status->count() === 5) class="in-progress" @elseif($order_status->count() === 6)  class="complete" @endif>
+                        @if ($order_status->count() === 5) class="in-progress" @elseif($order_status->count() > 5)  class="complete" @endif>
                         <div class="content-wrapper">
                             @if ($order_status->count() === 5)
                                 <i class="fa-solid fa-hand-holding-hand in-progress"></i>
                                 <p>Handing Over</p>
-                            @elseif($order_status->count() === 6)
+                            @elseif($order_status->count() > 5)
                                 <i class="fa-solid fa-check"></i>
                                 <p>Handed Over</p>
                             @else
@@ -88,12 +92,12 @@
                         </div>
                     </li>
                     <li
-                        @if ($order_status->count() === 7) class="in-progress" @elseif($order_status->count() === 8)  class="complete" @endif>
+                        @if ($order_status->count() === 7) class="in-progress" @elseif($order_status->count() > 7)  class="complete" @endif>
                         <div class="content-wrapper">
                             @if ($order_status->count() === 7)
                                 <i class="fa-solid fa-truck in-progress"></i>
                                 <p>Delivering</p>
-                            @elseif($order_status->count() === 8)
+                            @elseif($order_status->count() > 7)
                                 <i class="fa-solid fa-check"></i>
                                 <p>Delivered</p>
                             @else
@@ -121,23 +125,38 @@
                 <section class="kbs-order-tracking-log">
                     @foreach ($order_status as $status)
                         @if ($status->status === 'confirmed')
-                            <p> {{ date('d-m-Y', strtotime($discount->created_at)) }}Your order has been confirmed and
+                            <p> {{ date('d-m-Y H:i:s', strtotime($status->created_at)) }}: Your order has been confirmed
+                                and
                                 vendor
                                 will start packing your orders</p>
+                        @elseif($status->status === 'packing')
+                            <p> {{ date('d-m-Y H:i:s', strtotime($status->created_at)) }}: Your order has begin packing
+                                process and it will be packed by the vendor soon.</p>
                         @elseif($status->status === 'packed')
-                            <p> {{ date('d-m-Y', strtotime($discount->created_at)) }}Your order has been packed and it
+                            <p> {{ date('d-m-Y H:i:s', strtotime($status->created_at)) }}: Your order has been packed and it
                                 will begin hand-over process for delivery service</p>
+                        @elseif($status->status === 'handing-over')
+                            <p> {{ date('d-m-Y H:i:s', strtotime($status->created_at)) }}: Your order has begin hand-over
+                                process
+                                to
+                                the
+                                delivery service.</p>
                         @elseif($status->status === 'handed-over')
-                            <p> {{ date('d-m-Y', strtotime($discount->created_at)) }}Your order has been handed-over to
+                            <p> {{ date('d-m-Y H:i:s', strtotime($status->created_at)) }}: Your order has been handed-over
+                                to
                                 the
                                 delivery service and delivery will soon begin</p>
+                        @elseif($status->status === 'delivering')
+                            <p> {{ date('d-m-Y H:i:s', strtotime($status->created_at)) }}: Your order is out for delivery
+                                and your order should arrive soon</p>
                         @elseif($status->status === 'delivered')
-                            <p> {{ date('d-m-Y', strtotime($discount->created_at)) }}Your order has delivered! Waiting
+                            <p> {{ date('d-m-Y H:i:s', strtotime($status->created_at)) }}: Your order has delivered! Waiting
                                 for
                                 the
                                 customer to confirm the arrival of your order</p>
                         @elseif($status->status === 'completed')
-                            <p> {{ date('d-m-Y', strtotime($discount->created_at)) }}Your order has completed! Hope you
+                            <p> {{ date('d-m-Y H:i:s', strtotime($status->created_at)) }}: Your order has completed! Hope
+                                you
                                 enjoy
                                 your book!</p>
                         @endif
@@ -159,6 +178,7 @@
                         Non-refundable
                     @endif
                 </p>
+
                 <p>
                     Delivery Address: {{ $order->delivery_address->address }}, {{ $order->delivery_address->state }},
                     {{ $order->delivery_address->phone_number }}, {{ $order->delivery_address->postal_code }}
@@ -186,6 +206,13 @@
                 <p class="total">
                     Total:
                     ${{ $order->total }}
+                </p>
+                <p class="text-danger">Order Cancellable State:
+                    @if ($order->refund_state)
+                        Cancellable
+                    @else
+                        Non-cancellable
+                    @endif
                 </p>
 
                 @if ($order->is_cancelled)
@@ -229,11 +256,15 @@
                     <h5>Total Cost:</h5>
                     <h5>${{ $total_delivery_fee / $book_details->count() + $total_item_fee }}</h5>
                 </div>
-                @if (session('userSignedIn') && session('userRole') === 'user')
+                @if (session('userSignedIn') && session('userRole') === 'user' && session('userId') === $order->ordered_by)
                     @if (!$is_packed)
-                        <button class="kbs-cancel-order">Cancel Order</button>
-                    @elseif($is_delivered)
-                        <button class="kbs-cancel-order">Confirm Order</button>
+                        <button name="order-status-updater" data-status="cancelled" data-order-id="{{ $order->order_id }}"
+                            data-route="{{ route('user.updateorderstatus') }}" data-token="{{ session('userToken') }}"
+                            class="kbs-cancel-order">Cancel Order</button>
+                    @elseif($is_delivered && !$is_completed)
+                        <button name="order-status-updater" data-status="completed" data-order-id="{{ $order->order_id }}"
+                            data-route="{{ route('user.updateorderstatus') }}"
+                            data-token="{{ session('userToken') }}"class="kbs-confirm-order">Confirm Order</button>
                     @endif
                 @endif
             </section>
@@ -242,5 +273,103 @@
     </section>
 @endsection
 @push('scripts')
-    <script></script>
+    <script>
+        $(document).ready(() => {
+            $('button[name="order-status-updater"]').on('click', function(e) {
+                let status = $(this).data('status');
+                let route = $(this).data('route');
+                let token = $(this).data('token');
+                let orderId = $(this).data('orderId');
+                let title = "";
+                let popupText = '';
+                let confirmButtonText = '';
+                if (status === 'cancelled') {
+                    title = "Cancel Order!"
+                    popupText = 'Are you sure to cancel your order? This action is untracable.';
+                    confirmButtonText = "Cancel";
+                } else {
+                    title = "Confirm Order!"
+                    popupText =
+                        'Have you receive your order yet? Please click on complete if you received your order!';
+                    confirmButtonText = "Complete";
+                }
+
+                Swal.fire({
+                    title: title,
+                    icon: 'info',
+                    text: popupText,
+                    showConfirmButton: true,
+                    showDenyButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonText: confirmButtonText,
+                    denyButtonText: "Cancel"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: route,
+                            method: 'POST',
+                            headers: {
+                                Accept: "application/json",
+                                Authorization: token
+                            },
+                            data: {
+                                status: status,
+                                order_id: orderId
+                            },
+                            success: (res) => {
+                                if (res.status === 'success') {
+                                    toast('success', res.message);
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 1500);
+                                }
+                            },
+                            error: (jqXHR, exception) => {
+                                var errorMessage = "";
+
+                                if (jqXHR.status === 0) {
+                                    errorMessage =
+                                        "Not connect.\n Verify Network.";
+                                } else if (jqXHR.status == 404) {
+                                    errorMessage =
+                                        "Requested page not found. [404]";
+                                } else if (jqXHR.status == 409) {
+                                    errorMessage = jqXHR.responseJSON.message;
+                                } else if (jqXHR.status == 500) {
+                                    errorMessage =
+                                        "Internal Server Error [500].";
+                                } else if (exception === "parsererror") {
+                                    errorMessage =
+                                        "Requested JSON parse failed.";
+                                } else if (exception === "timeout") {
+                                    errorMessage = "Time out error.";
+                                } else if (exception === "abort") {
+                                    errorMessage = "Ajax request aborted.";
+                                } else {
+                                    let html = ''
+                                    Object.values(jqXHR.responseJSON.errors).forEach((
+                                        err) => {
+                                        err.forEach((e) => {
+                                            html += `${e} <hr />`;
+                                        });
+                                    });
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        html: html,
+                                        icon: 'error',
+                                        animation: true,
+                                        showConfirmButton: true,
+                                    })
+                                    return;
+                                }
+                                toast("error", errorMessage);
+                            }
+                        })
+                    } else if (result.isDenied) {
+                        Swal.close();
+                    }
+                })
+            })
+        })
+    </script>
 @endpush

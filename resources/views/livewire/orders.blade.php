@@ -126,31 +126,38 @@
                             <td>
                                 <div class="action-wrapper">
                                     @if ($order->status->status === 'pending')
-                                        <button class="complete" name="order-status-updater" data-status="confirming"
+                                        <button class="complete" name="order-status-updater"
+                                            data-order-id="{{ $order->order_id }}" data-status="confirmed"
                                             data-route="{{ route('vendor.updateorderstatus') }}"
                                             data-token="{{ session('userToken') }}"> Confirm Order</button>
                                     @elseif($order->status->status === 'confirmed')
-                                        <button class="start" name="order-status-updater" data-status="packing"
+                                        <button class="start" name="order-status-updater"
+                                            data-order-id="{{ $order->order_id }}" data-status="packing"
                                             data-route="{{ route('vendor.updateorderstatus') }}"
                                             data-token="{{ session('userToken') }}"> Start Packing</button>
                                     @elseif($order->status->status === 'packing')
-                                        <button class="complete" name="order-status-updater" data-status="packed"
+                                        <button class="complete" name="order-status-updater"
+                                            data-order-id="{{ $order->order_id }}" data-status="packed"
                                             data-route="{{ route('vendor.updateorderstatus') }}"
                                             data-token="{{ session('userToken') }}"> Complete Packing</button>
                                     @elseif($order->status->status === 'packed')
                                         <button class="start" name="order-status-updater" data-status="handing-over"
+                                            data-order-id="{{ $order->order_id }}"
                                             data-route="{{ route('vendor.updateorderstatus') }}"
                                             data-token="{{ session('userToken') }}"> Start Hand-over</button>
                                     @elseif($order->status->status === 'handing-over')
                                         <button class="complete" name="order-status-updater" data-status="handed-over"
+                                            data-order-id="{{ $order->order_id }}"
                                             data-route="{{ route('vendor.updateorderstatus') }}"
                                             data-token="{{ session('userToken') }}"> Complete Hand-over</button>
                                     @elseif($order->status->status === 'handed-over')
                                         <button class="start" name="order-status-updater" data-status="delivering"
+                                            data-order-id="{{ $order->order_id }}"
                                             data-route="{{ route('vendor.updateorderstatus') }}"
                                             data-token="{{ session('userToken') }}"> Start Delivery</button>
-                                    @elseif($order->status->status === 'Delivering')
+                                    @elseif($order->status->status === 'delivering')
                                         <button class="complete" name="order-status-updater" data-status="delivered"
+                                            data-order-id="{{ $order->order_id }}"
                                             data-route="{{ route('vendor.updateorderstatus') }}"
                                             data-token="{{ session('userToken') }}"> Complete Delivery</button>
                                     @else

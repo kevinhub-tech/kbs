@@ -515,9 +515,6 @@ class UserController extends Controller
                         'ordered_book_delivery_fee' => $order_book_mapping['ordered_book_delivery_fee']
                     ]);
 
-                    $book = books::find($order_book_mapping['book_id']);
-                    $book->stock = $book->stock - $order_book_mapping['quantity'];
-                    $book->save();
                     DB::table('user_cart')->where('user_id', '=', self::$user_id)->where('book_id', '=', $order_book_mapping['book_id'])->delete();
                 }
                 DB::table('order_status')->insert([
@@ -534,5 +531,56 @@ class UserController extends Controller
             'message' => "Your order has been sent successfully!",
             'payload' => []
         ], Response::HTTP_ACCEPTED);
+    }
+
+    /**
+     * Order API logic code starts here
+     */
+
+    public function updateorderstatus(Request $request)
+    {
+        $request->validate([
+            'status' => ['required'],
+            'order_id' => ['required']
+        ]);
+        $order = orders::find($request->order_id);
+        $order->updated_at = now();
+
+        if ($request->status === "cancelled") {
+            DB::table('order_status')->delete($request->order_id);
+            DB::table('order_status')->insert([
+                'order_id' => $request->order_id,
+                'status' => $request->status,
+                'state' => 'current',
+                'sequence' => 0,
+                'created_at' => now(),
+            ]);
+            $order->save();
+            return response()->json([
+                'status' => "success",
+                'message' => "Your order has been cancelled successfully!",
+                'payload' => []
+            ], Response::HTTP_ACCEPTED);
+        } else {
+            $current_state = DB::table('order_status')->where('order_id', '=', $request->order_id)->where('state', '=', 'current')->first();
+            DB::table('order_status')->where('order_id', '=', $request->order_id)->where('state', '=', 'current')->update(['state' => 'completed']);
+
+            $status = DB::table('order_status')->insert([
+                'order_id' => $request->order_id,
+                'status' => $request->status,
+                'state' => 'current',
+                'sequence' => $current_state->sequence + 1,
+                'created_at' => now(),
+            ]);
+
+            if ($status) {
+                $order->save();
+                return response()->json([
+                    'status' => "success",
+                    'message' => "Order Status has been updated successfully!",
+                    'payload' => []
+                ], Response::HTTP_ACCEPTED);
+            }
+        }
     }
 }

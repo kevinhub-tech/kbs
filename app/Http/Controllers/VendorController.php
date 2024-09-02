@@ -6,6 +6,7 @@ use App\Helpers\SessionHandler;
 use App\Models\books;
 use App\Models\category;
 use App\Models\discounts;
+use App\Models\orders;
 use App\Models\roles;
 use App\Models\users;
 use App\Models\vendorPartnership;
@@ -351,6 +352,70 @@ class VendorController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'A discount has been successfully deleted!',
+                'payload' => []
+            ], Response::HTTP_ACCEPTED);
+        }
+    }
+
+    /**
+     * Order API logic code starts here
+     */
+
+    public function updateorderstatus(Request $request)
+    {
+        $request->validate([
+            'status' => ['required'],
+            'order_id' => ['required']
+        ]);
+
+        if ($request->status === "cancelled") {
+            DB::table('order_status')->delete($request->order_id);
+            DB::table('order_status')->insert([
+                'order_id' => $request->order_id,
+                'status' => $request->status,
+                'state' => 'current',
+                'sequence' => 0,
+                'created_at' => now(),
+            ]);
+            return response()->json([
+                'status' => "success",
+                'message' => "Your order has been cancelled successfully!",
+                'payload' => []
+            ], Response::HTTP_ACCEPTED);
+        }
+
+        $current_state = DB::table('order_status')->where('order_id', '=', $request->order_id)->where('state', '=', 'current')->first();
+        DB::table('order_status')->where('order_id', '=', $request->order_id)->where('state', '=', 'current')->update(['state' => 'completed']);
+
+        $status = DB::table('order_status')->insert([
+            'order_id' => $request->order_id,
+            'status' => $request->status,
+            'state' => 'current',
+            'sequence' => $current_state->sequence + 1,
+            'created_at' => now(),
+        ]);
+        $order = orders::find($request->order_id);
+        $order->updated_at = now();
+        if ($status) {
+            if ($request->status === 'packed') {
+                // Reduce stock and set refundable to no
+                $order->refund_state = 0;
+
+                $order_books = DB::table('ordered_book')->where('order_id', '=', $request->order_id)->get();
+                foreach ($order_books as $books) {
+                    $book = books::find($books->book_id);
+                    $book->stock = $book->stock - $books->quantity;
+                    $book->save();
+                }
+            } else if ($request->status === "delivered") {
+                // Update delivered_at and paid_at column with current time.
+                $order->paid_at = now();
+                $order->delivered_at = now();
+            }
+            $order->save();
+            return response()->json([
+                'status' => "success",
+                'message' => "Order Status has been updated successfully!",
                 'payload' => []
             ], Response::HTTP_ACCEPTED);
         }

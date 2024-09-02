@@ -1047,7 +1047,7 @@ section.kbs-order-detail-main-container section.kbs-order-tracking-timeline sect
 section.kbs-order-detail-main-container section.kbs-order-tracking-timeline section.kbs-order-tracking-log p {
     font-size: 1rem;
     font-family: var(--general-font);
-    text-align: center;
+    text-align: left;
     margin-bottom: 1rem;
 }
 
