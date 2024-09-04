@@ -3,19 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SessionHandler;
+use App\Mail\RegenerateLinkMail;
+use App\Mail\VendorCredentialMail;
 use App\Models\books;
 use App\Models\category;
 use App\Models\discounts;
 use App\Models\orders;
 use App\Models\roles;
 use App\Models\users;
+use App\Models\vendorApplication;
 use App\Models\vendorPartnership;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class VendorController extends Controller
 {
@@ -122,6 +128,89 @@ class VendorController extends Controller
     {
         return view('vendors.listing-order');
     }
+    public function vendorapplication()
+    {
+        return view('vendorapplication');
+    }
+    public function vendorinfo(String $token)
+    {
+        $is_token_expired = false;
+
+        $token = vendorApplication::where('token', '=', $token)->first();
+        $token_expiration_date = Carbon::parse($token->token_expiration);
+
+        if ($token_expiration_date->isPast()) {
+            $is_token_expired = true;
+        }
+        return view('vendorinfo', compact('is_token_expired', 'token'));
+    }
+    public function sendapplication(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email'],
+            'application_letter' => ['required']
+        ]);
+
+        $new_vendor_application = vendorApplication::create([
+            'email' => $request->email,
+            'application_letter' => $request->application_letter,
+            'status' => 'pending',
+            'created_at' => now()
+        ]);
+        if ($new_vendor_application) {
+            return redirect()->route('vendor.login')->with('message', 'We have received your application and will shortly response in mail with email provided once admin has reviewed your application. Thank you!');
+        }
+    }
+
+    public function postvendorinfo(Request $request, String $token)
+    {
+        $request->validate([
+            'vendor_name' => ['required'],
+            'phone_number' => ['required'],
+            'vendor_description' => ['required'],
+            'facebook_link' => ['required'],
+            'instagram_link' => ['required'],
+            'youtube_link' => ['required'],
+            'x_link' => ['required'],
+            'other_link' => ['required']
+        ]);
+
+        $vendor_application = vendorApplication::where('token', '=', $token)->first();
+        if ($vendor_application) {
+            $username = strtolower(str_replace(' ', '', $request->vendor_name) . Str::random(10));
+            $password = Str::password();
+            $vendor_role = roles::where('role_name', '=', 'vendor')->first();
+            $user = users::create([
+                'name' => $username,
+                'email' => $vendor_application->email,
+                'password' => Hash::make($password),
+                'role_id' => $vendor_role->role_id,
+                'created_at' => now()
+            ]);
+
+            if ($user) {
+                $new_vendor_info = vendorPartnership::create([
+                    'vendor_application_id' => $vendor_application->application_id,
+                    'vendor_name' => $request->vendor_name,
+                    'email' => $vendor_application->email,
+                    'phone_number' => $request->phone_number,
+                    'vendor_description' => $request->vendor_description,
+                    'facebook_link' => $request->facebook_link,
+                    'instagram_link' => $request->instagram_link,
+                    'youtube_link' => $request->youtube_link,
+                    'x_link' => $request->x_link,
+                    'other_link' => $request->other_link,
+                    'vendor_id' => $user->user_id,
+                    'created_at' => now()
+                ]);
+                if ($new_vendor_info) {
+                    Mail::to($new_vendor_info->email)->send(new VendorCredentialMail($user->name, $password, $user->email));
+                    return redirect()->route('vendor.vendorinfo', ['token' => $vendor_application->token])->with('message', 'Your store info has been saved succesfully and we will shortly give username and password for your vendor access.');
+                }
+            }
+        }
+    }
+
     /**
      * API logic code starts here
      */
@@ -418,6 +507,30 @@ class VendorController extends Controller
                 'message' => "Order Status has been updated successfully!",
                 'payload' => []
             ], Response::HTTP_ACCEPTED);
+        }
+    }
+
+    public function regeneratelink(Request $request)
+    {
+        $request->validate([
+            'id' => ['required']
+        ]);
+
+        $vendor_application = vendorApplication::find($request->id);
+
+        if ($vendor_application) {
+            $vendor_application->token = Uuid::uuid4()->toString();
+            $vendor_application->token_expiration = now()->addHours(24);
+            $vendor_application->updated_at = now();
+            $vendor_application->save();
+
+            Mail::to($vendor_application->email)
+                ->send(new RegenerateLinkMail($vendor_application->application_id));
+            return response()->json([
+                'status' => 'success',
+                'message' => "New link has been generated and send to your mail. Please check your mail",
+                'payload' => []
+            ], Response::HTTP_OK);
         }
     }
 }

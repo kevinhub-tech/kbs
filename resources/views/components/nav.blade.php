@@ -70,7 +70,7 @@
         @if (session('userSignedIn') && session('userRole') === 'admin')
             <ul>
                 <li><a href="#">Manage Users</a></li>
-                <li><a href="#">Manage Vendors</a></li>
+                <li><a href="{{ route('admin.vendors') }}">Manage Vendors</a></li>
                 <li>
                     <div class="dropdown show">
                         <a class="nav-links" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
@@ -81,7 +81,7 @@
                             <a class="dropdown-item" href="#">Profile</a>
                             <a class="dropdown-item" href="#">Orders</a>
                             <a class="dropdown-item" href="#">Reviews</a>
-                            <a class="dropdown-item" href="{{ route('vendor.logout') }}">Log Out</a>
+                            <a class="dropdown-item" href="{{ route('admin.logout') }}">Log Out</a>
                         </div>
                     </div>
                 </li>

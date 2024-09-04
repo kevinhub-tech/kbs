@@ -5,7 +5,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
-
+Route::controller(AdminController::class)->prefix('admin')->group(function () {
+    Route::middleware('admin-only')->group(function () {
+        Route::get('/', 'home')->name('admin.home');
+        Route::get('/vendor', 'vendors')->name('admin.vendors');
+        Route::get('/logout', 'logout')->name("admin.logout");
+    });
+    Route::get('/login', 'login')->name('admin.login');
+    Route::post('/signin', 'signin')->name('admin.manuallogin');
+});
 
 Route::controller(VendorController::class)->prefix('vendor')->group(function () {
     Route::middleware('vendor-only')->group(function () {
@@ -19,16 +27,10 @@ Route::controller(VendorController::class)->prefix('vendor')->group(function () 
     });
     Route::get('/login', 'login')->name('vendor.login');
     Route::post('/signin', 'signin')->name('vendor.manuallogin');
-});
-
-Route::controller(AdminController::class)->prefix('admin')->group(function () {
-    Route::middleware('admin-only')->group(function () {
-        Route::get('/', 'home')->name('admin.home');
-        Route::get('/vendor', 'vendors')->name('admin.vendors');
-        Route::get('/logout', 'logout')->name("admin.logout");
-    });
-    Route::get('/login', 'login')->name('admin.login');
-    Route::post('/signin', 'signin')->name('admin.manuallogin');
+    Route::post('/sendapplication', 'sendapplication')->name('vendor.sendapplication');
+    Route::post('/postvendorinfo/{token}', 'postvendorinfo')->name('vendor.postvendorinfo');
+    Route::get('/vendor-application', 'vendorapplication')->name('vendor.vendorapplication');
+    Route::get('/vendor-info/{token}', 'vendorinfo')->name('vendor.vendorinfo');
 });
 
 Route::controller(UserController::class)->prefix('user')->group(function () {

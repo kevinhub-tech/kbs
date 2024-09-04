@@ -17,6 +17,8 @@ return new class extends Migration
             $table->longText('application_letter');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->mediumText('rejection_reason')->nullable();
+            $table->string('token', 300)->nullable();
+            $table->timestamp('token_expiration')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

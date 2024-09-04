@@ -232,7 +232,8 @@ main {
 }
 
 form.login-form,
-form.register-form {
+form.register-form,
+form.vendor-application-form {
     width: 35rem;
     background-color: #FFFFF0;
     border-radius: 1rem;
@@ -245,27 +246,31 @@ form.register-form {
 }
 
 form.login-form div.logo,
-form.register-form div.logo {
+form.register-form div.logo,
+form.vendor-application-form div.logo {
     display: flex;
     justify-content: center;
     margin-bottom: 4rem;
 }
 
 form.login-form h4,
-form.register-form h4 {
+form.register-form h4,
+form.vendor-application-form h4 {
     font-family: var(--heading-nav-bar-title);
     text-align: center;
     margin-bottom: 2rem;
 }
 
 form.login-form label,
-form.register-form label {
+form.register-form label,
+form.vendor-application-form label {
     font-family: var(--author-vendor-user);
     font-size: 1rem;
 }
 
 form.login-form input,
-form.register-form input {
+form.register-form input,
+form.vendor-application-form input {
     padding: 0.5rem;
     border-bottom: 1px solid var(--shades);
     margin-bottom: 1rem;
@@ -273,10 +278,24 @@ form.register-form input {
     font-family: var(--author-vendor-user);
 }
 
+form.vendor-application-form textarea {
+    padding: 0.5rem;
+    background-color: #FFFFF0;
+    /* border-bottom: 1px solid var(--shades); */
+    margin-bottom: 1rem;
+    width: 100%;
+    font-family: var(--author-vendor-user);
+    border-radius: 0.5rem;
+    box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem #000000;
+}
+
 form.login-form input:focus,
-form.register-form input:focus {
+form.register-form input:focus,
+form.vendor-application-form input:focus,
+form.vendor-application-form textarea:focus {
     box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem var(--shades);
 }
+
 
 /* Container for the input and icon */
 form.login-form .input-container,
@@ -315,7 +334,8 @@ form.register-form .input-container i.fa-eye-slash {
 
 
 form.login-form button[type='submit'],
-form.register-form button[type='submit'] {
+form.register-form button[type='submit'],
+form.vendor-application-form button[type='submit'] {
     margin-top: 1rem;
     height: 2.8rem;
     background-color: var(--shades);
@@ -325,7 +345,8 @@ form.register-form button[type='submit'] {
 }
 
 form.login-form button[type='submit']:hover,
-form.register-form button[type='submit']:hover {
+form.register-form button[type='submit']:hover,
+form.vendor-application-form button[type='submit']:hover {
     background-color: transparent;
     color: var(--shades);
     border: 1px dashed #000000;
@@ -333,20 +354,23 @@ form.register-form button[type='submit']:hover {
 }
 
 form.login-form p,
-form.register-form p {
+form.register-form p,
+form.vendor-application-form p {
     font-style: var(--general-font);
     margin-top: 2rem;
     font-size: 1rem;
 }
 
 form.login-form p a,
-form.register-form p a {
+form.register-form p a,
+form.vendor-application-form p a {
     text-decoration: none;
     color: var(--shades);
 }
 
 form.login-form p.form-divider,
-form.register-form p.form-divider {
+form.register-form p.form-divider,
+form.vendor-application-form p.form-divider {
     display: flex;
     align-items: center;
     text-align: center;
@@ -356,19 +380,23 @@ form.register-form p.form-divider {
 form.login-form p.form-divider::before,
 form.login-form p.form-divider::after,
 form.register-form p.form-divider::before,
-form.register-form p.form-divider::after {
+form.register-form p.form-divider::after,
+form.vendor-application-form p.form-divider::before,
+form.vendor-application-form p.form-divider::after {
     content: "";
     flex: 1;
     border-bottom: 1px solid var(--shades);
 }
 
 form.login-form p.form-divider::before,
-form.register-form p.form-divider::before {
+form.register-form p.form-divider::before,
+form.vendor-application-form p.form-divider::before {
     margin-right: 1rem;
 }
 
 form.login-form p.form-divider::after,
-form.register-form p.form-divider::after {
+form.register-form p.form-divider::after,
+form.vendor-application-form p.form-divider::after {
     margin-left: 1rem;
 }
 
@@ -673,6 +701,39 @@ section.kbs-book-desc-container div.kbs-book-desc div.modal-footer button.kbs-bt
     transition: all .4s ease;
 }
 
+section.page-expired {
+    background-color: var(--main-color);
+    padding: 4rem;
+    height: 50dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 0.5rem;
+}
+
+section.page-expired h3 {
+    font-family: var(--author-vendor-user);
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+section.page-expired button {
+    padding: 0.5rem 1rem;
+    background-color: var(--shades);
+    color: var(--main-color);
+    border-radius: 0.5rem;
+    font-family: var(--general-font);
+    font-weight: 600;
+}
+
+section.page-expired button:hover {
+    border: 1px dashed var(--shades);
+    color: var(--shades);
+    background-color: var(--main-color);
+    transition: all 0.4s ease;
+}
 
 div.denied-card {
     padding: 10rem;

@@ -98,10 +98,42 @@
                             <td>
                                 <div class="action-wrapper">
                                     @if ($vendor->status === 'pending')
-                                        <button data-toggle="tooltip" data-placement="top" title="Accept Partnership"><i
-                                                class="fa-solid fa-check"></i></button>
-                                        <button data-toggle="tooltip" data-placement="top" title="Reject Partnership"><i
-                                                class="fa-solid fa-x"></i></button>
+                                        <i class="fa-solid fa-check" data-toggle="tooltip" data-placement="top"
+                                            title="Accept Partnership"
+                                            data-route="{{ route('admin.updateapplicationstatus') }}"
+                                            data-status="accepted" data-token="{{ session('userToken') }}"
+                                            data-id="{{ $vendor->application_id }}"></i>
+                                        <i class="fa-solid fa-x" data-toggle="tooltip" data-placement="top"
+                                            title="Reject Partnership" data-bs-toggle="modal"
+                                            data-bs-target="#reject-{{ $vendor->application_id }}"></i>
+                                        <div class="modal fade" id="reject-{{ $vendor->application_id }}"
+                                            data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 id="staticBackdropLabel">Rejection Reason</h3>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body" id="reject-{{ $vendor->application_id }}">
+                                                        <label for="">Please insert why the application
+                                                            is rejected</label>
+                                                        <input type="text" name="rejection_reason" class="kbs-input">
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="kbs-reject-button"
+                                                            data-route="{{ route('admin.updateapplicationstatus') }}"
+                                                            data-status="rejected"
+                                                            data-token="{{ session('userToken') }}"
+                                                            data-id="{{ $vendor->application_id }}">Reject</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @else
                                         N/A
                                     @endif
@@ -115,3 +147,165 @@
         </section>
     @endif
 </section>
+@push('scripts')
+    <script>
+        $(document).ready(() => {
+            $('i.fa-check').on('click', function(e) {
+                let route = $(this).data('route');
+                let status = $(this).data('status');
+                let token = $(this).data('token');
+                let id = $(this).data('id');
+                Swal.fire({
+                    title: "Warning!",
+                    icon: 'info',
+                    text: "You are about to accept the application. Are you sure?",
+                    showConfirmButton: true,
+                    showDenyButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonText: 'Proceed',
+                    denyButtonText: "Cancel"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: route,
+                            method: 'POST',
+                            headers: {
+                                Accept: "application/json",
+                                Authorization: token
+                            },
+                            data: {
+                                status: status,
+                                id: id
+                            },
+                            success: (res) => {
+                                if (res.status === 'success') {
+                                    toast('success', res.message);
+                                    Swal.close();
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 1500);
+                                }
+                            },
+                            error: (jqXHR, exception) => {
+                                var errorMessage = "";
+
+                                if (jqXHR.status === 0) {
+                                    errorMessage =
+                                        "Not connect.\n Verify Network.";
+                                } else if (jqXHR.status == 404) {
+                                    errorMessage =
+                                        "Requested page not found. [404]";
+                                } else if (jqXHR.status == 409) {
+                                    errorMessage = jqXHR.responseJSON.message;
+                                } else if (jqXHR.status == 500) {
+                                    errorMessage =
+                                        "Internal Server Error [500].";
+                                } else if (exception === "parsererror") {
+                                    errorMessage =
+                                        "Requested JSON parse failed.";
+                                } else if (exception === "timeout") {
+                                    errorMessage = "Time out error.";
+                                } else if (exception === "abort") {
+                                    errorMessage = "Ajax request aborted.";
+                                } else {
+                                    let html = ''
+                                    Object.values(jqXHR.responseJSON.errors).forEach((
+                                        err) => {
+                                        err.forEach((e) => {
+                                            html += `${e}
+<hr />`;
+                                        });
+                                    });
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        html: html,
+                                        icon: 'error',
+                                        animation: true,
+                                        showConfirmButton: true,
+                                    })
+                                    return;
+                                }
+                                toast("error", errorMessage);
+                            }
+                        })
+                    } else if (result.isDenied) {
+                        Swal.close();
+                    }
+                });
+
+
+            })
+            $('button.kbs-reject-button').on('click', function(e) {
+                let route = $(this).data('route');
+                let status = $(this).data('status');
+                let token = $(this).data('token');
+                let id = $(this).data('id');
+                let rejectionReason = $(this).parent().prev().children().eq(1).val();
+
+                $.ajax({
+                    url: route,
+                    method: 'POST',
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: token
+                    },
+                    data: {
+                        status: status,
+                        id: id,
+                        rejection_reason: rejectionReason
+                    },
+                    success: (res) => {
+                        if (res.status === 'success') {
+                            toast('success', res.message);
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1500);
+                        }
+                    },
+                    error: (jqXHR, exception) => {
+                        var errorMessage = "";
+
+                        if (jqXHR.status === 0) {
+                            errorMessage =
+                                "Not connect.\n Verify Network.";
+                        } else if (jqXHR.status == 404) {
+                            errorMessage =
+                                "Requested page not found. [404]";
+                        } else if (jqXHR.status == 409) {
+                            errorMessage = jqXHR.responseJSON.message;
+                        } else if (jqXHR.status == 500) {
+                            errorMessage =
+                                "Internal Server Error [500].";
+                        } else if (exception === "parsererror") {
+                            errorMessage =
+                                "Requested JSON parse failed.";
+                        } else if (exception === "timeout") {
+                            errorMessage = "Time out error.";
+                        } else if (exception === "abort") {
+                            errorMessage = "Ajax request aborted.";
+                        } else {
+                            let html = ''
+                            Object.values(jqXHR.responseJSON.errors).forEach((
+                                err) => {
+                                err.forEach((e) => {
+                                    html += `${e}
+<hr />`;
+                                });
+                            });
+                            Swal.fire({
+                                title: 'Error!',
+                                html: html,
+                                icon: 'error',
+                                animation: true,
+                                showConfirmButton: true,
+                            })
+                            return;
+                        }
+                        toast("error", errorMessage);
+                    }
+                })
+
+            })
+        })
+    </script>
+@endpush

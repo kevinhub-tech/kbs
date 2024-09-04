@@ -52,6 +52,7 @@ class vendorPartnership extends Model
      */
     protected $fillable = [
         'vendor_application_id',
+        'vendor_name',
         'email',
         'phone_number',
         'vendor_description',

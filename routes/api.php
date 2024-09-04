@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::controller(VendorController::class)->prefix('vendor')->group(function () {
+    Route::post('regenerate-link', ('regeneratelink'))->name('vendor.regenerate-link');
     Route::middleware('vendor-only')->group(function () {
         Route::post('/post-book', 'postbook')->name('vendor.book-post');
         Route::post('/create-discount', 'creatediscount')->name('vendor.discount-create');
@@ -22,8 +23,7 @@ Route::controller(VendorController::class)->prefix('vendor')->group(function () 
 
 Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::middleware('admin-only')->group(function () {
-        Route::get('/get', 'demoget');
-        Route::post('/post', 'demopost');
+        Route::post('/update-application-status', 'updateapplicationstatus')->name('admin.updateapplicationstatus');
     });
 });
 
@@ -38,6 +38,8 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
         Route::post('/update-order-status', 'updateorderstatus')->name('user.updateorderstatus');
     });
 });
+
+
 
 Route::get('book-image/{image}', function (String $image) {
     $path = storage_path('app/books/' . $image);

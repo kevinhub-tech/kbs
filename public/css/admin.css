@@ -72,7 +72,7 @@ section.kbs-admin-listing-main-container div.kbs-button-wrapper select {
     border: 1px solid #8c8989;
 }
 
-section.kbs-admin-listing-main-container section.kbs-table-wrapper button.kbs-remove-all-button {
+section.kbs-admin-listing-main-container section.kbs-table-wrapper button.kbs-reject-button {
     background-color: red;
     color: var(--main-color);
 }
@@ -80,6 +80,13 @@ section.kbs-admin-listing-main-container section.kbs-table-wrapper button.kbs-re
 section.kbs-admin-listing-main-container div.kbs-button-wrapper {
     display: flex;
     gap: 1rem;
+}
+
+section.kbs-admin-listing-main-container section.kbs-table-wrapper div.modal-footer button.kbs-reject-button:hover {
+    background-color: transparent;
+    color: red;
+    border: 1px dashed red;
+    transition: all .4s ease;
 }
 
 section.kbs-admin-listing-main-container div.kbs-button-wrapper button:hover,
@@ -91,12 +98,6 @@ section.kbs-admin-listing-main-container div.kbs-button-wrapper a:hover {
     transition: all .4s ease;
 }
 
-section.kbs-admin-listing-main-container section.kbs-table-wrapper button.kbs-remove-all-button:hover {
-    background-color: transparent;
-    color: red;
-    border: 1px dashed red;
-    transition: all .4s ease;
-}
 
 
 section.kbs-listing-main-container div.kbs-button-wrapper select {
@@ -264,29 +265,47 @@ section.kbs-table-wrapper table.table-container tr i {
     font-size: 1.2rem;
     padding: 1rem;
     border-radius: 0.5rem;
+    cursor: pointer;
 }
 
-section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-eye,
 section.kbs-table-wrapper table.table-container tr i.fa-envelope {
     background-color: var(--shades);
     color: var(--main-color);
 }
 
-section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-pen-to-square {
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-check {
     background-color: #3b5998;
     color: var(--main-color);
 }
 
-section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-tag {
-    background-color: var(--shades);
-    color: var(--main-color);
-}
 
-section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-trash {
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-x {
     background-color: red;
     color: var(--main-color);
 }
 
+section.kbs-admin-listing-main-container div.modal-body {
+    text-align: left !important;
+}
+
+section.kbs-admin-listing-main-container div.modal-body label {
+    font-size: 1rem;
+    font-family: var(--general-font);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+section.kbs-admin-listing-main-container div.modal-body input.kbs-input {
+    width: 100%;
+    padding: 0.5rem;
+    box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #8d9bb6;
+    font-family: var(--general-font);
+    border-radius: 0.5rem;
+}
+
+section.kbs-admin-listing-main-container div.modal-body input.kbs-input:focus {
+    box-shadow: 0.1rem 0.1rem 0.5rem 0.01rem var(--shades);
+}
 
 
 @media screen and (max-width: 1200px) {

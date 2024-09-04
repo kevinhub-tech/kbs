@@ -4,14 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\SessionHandler;
+use App\Mail\PartnerShipAcceptanceMail;
+use App\Mail\PartnershipRejection;
 use App\Models\roles;
 use App\Models\users;
+use App\Models\vendorApplication;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
 class AdminController extends Controller
 {
+    /**
+     * Login logic code starts here
+     */
+
     public function login()
     {
         if (SessionHandler::checkUserSession()) {
@@ -42,6 +50,10 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Web logic code starts here
+     */
+
     public function home()
     {
         return view('admins.home');
@@ -61,5 +73,54 @@ class AdminController extends Controller
     public function vendors()
     {
         return view('admins.vendors');
+    }
+
+    /**
+     * API logic code starts here
+     */
+
+    /**
+     * Book API logic code starts here
+     */
+    public function updateapplicationstatus(Request $request)
+    {
+        $request->validate([
+            'status' => ['required'],
+            'id' => ['required']
+        ]);
+        $message = '';
+        $vendor = vendorApplication::find($request->id);
+        if ($request->status === 'accepted') {
+            $vendor->status = $request->status;
+            $vendor->token = Uuid::uuid4()->toString();
+            $vendor->token_expiration = now()->addHours(24);
+            $vendor->updated_at = now();
+            $vendor->save();
+
+            Mail::to($vendor->email)
+                ->send(new PartnerShipAcceptanceMail($vendor->application_id));
+
+            $message = "Application has been approved and mail has been sent to the vendor to fill out their info";
+            // Perform mail action and generate new token
+        } else {
+            $request->validate([
+                'rejection_reason' => ['required']
+            ]);
+            $vendor->status = $request->status;
+            $vendor->rejection_reason = $request->rejection_reason;
+            $vendor->updated_at = now();
+            $vendor->save();
+            Mail::to($vendor->email)
+                ->send(new PartnershipRejection($vendor->application_id));
+
+            $message = "Application has been approved and mail has been sent to the vendor to fill out their info";
+            // Send mail to why it is rejected and update the application status
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+            'payload' => []
+        ], Response::HTTP_OK);
     }
 }
