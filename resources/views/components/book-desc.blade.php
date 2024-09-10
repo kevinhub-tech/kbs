@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
+                            <div class="modal-footer add-to-cart">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn kbs-btn" data-book-id='{{ $book->book_id }}'
                                     data-quantity='1' data-route="{{ route('user.addcart') }}"

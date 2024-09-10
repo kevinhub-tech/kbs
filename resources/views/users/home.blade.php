@@ -8,7 +8,10 @@
             <h3>Book Categories</h3>
             <ul>
                 @foreach ($categories as $category)
-                    <li><a href="#" data-route="{{route('user.home')}}" @if(Request::get('category') === $category->category_id) class="active" @endif data-category-id="{{$category->category_id}}">{{ $category->category }} ({{ $category->count }})</a></li>
+                    <li><a href="#" data-route="{{ route('user.home') }}"
+                            @if (Request::get('category') === $category->category_id) class="active" @endif
+                            data-category-id="{{ $category->category_id }}">{{ $category->category }}
+                            ({{ $category->count }})</a></li>
                 @endforeach
             </ul>
         </aside>
@@ -36,14 +39,17 @@
                                         <span class="rating">{{ $book->review }} stars</span>
                                     </div>
                                     <p class='book-author'>{{ $book->author_name }}</p>
-                                    @if($book->discount_id === null)
-                                    <h4>Price : ${{ $book->price }}</h4>    
+                                    @if ($book->discount_id === null)
+                                        <h4>Price : ${{ $book->price }}</h4>
                                     @else
-                                    <h4>Price : <span class="original-price">{{$book->price}}</span><span class="discounted-price"> {{$book->discount_price}}</span></h4>
+                                        <h4>Price : <span class="original-price">{{ $book->price }}</span><span
+                                                class="discounted-price"> {{ $book->discount_price }}</span></h4>
                                     @endif
-                                    
+
                                     <small class="stock">Stock : {{ $book->stock }}</small><br>
-                                    <button class='kbs-purchase' onclick="window.location.href = '{{route('user.checkout', ['location' => $book->book_id])}}'">Purchase Now</button>
+                                    <button class='kbs-purchase'
+                                        onclick="window.location.href = '{{ route('user.checkout', ['location' => $book->book_id]) }}'">Purchase
+                                        Now</button>
                                     <div class="d-flex justify-content-evenly align-items-center mt-3">
                                         <!-- Button trigger modal -->
                                         <a class="kbs-button" data-bs-toggle="modal"
@@ -69,13 +75,15 @@
                                                             <div class="d-flex flex-column justify-content-around">
                                                                 <h4>{{ $book->book_name }}</h4>
                                                                 <p class='book-author'>By {{ $book->author_name }}</p>
-                                                                @if($book->discount_id === null)
-                                                                <h4>Price : ${{ $book->price }}</h4>    
+                                                                @if ($book->discount_id === null)
+                                                                    <h4>Price : ${{ $book->price }}</h4>
                                                                 @else
-                                                                <h4>Price : <span class="original-price">{{$book->price}}</span><span class="discounted-price"> {{$book->discount_price}}</span></h4>
-                
+                                                                    <h4>Price : <span
+                                                                            class="original-price">{{ $book->price }}</span><span
+                                                                            class="discounted-price">
+                                                                            {{ $book->discount_price }}</span></h4>
                                                                 @endif
-                                                                
+
                                                                 <small class="stock">Stock :
                                                                     <span>{{ $book->stock }}</span></small><br>
                                                                 <label for="">Quantity:</label>
@@ -90,12 +98,18 @@
                                                                 </div>
                                                                 <label for="" class="mt-3">Total Price:
                                                                     $<span id="total-price"
-                                                                        original-price='@if($book->discount_id === null) {{$book->price}} @else {{ $book->discount_price }} @endif'>@if($book->discount_id === null) {{$book->price}} @else {{ $book->discount_price }} @endif</span>
+                                                                        original-price='@if ($book->discount_id === null) {{ $book->price }} @else {{ $book->discount_price }} @endif'>
+                                                                        @if ($book->discount_id === null)
+                                                                            {{ $book->price }}
+                                                                        @else
+                                                                            {{ $book->discount_price }}
+                                                                        @endif
+                                                                    </span>
                                                                 </label>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="modal-footer">
+                                                    <div class="modal-footer add-to-cart">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close</button>
                                                         <button type="button" class="btn kbs-btn"
