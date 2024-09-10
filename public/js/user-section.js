@@ -172,7 +172,7 @@ $("div.cart-quantity button").on('click', function (e) {
         addButton.dataset.quantity = quantity;
     }
 })
-$("div.modal-footer button.kbs-btn").on('click', function (e) {
+$("div.modal-footer.add-to-cart button.kbs-btn").on('click', function (e) {
     // Get book_id and quantity
     let bookId = $(this).data('book-id');
     let quantity = $(this).data('quantity');
@@ -306,7 +306,89 @@ $("i.fa-solid.fa-heart.add-to-favourite").on('click', (e) => {
     })
 })
 
+$("div.modal-footer.profile-update button.kbs-btn").on('click', (e) => {
 
+    let route = $(e.currentTarget).data('route');
+    let token = $(e.currentTarget).data('token');
+    let userId = $(e.currentTarget).data('userId');
+    if (formValidate()) {
+        let formData = new FormData(document.querySelector('form[name="update-profile"]'));
+        formData.append('id', userId);
+        Swal.fire({
+            title: "Info!",
+            icon: 'info',
+            text: "You are about to update your profile. Are you sure?",
+            showConfirmButton: true,
+            showDenyButton: true,
+            allowOutsideClick: false,
+            confirmButtonText: 'Update',
+            denyButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: route,
+                    method: 'POST',
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: token
+                    },
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: (res) => {
+                        if (res.status === 'success') {
+                            toast('success', res.message);
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1500);
+                        }
+                    },
+                    error: (jqXHR, exception) => {
+                        var errorMessage = "";
+
+                        if (jqXHR.status === 0) {
+                            errorMessage =
+                                "Not connect.\n Verify Network.";
+                        } else if (jqXHR.status == 404) {
+                            errorMessage =
+                                "Requested page not found. [404]";
+                        } else if (jqXHR.status == 500) {
+                            errorMessage =
+                                "Internal Server Error [500].";
+                        } else if (exception === "parsererror") {
+                            errorMessage =
+                                "Requested JSON parse failed.";
+                        } else if (exception === "timeout") {
+                            errorMessage = "Time out error.";
+                        } else if (exception === "abort") {
+                            errorMessage = "Ajax request aborted.";
+                        } else {
+                            let html = ''
+                            Object.values(jqXHR.responseJSON.errors).forEach((err) => {
+                                err.forEach((e) => {
+                                    html += `${e} <hr />`;
+                                });
+                            });
+                            Swal.fire({
+                                title: 'Error!',
+                                html: html,
+                                icon: 'error',
+                                animation: true,
+                                showConfirmButton: true,
+                            })
+                            return;
+                        }
+                        toast("error", errorMessage);
+                    }
+                })
+            }
+            else if (result.isDenied) {
+                Swal.close();
+            }
+        })
+
+    }
+})
 /**
  * Home function starts here
  *  */
@@ -922,5 +1004,103 @@ const checkoutFunction = () => {
                 toast("error", errorMessage);
             }
         })
+    })
+}
+
+/**
+ * address function starts here
+ *  */
+const addressFunction = () => {
+    $('i').on('click', function (e) {
+        if ($(this).hasClass('fa-money-bill') || $(this).hasClass('fa-house')) {
+            let route = $(this).data('route');
+            let token = $(this).data('token');
+            let addressId = $(this).data('addressId');
+            let popupMessage;
+            let deliveryType;
+            if ($(this).hasClass('fa-house')) {
+                popupMessage = 'You are about to make this address as your default delivery address. Are you sure?'
+                deliveryType = 'delivery_address';
+            } else {
+                popupMessage = 'You are about to make this address as your default billing address. Are you sure?'
+                deliveryType = 'billing_address';
+            }
+            let data = {
+                address_id: addressId,
+                address_type: deliveryType,
+            }
+
+            Swal.fire({
+                title: "Info!",
+                icon: 'info',
+                text: popupMessage,
+                showConfirmButton: true,
+                showDenyButton: true,
+                allowOutsideClick: false,
+                confirmButtonText: 'Update',
+                denyButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: route,
+                        method: 'POST',
+                        headers: {
+                            Accept: "application/json",
+                            Authorization: token
+                        },
+                        data: data,
+                        success: (res) => {
+                            if (res.status === 'success') {
+                                toast('success', res.message);
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 1500);
+                            }
+                        },
+                        error: (jqXHR, exception) => {
+                            var errorMessage = "";
+
+                            if (jqXHR.status === 0) {
+                                errorMessage =
+                                    "Not connect.\n Verify Network.";
+                            } else if (jqXHR.status == 404) {
+                                errorMessage =
+                                    "Requested page not found. [404]";
+                            } else if (jqXHR.status == 500) {
+                                errorMessage =
+                                    "Internal Server Error [500].";
+                            } else if (exception === "parsererror") {
+                                errorMessage =
+                                    "Requested JSON parse failed.";
+                            } else if (exception === "timeout") {
+                                errorMessage = "Time out error.";
+                            } else if (exception === "abort") {
+                                errorMessage = "Ajax request aborted.";
+                            } else {
+                                let html = ''
+                                Object.values(jqXHR.responseJSON.errors).forEach((err) => {
+                                    err.forEach((e) => {
+                                        html += `${e} <hr />`;
+                                    });
+                                });
+                                Swal.fire({
+                                    title: 'Error!',
+                                    html: html,
+                                    icon: 'error',
+                                    animation: true,
+                                    showConfirmButton: true,
+                                })
+                                return;
+                            }
+                            toast("error", errorMessage);
+                        }
+                    })
+                }
+                else if (result.isDenied) {
+                    Swal.close();
+                }
+            })
+        }
+
     })
 }
