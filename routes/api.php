@@ -36,6 +36,8 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
         Route::post('/remove-favourite', 'removefavourite')->name('user.removefavourite');
         Route::post('/send-order', 'sendorder')->name('user.sendorder');
         Route::post('/update-order-status', 'updateorderstatus')->name('user.updateorderstatus');
+        Route::post('/update-profile', 'updateprofile')->name('user.updateprofile');
+        Route::post('/update-default-address', 'setdefaultaddress')->name('user.updatedefaultaddress');
     });
 });
 
@@ -48,3 +50,12 @@ Route::get('book-image/{image}', function (String $image) {
     }
     return response()->file($path);
 })->name('get-image');
+
+
+Route::get('user-image/{image}', function (String $image) {
+    $path = storage_path('app/users/' . $image);
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+})->name('get-user-image');

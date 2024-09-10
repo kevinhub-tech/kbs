@@ -37,9 +37,9 @@
                                 class="fa-solid fa-user"></i></a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Orders</a>
-                            <a class="dropdown-item" href="#">Reviews</a>
+                            <a class="dropdown-item" href="{{ route('user.address') }}">Profile</a>
+                            <a class="dropdown-item" href="{{ route('user.orderlisting') }}">Orders</a>
+                            <a class="dropdown-item" href="{{ route('user.reviews') }}">Reviews</a>
                             <a class="dropdown-item" href="{{ route('user.logout') }}">Log Out</a>
                         </div>
                     </div>

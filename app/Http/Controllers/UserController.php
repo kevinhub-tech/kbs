@@ -318,6 +318,21 @@ class UserController extends Controller
         $order_status = DB::table('order_status')->where('order_id', '=', $order->order_id)->get();
         return view('order-detail', compact('order', 'order_status', 'book_details'));
     }
+
+    public function address()
+    {
+        return view('users.address');
+    }
+
+    public function order()
+    {
+        return view('users.order');
+    }
+
+    public function reviews()
+    {
+        return view('users.review');
+    }
     /**
      * API logic code starts here
      */
@@ -582,5 +597,71 @@ class UserController extends Controller
                 ], Response::HTTP_ACCEPTED);
             }
         }
+    }
+
+    public function updateprofile(Request $request)
+    {
+        $request->validate([
+            'id' => ['required'],
+            'name' => ['required']
+        ]);
+
+        $user = users::find($request->id);
+        if ($user) {
+            $user->name = $request->name;
+            if ($request->hasFile('image')) {
+                if ($user->image !== null) {
+                    unlink(storage_path('app/users/' . $user->image));
+                }
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $path = '/users';
+                $user_image_name = uniqid('user_') . '_' . time() . '.' . $extension;
+
+                $file->storeAs($path, $user_image_name);
+                $user->image = $user_image_name;
+            }
+            $user->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => "Your Profile has been updated!",
+                'payload' => []
+            ]);
+        }
+    }
+
+    public function setdefaultaddress(Request $request)
+    {
+        $request->validate([
+            'address_id' => ['required'],
+            'address_type' => ['required'],
+        ]);
+
+        $new_default_address = address::find($request->address_id);
+        if ($request->address_type === 'delivery_address') {
+            $previous_default_address = address::where('user_id', '=', self::$user_id)->where('default_address', '=', true)->first();
+            $previous_default_address->default_address = 0;
+            $previous_default_address->updated_at = now();
+            $previous_default_address->save();
+            $new_default_address->default_address = 1;
+            $new_default_address->updated_at = now();
+            $new_default_address->save();
+            $message = "Your default delivery address has been updated successfully!";
+        } elseif ($request->address_type === 'billing_address') {
+            $previous_default_address = address::where('user_id', '=', self::$user_id)->where('default_billing_address', '=', true)->first();
+            $previous_default_address->default_billing_address = 0;
+            $previous_default_address->updated_at = now();
+            $previous_default_address->save();
+            $new_default_address->default_billing_address = 1;
+            $new_default_address->updated_at = now();
+            $new_default_address->save();
+            $message = "Your default delivery address has been updated successfully!";
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+            'payload' => []
+        ], Response::HTTP_OK);
     }
 }

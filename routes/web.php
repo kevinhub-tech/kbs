@@ -43,6 +43,9 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
         Route::get('/logout', 'logout')->name("user.logout");
         Route::get('/book/{id}', 'book')->name('user.book');
         Route::get('/checkout', 'checkout')->name('user.checkout');
+        Route::get('/address', 'address')->name('user.address');
+        Route::get('/orderlisting', 'order')->name('user.orderlisting');
+        Route::get('/reviews', 'reviews')->name('user.reviews');
     });
     Route::get('/order', 'orderdetail')->name('user.orderdetail');
     Route::get('/ordertracking', function () {
