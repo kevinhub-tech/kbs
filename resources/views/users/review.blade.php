@@ -7,5 +7,7 @@
     <livewire:user.review />
 @endsection
 @push('scripts')
-    <script></script>
+    <script>
+        reviewFunction()
+    </script>
 @endpush

@@ -496,6 +496,7 @@ section.kbs-book-desc-container div.kbs-book-desc p.author {
     font-family: var(--author-vendor-user);
 }
 
+
 section.kbs-book-desc-container div.kbs-book-desc div.star-rating span.rating {
     font-family: var(--author-vendor-user);
 }
@@ -794,14 +795,45 @@ section.kbs-listing-main-container {
     border-radius: 0.5rem;
 }
 
-section.kbs-listing-main-container button {
+section.kbs-listing-main-container div.star-widget {
+    display: flex;
+    flex-direction: row-reverse;
+    /* This reverses the stars visually */
+    justify-content: center;
+    align-items: center;
+}
+
+section.kbs-listing-main-container div.star-widget input {
+    display: none;
+}
+
+
+section.kbs-listing-main-container div.star-widget label i {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+section.kbs-listing-main-container div.star-widget input:not(:checked)~label:hover,
+section.kbs-listing-main-container div.star-widget input:not(:checked)~label:hover~label {
+    color: var(--shades);
+}
+
+section.kbs-listing-main-container div.star-widget input:checked~label {
+    color: var(--shades);
+}
+
+
+
+section.kbs-listing-main-container button.review-button {
     padding: 0.5rem 1rem;
     background-color: var(--shades);
     color: var(--main-color);
     font-family: var(--heading-nav-bar-title);
 }
 
-section.kbs-listing-main-container button:hover {
+section.kbs-listing-main-container button.review-button:hover {
     border: 1px dashed var(--shades);
     color: var(--shades);
     background-color: transparent;
@@ -895,7 +927,8 @@ section.kbs-listing-main-container section.kbs-table-wrapper div.modal-body labe
 
 section.kbs-listing-main-container div.kbs-button-wrapper div.modal-body input.kbs-input,
 section.kbs-listing-main-container section.kbs-table-wrapper div.modal-body input.kbs-input,
-section.kbs-listing-main-container div.kbs-button-wrapper div.modal-body select.kbs-select {
+section.kbs-listing-main-container div.kbs-button-wrapper div.modal-body select.kbs-select,
+section.kbs-listing-main-container div.modal-body textarea {
     width: 100%;
     padding: 0.5rem;
     box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #8d9bb6;
@@ -977,6 +1010,10 @@ section.kbs-table-wrapper table.table-container th {
     font-family: var(--heading-nav-bar-title);
 }
 
+section.kbs-table-wrapper div.star-rating span.fa-star.checked {
+    color: var(--shades);
+}
+
 section.kbs-table-wrapper table.table-container.order-listing th {
     font-size: 1rem;
 }
@@ -1043,7 +1080,7 @@ section.kbs-table-wrapper table.table-container tr div.action-wrapper button.sta
     transition: all ease 0.4s;
 }
 
-section.kbs-table-wrapper table.table-container tr div.action-wrapper i {
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i:not(.fa-star) {
     font-size: 1.2rem;
     padding: 1rem;
     border-radius: 0.5rem;
@@ -1055,7 +1092,7 @@ section.kbs-table-wrapper table.table-container tr div.action-wrapper i {
 
 
 
-section.kbs-table-wrapper table.table-container tr div.action-wrapper i:hover {
+section.kbs-table-wrapper table.table-container tr div.action-wrapper i:not(.fa-star):hover {
     border: 1px dashed var(--shades);
     background-color: transparent;
     color: var(--shades);

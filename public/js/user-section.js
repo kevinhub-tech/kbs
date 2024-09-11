@@ -127,6 +127,8 @@ $("div.star-rating").each(function (index, div) {
     }
 })
 
+
+
 $("div.cart-quantity button").on('click', function (e) {
     let button = e.currentTarget;
     let buttonClassName = e.currentTarget.className
@@ -1104,3 +1106,105 @@ const addressFunction = () => {
 
     })
 }
+
+/**
+ * review function starts here
+ *  */
+const reviewFunction = () => {
+    function allreviewFunction() {
+        // Delegated event listener for the dynamically generated radio buttons
+        $(document).on('click', 'div.star-widget input[type="radio"]', function (e) {
+            let value = $(this).val();
+            let title = value + (value > 1 ? ' Stars' : ' Star');
+            $(this).parent().parent().prev().html(title);
+        });
+
+        // Delegated event listener for the modal footer buttons
+        $(document).on('click', 'div.modal-footer.review button.btn.kbs-btn', function (e) {
+            let route = $(this).data('route');
+            let id = $(this).data('id');
+            let reviewType = $(this).data('reviewType');
+            let token = $(this).data('token');
+            let formData = new FormData(document.querySelector(`form[name="${id}"]`));
+            formData.append('id', id);
+            formData.append('review_type', reviewType);
+
+            $.ajax({
+                url: route,
+                method: 'POST',
+                headers: {
+                    Accept: "application/json",
+                    Authorization: token
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: (res) => {
+                    if (res.status === 'success') {
+                        toast('success', res.message);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+
+                    }
+                },
+                error: (jqXHR, exception) => {
+                    var errorMessage = "";
+
+                    if (jqXHR.status === 0) {
+                        errorMessage =
+                            "Not connect.\n Verify Network.";
+                    } else if (jqXHR.status == 404) {
+                        errorMessage =
+                            "Requested page not found. [404]";
+                    } else if (jqXHR.status == 409) {
+                        errorMessage = jqXHR.responseJSON.message;
+                    } else if (jqXHR.status == 500) {
+                        errorMessage =
+                            "Internal Server Error [500].";
+                    } else if (exception === "parsererror") {
+                        errorMessage =
+                            "Requested JSON parse failed.";
+                    } else if (exception === "timeout") {
+                        errorMessage = "Time out error.";
+                    } else if (exception === "abort") {
+                        errorMessage = "Ajax request aborted.";
+                    } else {
+                        let html = ''
+                        Object.values(jqXHR.responseJSON.errors).forEach((
+                            err) => {
+                            err.forEach((e) => {
+                                html += `${e} <hr />`;
+                            });
+                        });
+                        Swal.fire({
+                            title: 'Error!',
+                            html: html,
+                            icon: 'error',
+                            animation: true,
+                            showConfirmButton: true,
+                        })
+                        return;
+                    }
+                    toast("error", errorMessage);
+                }
+            })
+
+
+        });
+    }
+
+    // Ensure the function is run when the page is loaded
+    $(document).ready(() => {
+        allreviewFunction();
+    });
+
+    // Run the function after every Livewire update
+    document.addEventListener('livewire:load', function () {
+        allreviewFunction();
+    });
+
+    document.addEventListener('livewire:update', function () {
+        allreviewFunction();
+    });
+};

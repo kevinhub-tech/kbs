@@ -631,6 +631,9 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Address API logic code starts here
+     */
     public function setdefaultaddress(Request $request)
     {
         $request->validate([
@@ -663,5 +666,104 @@ class UserController extends Controller
             'message' => $message,
             'payload' => []
         ], Response::HTTP_OK);
+    }
+
+    /**
+     * Review API logic code starts here
+     */
+    public function addreview(Request $request)
+    {
+        $request->validate([
+            'id' => ['required'],
+            'review_type' => ['required'],
+            'rating' => ['required'],
+            'review' => ['required']
+        ]);
+
+        if ($request->review_type === "books") {
+            $new_review = DB::table("book_review")->insert([
+                'book_id' => $request->id,
+                'rating' => $request->rating,
+                'review' => $request->review,
+                'reviewed_by' => self::$user_id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+            if ($new_review) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => "Your book review has been successfully uploaded!",
+                    'payload' => []
+                ], Response::HTTP_CREATED);
+            }
+        } elseif ($request->review_type === "vendors") {
+            $new_review = DB::table("vendor_review")->insert([
+                'vendor_id' => $request->id,
+                'rating' => $request->rating,
+                'review' => $request->review,
+                'reviewed_by' => self::$user_id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+            if ($new_review) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => "Your vendor review has been successfully uploaded!",
+                    'payload' => []
+                ], Response::HTTP_CREATED);
+            }
+        }
+    }
+
+    public function updatereview(Request $request)
+    {
+        $request->validate([
+            'id' => ['required'],
+            'review_type' => ['required'],
+            'rating' => ['required'],
+            'review' => ['required']
+        ]);
+
+        if ($request->review_type === "books") {
+            $review = DB::table('book_review')->where('reviewed_by', '=', self::$user_id)->where('book_id', '=', $request->id)->update([
+                'rating' => $request->rating,
+                'review' => $request->review,
+                'updated_at' => now()
+            ]);
+            if ($review) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => "Your book review has been successfully updated!",
+                    'payload' => []
+                ], Response::HTTP_OK);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Cannot find the review!',
+                    'error' => "The review that you are trying to update does not exist.",
+                    'payload' => []
+                ], Response::HTTP_CONFLICT);
+            }
+        } elseif ($request->review_type === "vendors") {
+            $review = DB::table('vendor_review')->where('reviewed_by', '=', self::$user_id)->where('vendor_id', '=', $request->id)->update([
+                'rating' => $request->rating,
+                'review' => $request->review,
+                'updated_at' => now()
+            ]);
+            if ($review) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => "Your vendor review has been successfully updated!",
+                    'payload' => []
+                ], Response::HTTP_OK);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Cannot find the review!',
+                    'error' => "The review that you are trying to update does not exist.",
+                    'payload' => []
+                ], Response::HTTP_CONFLICT);
+            }
+        }
     }
 }

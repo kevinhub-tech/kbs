@@ -38,6 +38,8 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
         Route::post('/update-order-status', 'updateorderstatus')->name('user.updateorderstatus');
         Route::post('/update-profile', 'updateprofile')->name('user.updateprofile');
         Route::post('/update-default-address', 'setdefaultaddress')->name('user.updatedefaultaddress');
+        Route::post('/add-review', 'addreview')->name('user.addreview');
+        Route::post('/update-review', 'updatereview')->name('user.updatereview');
     });
 });
 
