@@ -104,3 +104,49 @@
         </div>
     </div>
 </section>
+<section class="kbs-book-reviews">
+    <h3>Reviews (@if ($book->reviews)
+            {{ $book->reviews->count() }}
+        @else
+            0
+        @endif)</h3>
+    <hr>
+    <div class="kbs-book-review-card">
+        @if ($book->reviews)
+            @foreach ($book->reviews as $review)
+                @if ($review->image === null)
+                    <img src="{{ asset('image/default-user.jpg') }}" alt="">
+                @elseif(str_contains($review->image, 'http'))
+                    <img src="{{ $review->image }}" alt="" />
+                @else
+                    <img src="{{ route('get-user-image', ['image' => $review->image]) }}" alt="">
+                @endif
+                <div class="d-flex flex-column justify-content-between">
+                    <div>
+                        <h4>{{ $review->name }}</h4>
+                        <p>{{ $review->review }}</p>
+                    </div>
+                    <div>
+                        <small>
+                            @if ($review->updated_at !== null)
+                                {{ $review->updated_at }}
+                            @else
+                                {{ $review->created_at }}
+                            @endif
+                        </small>
+                    </div>
+                </div>
+                @if (!$loop->last)
+                    <hr>
+                @endif
+            @endforeach
+        @else
+            <section class="kbs-empty">
+                <h3>
+                    No Review for this book yet...
+                </h3>
+            </section>
+        @endif
+
+    </div>
+</section>

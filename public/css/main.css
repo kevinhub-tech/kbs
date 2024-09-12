@@ -497,9 +497,15 @@ section.kbs-book-desc-container div.kbs-book-desc p.author {
 }
 
 
+
+section.kbs-book-desc-container div.kbs-book-desc div.star-rating span.fa.fa-star.checked {
+    color: var(--shades);
+}
+
 section.kbs-book-desc-container div.kbs-book-desc div.star-rating span.rating {
     font-family: var(--author-vendor-user);
 }
+
 
 section.kbs-book-desc-container div.kbs-book-desc div.category-wrapper {
     display: flex;
@@ -702,6 +708,41 @@ section.kbs-book-desc-container div.kbs-book-desc div.modal-footer button.kbs-bt
     transition: all .4s ease;
 }
 
+section.kbs-book-reviews {
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
+
+section.kbs-book-reviews h3 {
+    font-family: var(--heading-nav-bar-title);
+}
+
+section.kbs-book-reviews div.kbs-book-review-card {
+    display: flex;
+    gap: 2rem;
+}
+
+section.kbs-book-reviews div.kbs-book-review-card img {
+    width: 10rem;
+    object-fit: cover;
+}
+
+section.kbs-book-reviews div.kbs-book-review-card h4 {
+    font-family: var(--general-font);
+    font-weight: 700;
+}
+
+section.kbs-book-reviews div.kbs-book-review-card p {
+    font-family: var(--general-font);
+}
+
+section.kbs-book-reviews div.kbs-book-review-card small {
+    font-family: var(--author-vendor-user);
+    color: var(--shades);
+}
+
 section.page-expired {
     background-color: var(--main-color);
     padding: 4rem;
@@ -776,7 +817,8 @@ section.kbs-profile-banner i:hover {
 
 section.kbs-empty {
     margin-top: 1rem;
-    height: 100dvh;
+    width: 100%;
+    height: 50dvh;
     background-color: #f2f3f5;
     border-radius: 1rem;
     display: flex;
@@ -1140,6 +1182,7 @@ div.modal-footer button.kbs-btn:hover {
     border: 1px dashed #000000;
     transition: all .4s ease;
 }
+
 
 div.denied-card {
     padding: 10rem;

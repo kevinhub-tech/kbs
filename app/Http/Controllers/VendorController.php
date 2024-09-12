@@ -95,7 +95,15 @@ class VendorController extends Controller
         $book->categories = $categories;
         $review_count = DB::table('book_review')->where('book_id', '=', $id)->count();
         if ($review_count > 0) {
-            $avg_review = DB::table('book_review')->where('book_id', '=', $id)->avg('rating');
+            $avg_review = round(DB::table('book_review')->where('book_id', '=', $id)->avg('rating'));
+            $reviews = DB::table('book_review as br')->join('users as u', 'br.reviewed_by', '=', 'u.user_id')->where('book_id', '=', $id)->select('br.*', 'u.image', 'u.name')->get();
+            foreach ($reviews as $review) {
+                $review->created_at = Carbon::parse($review->created_at)->diffForHumans();
+                if ($review->updated_at !== null) {
+                    $review->updated_at = Carbon::parse($review->updated_at)->diffForHumans();
+                }
+            }
+            $book->reviews = $reviews;
             $book->review = $avg_review;
         } else {
             $book->review = 0;

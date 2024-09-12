@@ -11,6 +11,7 @@ use App\Models\orders;
 use App\Models\roles;
 use App\Models\users;
 use App\Models\vendorPartnership;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -198,7 +199,7 @@ class UserController extends Controller
             }
             $review_count = DB::table('book_review')->where('book_id', '=', $book->book_id)->count();
             if ($review_count > 0) {
-                $avg_review = DB::table('book_review')->where('book_id', '=', $book->book_id)->avg('rating');
+                $avg_review = round(DB::table('book_review')->where('book_id', '=', $book->book_id)->avg('rating'));
                 $book->review = $avg_review;
             } else {
                 $book->review = 0;
@@ -263,12 +264,22 @@ class UserController extends Controller
             $book->discount_price =  number_format($book->price -  $discounted_price, 2, '.', "");
         }
         if ($review_count > 0) {
-            $avg_review = DB::table('book_review')->where('book_id', '=', $id)->avg('rating');
+            $avg_review = round(DB::table('book_review')->where('book_id', '=', $id)->avg('rating'));
+            $reviews = DB::table('book_review as br')->join('users as u', 'br.reviewed_by', '=', 'u.user_id')->where('book_id', '=', $id)->select('br.*', 'u.image', 'u.name')->get();
+            foreach ($reviews as $review) {
+                $review->created_at = Carbon::parse($review->created_at)->diffForHumans();
+                if ($review->updated_at !== null) {
+                    $review->updated_at = Carbon::parse($review->updated_at)->diffForHumans();
+                }
+            }
+
             $book->review = $avg_review;
+            $book->reviews = $reviews;
         } else {
             $book->review = 0;
         }
         $vendor_info = vendorPartnership::where('vendor_id', '=', $book->created_by)->first();
+
         return view('users.book', compact('book', 'vendor_info'));
     }
 

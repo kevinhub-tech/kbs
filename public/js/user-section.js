@@ -118,17 +118,6 @@ $("h3.kbs-remove-all").on('click', function (e) {
     })
 })
 
-
-$("div.star-rating").each(function (index, div) {
-    let divStarRating = $(div);
-    let rating = divStarRating.attr('rating') - 1;
-    for (i = 0; i <= rating; i++) {
-        divStarRating.children().eq(i).addClass('checked');
-    }
-})
-
-
-
 $("div.cart-quantity button").on('click', function (e) {
     let button = e.currentTarget;
     let buttonClassName = e.currentTarget.className

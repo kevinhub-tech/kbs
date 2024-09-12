@@ -155,12 +155,14 @@ div.kbs-favourite-book-card h4 span.discounted-price {
 }
 
 div.kbs-book-card-container div.star-rating span.fa.fa-star.checked,
-div.kbs-favourite-book-card-container div.star-rating span.fa.fa-star.checked {
+div.kbs-favourite-book-card-container div.star-rating span.fa.fa-star.checked,
+div.kbs-book-desc div.star-rating span.fa.fa-star.checked {
     color: var(--shades);
 }
 
 div.kbs-book-card-container div.star-rating span.rating,
-div.kbs-favourite-card-container div.star-rating span.rating {
+div.kbs-favourite-card-container div.star-rating span.rating,
+div.kbs-book-desc div.star-rating span.rating {
     font-family: var(--general-font);
 }
 
