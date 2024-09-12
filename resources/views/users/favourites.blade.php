@@ -51,7 +51,9 @@
 
                             <div class="d-flex justify-content-center align-items-center mt-3">
                                 <!-- Button trigger modal -->
-                                <button class='kbs-purchase'>Purchase Now</button>
+                                <button class='kbs-purchase'
+                                    onclick="window.location.href = '{{ route('user.checkout', ['ids[]' => $book->book_id]) }}'">Purchase
+                                    Now</button>
                                 <a class="kbs-button ms-3 mt-3" data-bs-toggle="modal"
                                     data-bs-target="#{{ $book->book_details->book_id }}">
                                     <i class="fa-solid fa-cart-shopping"></i>

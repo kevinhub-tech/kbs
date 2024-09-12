@@ -81,7 +81,9 @@
                         <h5>Total Cost:</h5>
                         <h5>$<span>{{ $total_delivery_fee / $order_items->count() + $total_item_fee }}</span></h5>
                     </div>
-                    <h5 class="kbs-order-book-vendor">From <a href="" data-vendor-id={{ $vendor_id }}>
+                    <h5 class="kbs-order-book-vendor">From <a
+                            href="{{ route('vendor.vendorprofile', ['id' => $vendor_id]) }}"
+                            data-vendor-id={{ $vendor_id }}>
                             {{ $vendor_name }} </a></h5>
                     @if ($loop->iteration > 1)
                         <hr>

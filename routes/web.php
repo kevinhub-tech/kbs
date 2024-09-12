@@ -31,6 +31,7 @@ Route::controller(VendorController::class)->prefix('vendor')->group(function () 
     Route::post('/postvendorinfo/{token}', 'postvendorinfo')->name('vendor.postvendorinfo');
     Route::get('/vendor-application', 'vendorapplication')->name('vendor.vendorapplication');
     Route::get('/vendor-info/{token}', 'vendorinfo')->name('vendor.vendorinfo');
+    Route::get('/vendor-profile/{id}', 'vendorprofile')->name('vendor.vendorprofile');
 });
 
 Route::controller(UserController::class)->prefix('user')->group(function () {

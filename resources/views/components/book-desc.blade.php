@@ -34,12 +34,14 @@
             {{ $book->book_desc }}
         </p>
         <div class="seller-info">
-            <h4 class="seller">Sold by - </h4> <a href="{{ $vendor_info->vendor_id }}" class="seller-link">
+            <h4 class="seller">Sold by - </h4> <a
+                href="{{ route('vendor.vendorprofile', ['id' => $vendor_info->vendor_id]) }}" class="seller-link">
                 {{ $vendor_info->vendor_name }}</a>
         </div>
         <div class="kbs-book-desc-button-wrapper">
             @if (session('userSignedIn') && session('userRole') === 'user')
-                <button class='kbs-purchase'>
+                <button class='kbs-purchase'
+                    onclick="window.location.href = '{{ route('user.checkout', ['ids[]' => $book->book_id]) }}'">
                     Purchase Now
                 </button>
 

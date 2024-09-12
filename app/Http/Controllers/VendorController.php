@@ -140,6 +140,14 @@ class VendorController extends Controller
     {
         return view('vendorapplication');
     }
+
+    public function vendorprofile(String $id)
+    {
+        $vendor = vendorPartnership::where('vendor_id', '=', $id)->first();
+        $vendor_main_data = users::find($id);
+        $vendor->image = $vendor_main_data->image;
+        return view('vendors.profile', compact('vendor', 'id'));
+    }
     public function vendorinfo(String $token)
     {
         $is_token_expired = false;
