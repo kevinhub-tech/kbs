@@ -166,7 +166,7 @@ class VendorController extends Controller
             'created_at' => now()
         ]);
         if ($new_vendor_application) {
-            return redirect()->route('vendor.login')->with('message', 'We have received your application and will shortly response in mail with email provided once admin has reviewed your application. Thank you!');
+            return redirect()->route('vendor.vendorapplication')->with('message', 'We have received your application and will shortly response in mail with email provided once admin has reviewed your application. Thank you!');
         }
     }
 
@@ -188,9 +188,23 @@ class VendorController extends Controller
             $username = strtolower(str_replace(' ', '', $request->vendor_name) . Str::random(10));
             $password = Str::password();
             $vendor_role = roles::where('role_name', '=', 'vendor')->first();
+            $image = null;
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $path = '/vendors';
+                $book_image_name = uniqid('vd_') . '_' . time() . '.' . $extension;
+
+                $saved_book_image = $file->storeAs($path, $book_image_name);
+
+                if ($saved_book_image) {
+                    $image = $book_image_name;
+                }
+            }
             $user = users::create([
                 'name' => $username,
                 'email' => $vendor_application->email,
+                'image' => $image,
                 'password' => Hash::make($password),
                 'role_id' => $vendor_role->role_id,
                 'created_at' => now()

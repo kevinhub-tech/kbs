@@ -16,7 +16,7 @@
             </section>
         @else
             <form action="{{ route('vendor.postvendorinfo', ['token' => $token->token]) }}" method="POST"
-                class="vendor-application-form">
+                class="vendor-application-form" enctype="multipart/form-data">
                 @csrf
                 <div class="logo">
                     <a class="nav-logo d-flex align-items-center" href='#'>
@@ -86,6 +86,11 @@
                     </span>
                 @enderror
                 <input type="text" name="other_link" value="{{ old('other_link') }}">
+                <div class="mt-3 mb-3">
+                    <label for="formFile" class="form-label">Upload your Vendor Image: <small
+                            class="text-danger">(optional)</small></label>
+                    <input class="form-control" type="file" id="formFile" name="image">
+                </div>
                 <button type="submit">Submit</button>
             </form>
         @endif
