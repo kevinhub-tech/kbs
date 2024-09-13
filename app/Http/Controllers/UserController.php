@@ -610,37 +610,6 @@ class UserController extends Controller
         }
     }
 
-    public function updateprofile(Request $request)
-    {
-        $request->validate([
-            'id' => ['required'],
-            'name' => ['required']
-        ]);
-
-        $user = users::find($request->id);
-        if ($user) {
-            $user->name = $request->name;
-            if ($request->hasFile('image')) {
-                if ($user->image !== null) {
-                    unlink(storage_path('app/users/' . $user->image));
-                }
-                $file = $request->file('image');
-                $extension = $file->getClientOriginalExtension();
-                $path = '/users';
-                $user_image_name = uniqid('user_') . '_' . time() . '.' . $extension;
-
-                $file->storeAs($path, $user_image_name);
-                $user->image = $user_image_name;
-            }
-            $user->save();
-
-            return response()->json([
-                'status' => 'success',
-                'message' => "Your Profile has been updated!",
-                'payload' => []
-            ]);
-        }
-    }
 
     /**
      * Address API logic code starts here
@@ -775,6 +744,42 @@ class UserController extends Controller
                     'payload' => []
                 ], Response::HTTP_CONFLICT);
             }
+        }
+    }
+
+
+    /**
+     * Profile API logic code starts here
+     */
+    public function updateprofile(Request $request)
+    {
+        $request->validate([
+            'id' => ['required'],
+            'name' => ['required']
+        ]);
+
+        $user = users::find($request->id);
+        if ($user) {
+            $user->name = $request->name;
+            if ($request->hasFile('image')) {
+                if ($user->image !== null) {
+                    unlink(storage_path('app/users/' . $user->image));
+                }
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $path = '/users';
+                $user_image_name = uniqid('user_') . '_' . time() . '.' . $extension;
+
+                $file->storeAs($path, $user_image_name);
+                $user->image = $user_image_name;
+            }
+            $user->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => "Your Profile has been updated!",
+                'payload' => []
+            ]);
         }
     }
 }
