@@ -540,6 +540,9 @@ class VendorController extends Controller
         }
     }
 
+    /**
+     * Vendor Application API logic code starts here
+     */
     public function regeneratelink(Request $request)
     {
         $request->validate([
@@ -561,6 +564,58 @@ class VendorController extends Controller
                 'message' => "New link has been generated and send to your mail. Please check your mail",
                 'payload' => []
             ], Response::HTTP_OK);
+        }
+    }
+
+
+    /**
+     * Profile API logic code starts here
+     */
+    public function updatevendorinfo(Request $request)
+    {
+        $request->validate([
+            'id' => ['required'],
+            'vendor_name' => ['required'],
+            'phone_number' => ['required'],
+            'vendor_description' => ['required'],
+            'facebook_link' => ['required'],
+            'instagram_link' => ['required'],
+            'youtube_link' => ['required'],
+            'x_link' => ['required'],
+            'other_link' => ['required']
+        ]);
+
+        $vendor_info = vendorPartnership::where('vendor_id', '=', $request->id)->first();
+        if ($vendor_info) {
+            $vendor_info->vendor_name = $request->vendor_name;
+            $vendor_info->phone_number = $request->phone_number;
+            $vendor_info->vendor_description = $request->vendor_description;
+            $vendor_info->facebook_link = $request->facebook_link;
+            $vendor_info->instagram_link = $request->instagram_link;
+            $vendor_info->youtube_link = $request->youtube_link;
+            $vendor_info->x_link = $request->x_link;
+            $vendor_info->other_link = $request->other_link;
+            if ($request->hasFile('image')) {
+                $user = users::find($request->id);
+                if ($user->image !== null) {
+                    unlink(storage_path('app/vendors/' . $user->image));
+                }
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $path = '/vendors';
+                $user_image_name = uniqid('vd_') . '_' . time() . '.' . $extension;
+
+                $file->storeAs($path, $user_image_name);
+                $user->image = $user_image_name;
+                $user->save();
+            }
+            $vendor_info->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => "Your Profile has been updated!",
+                'payload' => []
+            ]);
         }
     }
 }

@@ -449,3 +449,91 @@ const orderListingFunction = () => {
         })
     })
 }
+
+const profileFunction = () => {
+    $(document).ready(() => {
+        $("div.modal-footer.vendor-profile-update button.kbs-btn").on('click', (e) => {
+
+            let route = $(e.currentTarget).data('route');
+            let token = $(e.currentTarget).data('token');
+            let vendorId = $(e.currentTarget).data('vendorId');
+            if (formValidate()) {
+                let formData = new FormData(document.querySelector('form[name="vendor-profile-update"]'));
+                formData.append('id', vendorId);
+                Swal.fire({
+                    title: "Info!",
+                    icon: 'info',
+                    text: "You are about to update your profile. Are you sure?",
+                    showConfirmButton: true,
+                    showDenyButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonText: 'Update',
+                    denyButtonText: "Cancel"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: route,
+                            method: 'POST',
+                            headers: {
+                                Accept: "application/json",
+                                Authorization: token
+                            },
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: (res) => {
+                                if (res.status === 'success') {
+                                    toast('success', res.message);
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 1500);
+                                }
+                            },
+                            error: (jqXHR, exception) => {
+                                var errorMessage = "";
+
+                                if (jqXHR.status === 0) {
+                                    errorMessage =
+                                        "Not connect.\n Verify Network.";
+                                } else if (jqXHR.status == 404) {
+                                    errorMessage =
+                                        "Requested page not found. [404]";
+                                } else if (jqXHR.status == 500) {
+                                    errorMessage =
+                                        "Internal Server Error [500].";
+                                } else if (exception === "parsererror") {
+                                    errorMessage =
+                                        "Requested JSON parse failed.";
+                                } else if (exception === "timeout") {
+                                    errorMessage = "Time out error.";
+                                } else if (exception === "abort") {
+                                    errorMessage = "Ajax request aborted.";
+                                } else {
+                                    let html = ''
+                                    Object.values(jqXHR.responseJSON.errors).forEach((err) => {
+                                        err.forEach((e) => {
+                                            html += `${e} <hr />`;
+                                        });
+                                    });
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        html: html,
+                                        icon: 'error',
+                                        animation: true,
+                                        showConfirmButton: true,
+                                    })
+                                    return;
+                                }
+                                toast("error", errorMessage);
+                            }
+                        })
+                    }
+                    else if (result.isDenied) {
+                        Swal.close();
+                    }
+                })
+
+            }
+        })
+    })
+}

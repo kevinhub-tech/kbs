@@ -59,7 +59,8 @@
                                 class="fa-solid fa-user"></i></a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item"
+                                href="{{ route('vendor.vendorprofile', ['id' => session('userId')]) }}">Profile</a>
                             <a class="dropdown-item" href="{{ route('vendor.logout') }}">Log Out</a>
                         </div>
                     </div>
