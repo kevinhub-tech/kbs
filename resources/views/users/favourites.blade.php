@@ -26,8 +26,8 @@
                     <i class="fa-solid fa-x" data-book-id="{{ $book->book_details->book_id }}"
                         data-route="{{ route('user.removefavourite') }}" data-token="{{ session('userToken') }}"></i>
                     <div class='kbs-favourite-book-card-container'>
-                        <img src="{{ route('get-image', ['image' => $book->book_details->image]) }}" alt=""
-                            class="book-image">
+                        <img src="{{ route('get-image', ['route' => 'books', 'image' => $book->book_details->image]) }}"
+                            alt="" class="book-image">
                         <div class='kbs-book-details'>
                             <a href="#" class="book-title">
                                 <h4>{{ $book->book_details->book_name }}</h4>
@@ -72,7 +72,7 @@
                                             </div>
                                             <div class="modal-body" id="{{ $book->book_details->book_id }}">
                                                 <div class='d-flex justify-content-evenly align-items-center'>
-                                                    <img src="{{ route('get-image', ['image' => $book->book_details->image]) }}"
+                                                    <img src="{{ route('get-image', ['route' => 'books', 'image' => $book->book_details->image]) }}"
                                                         alt="" class="book-image">
                                                     <div class="d-flex flex-column justify-content-around">
                                                         <h4>{{ $book->book_details->book_name }}</h4>

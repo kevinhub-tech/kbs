@@ -1,7 +1,7 @@
 @props(['book', 'vendor_info'])
 <section class="kbs-book-desc-container">
     <div class="kbs-book-desc-image">
-        <img src="{{ route('get-image', ['image' => $book->image]) }}" alt="">
+        <img src="{{ route('get-image', ['route' => 'books', 'image' => $book->image]) }}" alt="">
     </div>
     <div class="kbs-book-desc">
         <h3 class="book-title">{{ $book->book_name }}</h3>
@@ -62,8 +62,8 @@
                             </div>
                             <div class="modal-body" id="{{ $book->book_id }}">
                                 <div class='d-flex justify-content-evenly align-items-center'>
-                                    <img src="{{ route('get-image', ['image' => $book->image]) }}" alt=""
-                                        class="book-image">
+                                    <img src="{{ route('get-image', ['route' => 'books', 'image' => $book->image]) }}"
+                                        alt="" class="book-image">
                                     <div class="d-flex flex-column justify-content-around">
                                         <h4>{{ $book->book_name }}</h4>
                                         <p class='book-author'>By {{ $book->author_name }}</p>
@@ -121,7 +121,8 @@
                 @elseif(str_contains($review->image, 'http'))
                     <img src="{{ $review->image }}" alt="" />
                 @else
-                    <img src="{{ route('get-user-image', ['image' => $review->image]) }}" alt="">
+                    <img src="{{ route('get-image', ['route' => 'users', 'image' => $review->image]) }}"
+                        alt="">
                 @endif
                 <div class="d-flex flex-column justify-content-between">
                     <div>

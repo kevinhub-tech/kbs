@@ -18,6 +18,7 @@ Route::controller(VendorController::class)->prefix('vendor')->group(function () 
         Route::delete('/delete-discount', 'deletediscount')->name('vendor.discount-delete');
         Route::post('/update-order-status', 'updateorderstatus')->name('vendor.updateorderstatus');
         Route::put('/update-book', 'updatebook')->name('vendor.book-update');
+        Route::post('/update-vendor-info', 'updatevendorinfo')->name('vendor.updatevendorinfo');
     });
 });
 
@@ -45,19 +46,10 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
 
 
 
-Route::get('book-image/{image}', function (String $image) {
-    $path = storage_path('app/books/' . $image);
+Route::get('book-image/{route}/{image}', function (String $route, String $image) {
+    $path = storage_path('app/' . $route . '/' . $image);
     if (!file_exists($path)) {
         abort(404);
     }
     return response()->file($path);
 })->name('get-image');
-
-
-Route::get('user-image/{image}', function (String $image) {
-    $path = storage_path('app/users/' . $image);
-    if (!file_exists($path)) {
-        abort(404);
-    }
-    return response()->file($path);
-})->name('get-user-image');

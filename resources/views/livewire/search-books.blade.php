@@ -37,7 +37,8 @@
                     @foreach ($books as $book)
                         <tr>
                             <td data-title="SI">{{ $loop->iteration }}</td>
-                            <td data-title="Image"><img src="{{ route('get-image', ['image' => $book->image]) }}"
+                            <td data-title="Image"><img
+                                    src="{{ route('get-image', ['route' => 'books', 'image' => $book->image]) }}"
                                     alt=""></td>
                             <td data-title="Book Name" class="mob-display-heading">{{ $book->book_name }}</td>
                             <td data-title="Author Name" class="mob-display-heading">{{ $book->author_name }}</td>

@@ -43,7 +43,7 @@
                         </div>
                         <h3 class="kbs-cart-serial-number">{{ $loop->iteration }}</h3>
                         <div class="kbs-cart-book-image">
-                            <img src="{{ route('get-image', ['image' => $cart_item->book_details->image]) }}"
+                            <img src="{{ route('get-image', ['route' => 'books', 'image' => $cart_item->book_details->image]) }}"
                                 alt="">
                         </div>
                         <div class="kbs-cart-book-title">

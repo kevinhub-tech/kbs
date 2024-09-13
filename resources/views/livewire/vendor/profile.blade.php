@@ -15,8 +15,8 @@
                 @foreach ($books as $book)
                     <div class="kbs-book-card">
                         <div class='kbs-book-card-container'>
-                            <img src="{{ route('get-image', ['image' => $book->image]) }}" alt=""
-                                class="book-image">
+                            <img src="{{ route('get-image', ['route' => 'books', 'image' => $book->image]) }}"
+                                alt="" class="book-image">
                             <div class='kbs-book-details'>
                                 <a href="{{ route('vendor.book', ['id' => $book->book_id]) }}" class="book-title">
                                     <h4 class="book-title">{{ $book->book_name }}</h4>
@@ -62,7 +62,7 @@
                                                     </div>
                                                     <div class="modal-body" id="{{ $book->book_id }}">
                                                         <div class='d-flex justify-content-evenly align-items-center'>
-                                                            <img src="{{ route('get-image', ['image' => $book->image]) }}"
+                                                            <img src="{{ route('get-image', ['route' => 'books', 'image' => $book->image]) }}"
                                                                 alt="" class="book-image">
                                                             <div class="d-flex flex-column justify-content-around">
                                                                 <h4>{{ $book->book_name }}</h4>
@@ -147,7 +147,8 @@
                         @elseif(str_contains($review->image, 'http'))
                             <img src="{{ $review->image }}" alt="" />
                         @else
-                            <img src="{{ route('get-user-image', ['image' => $review->image]) }}" alt="">
+                            <img src="{{ route('get-image', ['route' => 'users', 'image' => $review->image]) }}"
+                                alt="">
                         @endif
                         <div class="d-flex flex-column justify-content-between">
                             <div>

@@ -4,7 +4,7 @@
     @elseif(str_contains($user->image, 'http'))
         <img src="{{ $user->image }}" alt="" />
     @else
-        <img src="{{ route('get-user-image', ['image' => $user->image]) }}" alt="">
+        <img src="{{ route('get-image', ['route' => 'users', 'image' => $user->image]) }}" alt="">
     @endif
 
     <div class="d-flex flex-column justify-content-center ">

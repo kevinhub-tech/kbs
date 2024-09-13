@@ -115,7 +115,7 @@ nav.kbs-nav-bar {
     height: max-content;
     position: sticky;
     top: 0;
-    z-index: 20000;
+    z-index: 1;
     box-shadow: 0.1rem 0rem 0.2rem 0.01rem #000000;
 }
 
@@ -1146,7 +1146,8 @@ form.profile-section-form {
     flex-direction: column;
 }
 
-form.profile-section-form input {
+form.profile-section-form input,
+form.profile-section-form textarea {
     width: 100%;
     padding: 0.5rem;
     box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #8d9bb6;
@@ -1155,7 +1156,8 @@ form.profile-section-form input {
     margin-bottom: 1rem;
 }
 
-form.profile-section-form input:focus {
+form.profile-section-form input:focus,
+form.profile-section-form textarea:focus {
     box-shadow: 0.1rem 0.1rem 0.5rem 0.01rem var(--shades);
 }
 

@@ -11,7 +11,8 @@
                     <li><a href="#" data-route="{{ route('user.home') }}"
                             @if (Request::get('category') === $category->category_id) class="active" @endif
                             data-category-id="{{ $category->category_id }}">{{ $category->category }}
-                            ({{ $category->count }})</a></li>
+                            ({{ $category->count }})
+                        </a></li>
                 @endforeach
             </ul>
         </aside>
@@ -24,8 +25,8 @@
                     @foreach ($books as $book)
                         <div class="kbs-book-card">
                             <div class='kbs-book-card-container'>
-                                <img src="{{ route('get-image', ['image' => $book->image]) }}" alt=""
-                                    class="book-image">
+                                <img src="{{ route('get-image', ['route' => 'books', 'image' => $book->image]) }}"
+                                    alt="" class="book-image">
                                 <div class='kbs-book-details'>
                                     <a href="{{ route('user.book', ['id' => $book->book_id]) }}" class="book-title">
                                         <h4 class="book-title">{{ $book->book_name }}</h4>
@@ -70,7 +71,7 @@
                                                     </div>
                                                     <div class="modal-body" id="{{ $book->book_id }}">
                                                         <div class='d-flex justify-content-evenly align-items-center'>
-                                                            <img src="{{ route('get-image', ['image' => $book->image]) }}"
+                                                            <img src="{{ route('get-image', ['route' => 'books', 'image' => $book->image]) }}"
                                                                 alt="" class="book-image">
                                                             <div class="d-flex flex-column justify-content-around">
                                                                 <h4>{{ $book->book_name }}</h4>

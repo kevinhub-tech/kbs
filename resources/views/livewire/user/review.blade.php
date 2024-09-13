@@ -30,7 +30,8 @@
                             <tr>
                                 <td data-title="SI">{{ $loop->iteration }}</td>
                                 <td data-title="Book Image"><img
-                                        src="{{ route('get-image', ['image' => $review->image]) }}" alt="">
+                                        src="{{ route('get-image', ['route' => 'books', 'image' => $review->image]) }}"
+                                        alt="">
                                 </td>
                                 <td data-title="Book Name" class="mob-display-heading">
                                     {{ $review->book_name }}
