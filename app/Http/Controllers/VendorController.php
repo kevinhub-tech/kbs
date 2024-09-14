@@ -160,6 +160,100 @@ class VendorController extends Controller
         }
         return view('vendorinfo', compact('is_token_expired', 'token'));
     }
+    public function dashboard()
+    {
+        $order_count = orders::where('vendor_id', '=', self::$user_id)->count();
+        $book_count = books::where('created_by', '=', self::$user_id)->count();
+        $discount_count = discounts::where('created_by', '=', self::$user_id)->count();
+        $review_count = DB::table('vendor_review')->where('vendor_id', '=', self::$user_id)->count();
+
+        $orders = orders::where('vendor_id', '=', self::$user_id)->get();
+        $pending_count = 0;
+        $confirmed_count = 0;
+        $packing_count = 0;
+        $packed_count = 0;
+        $handing_over_count = 0;
+        $handed_over_count = 0;
+        $delivering_count = 0;
+        $delivered_count = 0;
+        $completed_count = 0;
+        foreach ($orders as $order) {
+            $status = DB::table('order_status')->where('order_id', '=', $order->order_id)->where('state', '=', 'current')->first();
+
+            if ($status->status === "pending") {
+                $pending_count++;
+            } elseif ($status->status === "confirmed") {
+                $confirmed_count++;
+            } elseif ($status->status === "packing") {
+                $packing_count++;
+            } elseif ($status->status === "packed") {
+                $packed_count++;
+            } elseif ($status->status === "handing-over") {
+                $handing_over_count++;
+            } elseif ($status->status === "handed-over") {
+                $handed_over_count++;
+            } elseif ($status->status === "delivering") {
+                $delivering_count++;
+            } elseif ($status->status === "delivered") {
+                $delivered_count++;
+            } elseif ($status->status === "completed") {
+                $completed_count++;
+            }
+        }
+        $first_week = 0;
+        $second_week = 0;
+        $third_week = 0;
+        $fourth_week = 0;
+        // Get the current date
+        $now = Carbon::now();
+
+        // Define the start and end of each week for the current month
+        $weeks = [
+            1 => [Carbon::create($now->year, $now->month, 1)->startOfWeek(), Carbon::create($now->year, $now->month, 7)->endOfDay()],
+            2 => [Carbon::create($now->year, $now->month, 8)->startOfDay(), Carbon::create($now->year, $now->month, 14)->endOfDay()],
+            3 => [Carbon::create($now->year, $now->month, 15)->startOfDay(), Carbon::create($now->year, $now->month, 21)->endOfDay()],
+            4 => [Carbon::create($now->year, $now->month, 22)->startOfDay(), Carbon::create($now->year, $now->month, $now->daysInMonth)->endOfDay()]
+        ];
+
+        // Loop through each week and fetch the income
+        foreach ($weeks as $weekNumber => [$startOfWeek, $endOfWeek]) {
+            $weeklyData = orders::where('vendor_id', '=', self::$user_id)
+                ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                ->get();
+
+            // Calculate total income for each week
+            foreach ($weeklyData as $data) {
+                if ($weekNumber === 1) {
+                    $first_week += $data->total;
+                } elseif ($weekNumber === 2) {
+                    $second_week += $data->total;
+                } elseif ($weekNumber === 3) {
+                    $third_week += $data->total;
+                } elseif ($weekNumber === 4) {
+                    $fourth_week += $data->total;
+                }
+            }
+        }
+        return view('vendors.dashboard', compact(
+            'order_count',
+            'book_count',
+            'discount_count',
+            'review_count',
+            'pending_count',
+            'confirmed_count',
+            'packing_count',
+            'packed_count',
+            'handing_over_count',
+            'handed_over_count',
+            'delivering_count',
+            'delivered_count',
+            'completed_count',
+            'first_week',
+            'second_week',
+            'third_week',
+            'fourth_week'
+        ));
+    }
     public function sendapplication(Request $request)
     {
         $request->validate([

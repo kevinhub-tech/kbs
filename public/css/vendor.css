@@ -298,6 +298,68 @@ section.kbs-table-wrapper table.table-container tr div.action-wrapper i.fa-trash
 }
 
 
+/* 
+Dashboard css starts here
+*/
+
+section.kbs-vendor-dashboard-container {
+    width: 100%;
+    padding: 1rem;
+}
+
+section.kbs-vendor-dashboard {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
+}
+
+section.kbs-vendor-dashboard div.kbs-vendor-dashboard-card {
+    position: relative;
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 20rem;
+    height: 10rem;
+}
+
+section.kbs-vendor-dashboard div.kbs-vendor-dashboard-card i {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--shades);
+}
+
+section.kbs-vendor-dashboard div.kbs-vendor-dashboard-card div.kbs-card-metrics {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+section.kbs-vendor-dashboard div.kbs-vendor-dashboard-card h3 {
+    font-family: var(--author-vendor-user);
+}
+
+section.kbs-vendor-dashboard div.kbs-vendor-dashboard-card a {
+    font-family: var(--general-font);
+    color: var(--shades);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+section.kbs-vendor-charts {
+    margin: 1rem 0;
+    padding: 1rem 3.5rem;
+}
+
+section.kbs-vendor-charts div#order_status_ratio svg,
+section.kbs-vendor-charts div#monthly_revenue svg {
+    border-radius: 0.5rem;
+}
 
 /* 
 Book Form css starts here
@@ -738,5 +800,11 @@ div.kbs-favourite-book-card-container div.modal-footer button.kbs-btn:hover {
         font-size: 0.8rem;
         padding: 0.8rem;
         border-radius: 0.4rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    section.kbs-vendor-dashboard {
+        flex-direction: column;
     }
 }

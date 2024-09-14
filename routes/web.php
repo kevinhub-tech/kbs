@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::middleware('admin-only')->group(function () {
-        Route::get('/', 'home')->name('admin.home');
+        Route::get('/', 'dashboard')->name('admin.dashboard');
         Route::get('/vendor', 'vendors')->name('admin.vendors');
         Route::get('/logout', 'logout')->name("admin.logout");
     });
@@ -17,6 +17,7 @@ Route::controller(AdminController::class)->prefix('admin')->group(function () {
 
 Route::controller(VendorController::class)->prefix('vendor')->group(function () {
     Route::middleware('vendor-only')->group(function () {
+        Route::get('/dashboard', 'dashboard')->name('vendor.dashboard');
         Route::get('/book/{id}', 'bookdescription')->name('vendor.bookdesc');
         Route::get('/book-listing', 'booklisting')->name('vendor.book-listing');
         Route::get('/order-listing', 'orderlisting')->name('vendor.order-listing');
