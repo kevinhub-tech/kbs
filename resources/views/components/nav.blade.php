@@ -5,8 +5,8 @@
         <a class="nav-logo d-flex align-items-center ms-md-5 ms-0 mb-3"
             @if (session('userSignedIn') && session('userRole') === 'user') href='{{ route('user.home') }}' @elseif(session('userSignedIn') && session('userRole') === 'vendor') 
 
-             href='{{ route('vendor.book-listing') }}'
-            @elseif(session('userSignedIn') && session('userRole') === 'admin') href='{{ route('admin.home') }}' @else  href='{{ route('home') }}' @endif()>
+             href='{{ route('vendor.dashboard') }}'
+            @elseif(session('userSignedIn') && session('userRole') === 'admin') href='{{ route('admin.dashboard') }}' @else  href='{{ route('home') }}' @endif()>
             <i class="fa-regular fa-lightbulb"></i>
             <h2 class="m-0">
                 KBS
@@ -70,7 +70,6 @@
 
         @if (session('userSignedIn') && session('userRole') === 'admin')
             <ul>
-                <li><a href="#">Manage Users</a></li>
                 <li><a href="{{ route('admin.vendors') }}">Manage Vendors</a></li>
                 <li>
                     <div class="dropdown show">
@@ -79,9 +78,6 @@
                                 class="fa-solid fa-user"></i></a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Orders</a>
-                            <a class="dropdown-item" href="#">Reviews</a>
                             <a class="dropdown-item" href="{{ route('admin.logout') }}">Log Out</a>
                         </div>
                     </div>

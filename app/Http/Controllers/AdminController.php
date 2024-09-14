@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Helpers\SessionHandler;
 use App\Mail\PartnerShipAcceptanceMail;
 use App\Mail\PartnershipRejection;
+use App\Models\orders;
 use App\Models\roles;
 use App\Models\users;
 use App\Models\vendorApplication;
@@ -41,7 +42,7 @@ class AdminController extends Controller
                 $user->save();
                 $user_role = roles::find($user->role_id);
                 SessionHandler::storeSessionDetails($user->user_id, $user->name, $user_role->role_name, $user->token);
-                return redirect()->route('admin.home');
+                return redirect()->route('admin.dashboard');
             } else {
                 return redirect()->route('admin.login')->with('message', 'Unmatched password. Please check your password again');
             }
@@ -54,9 +55,15 @@ class AdminController extends Controller
      * Web logic code starts here
      */
 
-    public function home()
+    public function dashboard()
     {
-        return view('admins.home');
+        $vendor_role = roles::where('role_name', '=', 'vendor')->first();
+        $user_role = roles::where('role_name', '=', 'user')->first();
+        $vendor_count = users::where('role_id', '=', $vendor_role->role_id)->count();
+        $user_count = users::where('role_id', "=", $user_role->role_id)->count();
+        $vendor_application_count = vendorApplication::all()->count();
+        $order_count = orders::all()->count();
+        return view('admins.dashboard', compact('vendor_count', 'user_count', 'vendor_application_count', 'order_count'));
     }
 
     public function logout()
