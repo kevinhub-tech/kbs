@@ -307,6 +307,68 @@ section.kbs-admin-listing-main-container div.modal-body input.kbs-input:focus {
     box-shadow: 0.1rem 0.1rem 0.5rem 0.01rem var(--shades);
 }
 
+/* 
+    Dashboard Admin css starts here
+*/
+section.kbs-admin-dashboard-container {
+    width: 100%;
+    padding: 1rem;
+}
+
+section.kbs-admin-dashboard {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
+}
+
+section.kbs-admin-dashboard div.kbs-admin-dashboard-card {
+    position: relative;
+    background-color: var(--main-color);
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 20rem;
+    height: 10rem;
+}
+
+section.kbs-admin-dashboard div.kbs-admin-dashboard-card i {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--shades);
+}
+
+section.kbs-admin-dashboard div.kbs-admin-dashboard-card div.kbs-card-metrics {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+section.kbs-admin-dashboard div.kbs-admin-dashboard-card h3 {
+    font-family: var(--author-vendor-user);
+}
+
+section.kbs-admin-dashboard div.kbs-admin-dashboard-card a {
+    font-family: var(--general-font);
+    color: var(--shades);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+section.kbs-admin-charts {
+    margin: 1rem 0;
+    padding: 1rem 3.5rem;
+}
+
+section.kbs-admin-charts div#monthly_vendor_application_status svg,
+section.kbs-admin-charts div#yearly_user_scale svg {
+    border-radius: 0.5rem;
+}
+
 
 @media screen and (max-width: 1200px) {
     section.kbs-table-wrapper table.table-container th {
@@ -358,5 +420,11 @@ section.kbs-admin-listing-main-container div.modal-body input.kbs-input:focus {
         font-size: 0.8rem;
         padding: 0.8rem;
         border-radius: 0.4rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    section.kbs-admin-dashboard {
+        flex-direction: column;
     }
 }

@@ -10,7 +10,9 @@ use App\Models\orders;
 use App\Models\roles;
 use App\Models\users;
 use App\Models\vendorApplication;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
@@ -63,7 +65,30 @@ class AdminController extends Controller
         $user_count = users::where('role_id', "=", $user_role->role_id)->count();
         $vendor_application_count = vendorApplication::all()->count();
         $order_count = orders::all()->count();
-        return view('admins.dashboard', compact('vendor_count', 'user_count', 'vendor_application_count', 'order_count'));
+
+        $monthly_pending_vendor_application_count = vendorApplication::where('status', '=', 'pending')->whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()])->count();
+        $monthly_accepted_vendor_application_count = vendorApplication::where('status', '=', 'accepted')->whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()])->count();
+        $monthly_rejected_vendor_application_count = vendorApplication::where('status', '=', 'rejected')->whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()])->count();
+        $months = [
+            'January' => 0,
+            'February' => 0,
+            'March' => 0,
+            'April' => 0,
+            'May' => 0,
+            'June' => 0,
+            'July' => 0,
+            'August' => 0,
+            'September' => 0,
+            'October' => 0,
+            'November' => 0,
+            'December' => 0,
+        ];
+        $yearly_user_scale = users::select(DB::raw('MONTHNAME(created_at) as monthname'), DB::raw('COUNT(*) as count'))->where('role_id', '=', $user_role->role_id)->whereYear('created_at', date('Y'))->groupBy(DB::raw('MONTHNAME(created_at)'), DB::raw('MONTH(created_at)'))
+            ->orderBy(DB::raw('MONTH(created_at)'), 'asc')
+            ->pluck('count', 'monthname')
+            ->toArray();
+        $yearly_user_scale = array_merge($months, $yearly_user_scale);
+        return view('admins.dashboard', compact('vendor_count', 'user_count', 'vendor_application_count', 'order_count', 'monthly_pending_vendor_application_count', 'monthly_accepted_vendor_application_count', 'monthly_rejected_vendor_application_count', 'yearly_user_scale'));
     }
 
     public function logout()

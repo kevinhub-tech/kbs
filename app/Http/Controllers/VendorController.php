@@ -60,7 +60,7 @@ class VendorController extends Controller
                 $user->save();
                 $user_role = roles::find($user->role_id);
                 SessionHandler::storeSessionDetails($user->user_id, $user->name, $user_role->role_name, $user->token);
-                return redirect()->route('vendor.book-listing');
+                return redirect()->route('vendor.dashboard');
             } else {
                 return redirect()->route('vendor.login')->with('message', 'Unmatched password. Please check your password again');
             }
