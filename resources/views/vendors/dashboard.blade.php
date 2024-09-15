@@ -69,8 +69,8 @@
 
             // Create the data table.
             var orderStatusRatio = new google.visualization.DataTable();
-            orderStatusRatio.addColumn('string', 'Topping');
-            orderStatusRatio.addColumn('number', 'Slices');
+            orderStatusRatio.addColumn('string', 'Status');
+            orderStatusRatio.addColumn('number', 'Orders');
             orderStatusRatio.addRows([
                 ['Pending', $('div#order_status_ratio').data('pending')],
                 ['Confirmed', $('div#order_status_ratio').data('confirmed')],
