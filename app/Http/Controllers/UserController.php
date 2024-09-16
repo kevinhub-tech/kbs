@@ -325,6 +325,9 @@ class UserController extends Controller
     public function orderdetail(Request $request)
     {
         $order = orders::where('order_number', '=', $request->id)->first();
+        if ($order === null) {
+            return  redirect()->route('user.ordertracking')->with('message', 'Order number does not exist. Please check your order number');
+        }
         $book_details = DB::table('ordered_book as ob')->join('books as b', 'b.book_id', '=', 'ob.book_id')->where('order_id', '=', $order->order_id)->get();
         $order_status = DB::table('order_status')->where('order_id', '=', $order->order_id)->get();
         return view('order-detail', compact('order', 'order_status', 'book_details'));

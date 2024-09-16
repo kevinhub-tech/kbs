@@ -12,3 +12,16 @@
         </form>
     </section>
 @endsection
+@push('scripts')
+    <script>
+        @if (session('message'))
+            const sessionMessage = "{{ session('message') }}";
+        @else
+            const sessionMessage = null;
+        @endif
+
+        if (sessionMessage) {
+            toast('info', sessionMessage);
+        }
+    </script>
+@endpush
