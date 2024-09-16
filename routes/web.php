@@ -65,5 +65,8 @@ Route::get('/accessDenied', function () {
 })->name('accessDeny');
 
 Route::get('/', function () {
-    return view('main');
+    return view('home');
 })->name('home');
+Route::get('/tnc', function () {
+    return view('termsandcondition');
+})->name('tnc');

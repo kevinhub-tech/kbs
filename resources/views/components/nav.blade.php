@@ -6,7 +6,7 @@
             @if (session('userSignedIn') && session('userRole') === 'user') href='{{ route('user.home') }}' @elseif(session('userSignedIn') && session('userRole') === 'vendor') 
 
              href='{{ route('vendor.dashboard') }}'
-            @elseif(session('userSignedIn') && session('userRole') === 'admin') href='{{ route('admin.dashboard') }}' @else  href='{{ route('home') }}' @endif()>
+            @elseif(session('userSignedIn') && session('userRole') === 'admin') href='{{ route('admin.dashboard') }}' @else  href='{{ route('home') }}' @endif>
             <i class="fa-regular fa-lightbulb"></i>
             <h2 class="m-0">
                 KBS
@@ -92,7 +92,8 @@
 
         @if (
             (!session()->has('userSignedIn') && Request::url() === route('user.login')) ||
-                Request::url() === route('user.register'))
+                Request::url() === route('user.register') ||
+                Request::url() === route('home'))
             <ul>
                 <li><a href="{{ route('user.login') }}">Login</a></li>
                 <li><a href="{{ route('user.register') }}">Register</a></li>
