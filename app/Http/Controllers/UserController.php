@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SessionHandler;
+use App\Mail\ForgetPassword;
 use App\Models\address;
 use App\Models\books;
 use App\Models\category;
@@ -12,11 +13,12 @@ use App\Models\roles;
 use App\Models\users;
 use App\Models\vendorPartnership;
 use Carbon\Carbon;
-use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Socialite\Facades\Socialite;
 use Ramsey\Uuid\Uuid;
 
@@ -346,6 +348,71 @@ class UserController extends Controller
     public function reviews()
     {
         return view('users.review');
+    }
+
+    public function sendforgetpasswordlink(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email']
+        ]);
+
+        $user = users::where('email', '=', $request->email)->first();
+        if ($user) {
+            $user->password_reset_token = Str::random(6);
+            $user->password_reset_token_expiration = now()->addHours(2);
+            $user->save();
+            Mail::to($user->email)->send(new ForgetPassword($user));
+            return redirect()->route('user.fpresettoken', ['id' => $user->user_id]);
+        } else {
+            return redirect()->route('user.forgetpassword')->with('message', 'User not Found in Database! Please check your email again.');
+        }
+    }
+
+    public function fpresettoken(String $id)
+    {
+        return view('users.forget-password-reset-token', compact('id'));
+    }
+    public function passwordresetpage(String $id)
+    {
+        $user = users::find($id);
+        return view('users.reset-password', compact('user'));
+    }
+    public function passwordreset(Request $request)
+    {
+        $request->validate([
+            'token' => ['required']
+        ]);
+
+        $user = users::where('password_reset_token', '=', $request->token)->first();
+        $token_expiration_date = Carbon::parse($user->password_reset_token_expiration);
+
+        if ($token_expiration_date->isPast()) {
+            return redirect()->route('users.forget-password-reset-token', ['id' => $user->id])->with('message', 'Token has been expired. Please request a new one to proceed!');
+        } else {
+            return redirect()->route('user.passwordresetpage', ['id' => $user->user_id]);
+        }
+    }
+
+    public function resetpassword(Request $request)
+    {
+        $request->validate([
+            'id' => ['required'],
+            'new_password' => ['required'],
+            'confirm_password' => ['required']
+        ]);
+
+        if ($request->new_password !== $request->confirm_password) {
+            return redirect()->route('user.passwordresetpage', ['id' => $request->id])->with('message', 'New Password and Confirm password does not match. Please Check Again');
+        } else {
+            $user = users::find($request->id);
+            if ($user) {
+                $user->password = Hash::make($request->confirm_password);
+                $user->password_reset_token = null;
+                $user->password_reset_token_expiration = null;
+                $user->save();
+                return redirect()->route('user.login');
+            }
+        }
     }
     /**
      * API logic code starts here
@@ -781,6 +848,29 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => "Your Profile has been updated!",
+                'payload' => []
+            ]);
+        }
+    }
+
+    /**
+     * Forget Password API logic code starts here
+     */
+    public function resetforgetpasswordtoken(Request $request)
+    {
+        $request->validate([
+            'id' => ['required']
+        ]);
+
+        $user = users::find($request->id);
+        if ($user) {
+            $user->password_reset_token = Str::random(6);
+            $user->password_reset_token_expiration = now()->addHours(2);
+            $user->save();
+            Mail::to($user->email)->send(new ForgetPassword($user));
+            return response()->json([
+                'status' => 'success',
+                'message' => 'New Token has been sent succesffully',
                 'payload' => []
             ]);
         }

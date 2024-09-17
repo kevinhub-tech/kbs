@@ -42,6 +42,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
         Route::post('/add-review', 'addreview')->name('user.addreview');
         Route::post('/update-review', 'updatereview')->name('user.updatereview');
     });
+    Route::post('/reset-forget-password-token', 'resetforgetpasswordtoken')->name('user.resetforgetpasswordtoken');
 });
 
 

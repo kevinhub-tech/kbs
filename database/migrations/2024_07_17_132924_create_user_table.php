@@ -19,6 +19,8 @@ return new class extends Migration
             $table->boolean('is_auth')->default(false);
             $table->enum('auth_provider', ['facebook', 'google']);
             $table->string('token', 100)->nullable();
+            $table->string('password_reset_token', 100)->nullable();
+            $table->timestamp('token_expiration')->nullable();
             $table->string('password', 300)->nullable();
             $table->uuid('role_id')->nullable();
             $table->foreign('role_id')->references('role_id')->on('roles')->cascadeOnUpdate()->nullOnDelete();

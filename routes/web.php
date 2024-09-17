@@ -53,6 +53,14 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('/ordertracking', function () {
         return view('order-tracking');
     })->name('user.ordertracking');
+    Route::get('/forgetpassword', function () {
+        return view('users.forget-password');
+    })->name('user.forgetpassword');
+    Route::post('/forgetpasswordresettoken', 'sendforgetpasswordlink')->name('user.sendforgetpassword');
+    Route::post('/passwordreset', 'passwordreset')->name('user.passwordreset');
+    Route::get('/passwordresetp/{id}', 'passwordresetpage')->name('user.passwordresetpage');
+    Route::post('/resetpassword', 'resetpassword')->name('user.resetpassword');
+    Route::get('/fpresettoken/{id}', 'fpresettoken')->name('user.fpresettoken');
     Route::post('/signin', 'signin')->name('user.manuallogin');
     Route::post('/signup', 'signup')->name('user.manualregister');
 

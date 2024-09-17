@@ -564,7 +564,7 @@ form.login-form p,
 form.register-form p,
 form.vendor-application-form p {
     font-style: var(--general-font);
-    margin-top: 2rem;
+
     font-size: 1rem;
 }
 

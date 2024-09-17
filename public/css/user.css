@@ -1095,7 +1095,8 @@ section.kbs-order-detail-main-container section.kbs-order-detail-container secti
     border-radius: 0.5rem;
 }
 
-section.kbs-order-tracking {
+section.kbs-order-tracking,
+section.kbs-forget-password {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1106,14 +1107,16 @@ section.kbs-order-tracking {
     border-radius: 0.5rem;
 }
 
-section.kbs-order-tracking form {
+section.kbs-order-tracking form,
+section.kbs-forget-password form {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 50%;
 }
 
-section.kbs-order-tracking form h3 {
+section.kbs-order-tracking form h3,
+section.kbs-forget-password form h3 {
     font-size: 1.5rem;
     font-weight: 600;
     font-family: var(--heading-nav-bar-title);
@@ -1121,7 +1124,8 @@ section.kbs-order-tracking form h3 {
 }
 
 
-section.kbs-order-tracking form input {
+section.kbs-order-tracking form input,
+section.kbs-forget-password form input {
     padding: 0.5rem;
     border-bottom: 1px solid var(--shades);
     margin-bottom: 1rem;
@@ -1129,11 +1133,14 @@ section.kbs-order-tracking form input {
     font-family: var(--author-vendor-user);
 }
 
-section.kbs-order-tracking input:focus {
+section.kbs-order-tracking input:focus,
+section.kbs-forget-password input:focus {
     box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem var(--shades);
 }
 
-section.kbs-order-tracking button[type="submit"] {
+section.kbs-order-tracking button[type="submit"],
+section.kbs-forget-password button[type="submit"],
+section.kbs-forget-password button {
     margin-top: 1rem;
     font-family: var(--heading-nav-bar-title);
     font-weight: 600;
@@ -1144,11 +1151,17 @@ section.kbs-order-tracking button[type="submit"] {
     border-radius: 0.5rem;
 }
 
-section.kbs-order-tracking button[type="submit"]:hover {
+section.kbs-order-tracking button[type="submit"]:hover,
+section.kbs-forget-password button[type="submit"]:hover,
+section.kbs-forget-password button:hover {
     background-color: var(--main-color);
     border: 1px dashed #000000;
     color: var(--shades);
     transition: all 0.4s ease;
+}
+
+section.kbs-forget-password hr {
+    width: 50%;
 }
 
 @media screen and (max-width: 1640px) {

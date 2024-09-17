@@ -72,15 +72,14 @@
 <body>
     <section>
         <h4>
-            Dear, {{ $vendor_application->email }}
+            Dear, {{ $user->name }}
         </h4>
         <h4>
-            We are regret to inform you that your partnership with KBS has been <span style="color:red">rejected
+            Here's the reset token for your "Forget Password" Page. <span style="color:red">(This token will be expired
+                after 2 hours)
             </span>.
         </h4>
-        <h4>
-            Rejection Reason: {{ $vendor_application->rejection_reason }}
-        </h4>
+        <h4><strong>{{ $user->password_reset_token }}</strong></h4>
 
     </section>
 </body>

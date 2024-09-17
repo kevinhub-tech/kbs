@@ -46,7 +46,8 @@
             </div>
             <button type="submit">Login</button>
             @if (Request::url() === route('user.login'))
-                <p>Don't have an account? <a href="{{ route('user.register') }}">Register Here!</a></p>
+                <p class="mt-4">Don't have an account? <a href="{{ route('user.register') }}">Register Here!</a></p>
+                <p><a href="{{ route('user.forgetpassword') }}">Forget Password?</a></p>
                 <p class="form-divider">Or</p>
                 <h4 class="mt-2">Login with</h4>
                 <div class="row">
