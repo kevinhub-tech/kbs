@@ -394,6 +394,50 @@ section.kbs-tnc p {
     margin-bottom: 1rem;
 }
 
+section.kbs-faq {
+    background-color: var(--main-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+section.kbs-faq h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: var(--heading-nav-bar-title);
+}
+
+section.kbs-faq div.accordion h2 {
+    font-family: var(--heading-nav-bar-title);
+    font-weight: 600;
+}
+
+section.kbs-faq div.accordion div.accordion-body {
+    font-family: var(--general-font);
+}
+
+section.kbs-faq button.accordion-button:not(.collapsed) {
+    background-color: var(--shades) !important;
+    color: var(--main-color);
+}
+
+section.kbs-htb {
+    background-color: var(--main-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+section.kbs-htb h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: var(--heading-nav-bar-title);
+}
+
+section.kbs-htb p,
+section.kbs-htb ul li {
+    font-family: var(--general-font);
+    font-weight: 600;
+}
+
 form.login-form,
 form.register-form,
 form.vendor-application-form {

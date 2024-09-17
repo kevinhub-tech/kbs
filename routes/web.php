@@ -70,3 +70,12 @@ Route::get('/', function () {
 Route::get('/tnc', function () {
     return view('termsandcondition');
 })->name('tnc');
+Route::get('/ufaq', function () {
+    return view('userfaq');
+})->name('ufaq');
+Route::get('/vfaq', function () {
+    return view('vendorfaq');
+})->name('vfaq');
+Route::get('/htb', function () {
+    return view('howtobuy');
+})->name('htb');

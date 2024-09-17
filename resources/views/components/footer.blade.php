@@ -24,9 +24,9 @@
             <h5>User</h5>
             <ul>
                 <li><a href="{{ route('user.ordertracking') }}">Track Order </a></li>
-                <li><a href="">How to Buy </a></li>
+                <li><a href="{{ route('htb') }}">How to Buy </a></li>
                 <li><a href="{{ route('tnc') }}">Terms and Conditions </a></li>
-                <li><a href="">FAQ </a></li>
+                <li><a href="{{ route('ufaq') }}">FAQ </a></li>
             </ul>
         </div>
         <div>
