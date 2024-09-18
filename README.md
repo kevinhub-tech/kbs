@@ -1,6 +1,6 @@
 # KBS
 
-KBS stands for "Kevin Book Store" and it is a e-commerce project with three different users (admin, vendor, customers).
+KBS stands for "Kevin Book Store" and it is a e-commerce project (Enterprise-level) with three different users (admin, vendor, customers).
 
 ## Applied Technology
 
@@ -22,19 +22,40 @@ KBS stands for "Kevin Book Store" and it is a e-commerce project with three diff
 
 -   Users
     -   Cart System
+
+    ![Cart Image](https://drive.google.com/uc?export=view&id=1b488rZ-ZbceBKmf62uDvta_cG-pvRyNX)
     -   Favourites
+    
+    ![Favourite Image](https://drive.google.com/uc?export=view&id=1LSivhZMFQMLzBuvQ5sTl1zJbuWVUfSQp)
     -   Order Tracking
+    
+    ![Order Tracking Image](https://drive.google.com/uc?export=view&id=118xnAb8Hv3vFosArhiwGKhAKqXOCZkqt)
     -   Review System
+
+    ![Review Image](https://drive.google.com/uc?export=view&id=1sU80O6FALrp1L1AIlkcqvyyDS9lpjgo8)
     -   Facebook/Google Login
+
+    ![Facebook/Google Login Image](https://drive.google.com/uc?export=view&id=1dyTVWyqbSeqhi9WfBp_yaZ5ahIJ6l567)
 -   Vendors
     -   Book Management
+
+    ![Book Management Image](https://drive.google.com/uc?export=view&id=1IGNPGWyKbWFvnlPVexnvGY0gmLRn4vDy)
     -   Order Management
+ 
+    ![Order Management Image](https://drive.google.com/uc?export=view&id=1z4PhraQAjjWekUFP4Jsfr-SoIMsukuF5)
     -   Discount Management
+ 
+    ![Discount Management Image](https://drive.google.com/uc?export=view&id=1jwc9vqYpAiCoJW3SxFX_ZXD6MsGyvhy3)
     -   Dashboard
+ 
+    ![Vendor Dashboard Image](https://drive.google.com/uc?export=view&id=1QAq9i7aNqTjR-0U-5cbVjTNjdJeqMiDU)
 -   Admin
     -   Vendor Application Management
-    -   Vendor Parternship Management
+ 
+    ![Vendor Application Management Image](https://drive.google.com/uc?export=view&id=1-zUGx_amfATON75TztDmTpHLU4rnKudb)
     -   Dashboard
+ 
+    ![Admin Dashboard Image](https://drive.google.com/uc?export=view&id=1t32XJAKySfKEjxdPKAcG730wqfRz5xz9)
 
 # Run the project
 
@@ -82,4 +103,20 @@ php artisan db:seed --class=VendorInfoSeeder
 > [!CAUTION]
 > Please run the exact command in the exact order provided above. Otherwise, it will not work as there are relationship between tables.
 
-After that, you can navigate through vendor system to create demo book by logging in from this "http://localhost:8000/vendor/login" and test out all the featured mentioned above 🌟.
+After that, you can navigate to "Manage Book" section through vendor system to create demo book by logging in from this "http://localhost:8000/vendor/login" and test out all the featured mentioned above 🌟.
+
+# Limitation on the project (Further Improvement)
+Albeit the project perform all necessary function that is required for an e-commerce project, there are more feature and function that can be implemented to improved upon. Here's the list of improvement that can be done in the future.
+
+- Users
+    - Online Transcation (Paypal, Credit/Debit Card Payment)
+    - Wishlist
+- Vendors
+    - Bulk Book insertion
+    - Enhanced dashboard functionalities
+    - Inventory Management
+    - Delivery Management
+- Admin
+    - User Management
+    - Enhanced dashboard functionalities
+
