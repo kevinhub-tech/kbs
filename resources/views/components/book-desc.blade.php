@@ -39,7 +39,7 @@
                 {{ $vendor_info->vendor_name }}</a>
         </div>
         <div class="kbs-book-desc-button-wrapper">
-            @if (session('userSignedIn') && session('userRole') === 'user')
+            @if (session('userSignedIn') && session('userRole') === 'user' && $book->stock !== 0)
                 <button class='kbs-purchase'
                     onclick="window.location.href = '{{ route('user.checkout', ['ids[]' => $book->book_id]) }}'">
                     Purchase Now
