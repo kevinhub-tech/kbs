@@ -89,11 +89,11 @@
 
 
         {{-- These links will change based on user role --}}
-
         @if (
-            (!session()->has('userSignedIn') && Request::url() === route('user.login')) ||
-                Request::url() === route('user.register') ||
-                Request::url() === route('home'))
+            !session()->has('userSignedIn') &&
+                (Request::url() === route('user.login') ||
+                    Request::url() === route('user.register') ||
+                    Request::url() === route('home')))
             <ul>
                 <li><a href="{{ route('user.login') }}">Login</a></li>
                 <li><a href="{{ route('user.register') }}">Register</a></li>
