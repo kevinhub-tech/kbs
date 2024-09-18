@@ -190,7 +190,7 @@ class UserController extends Controller
                 }
             }
 
-            $books = $query->orderBy('book_name')->paginate(20);
+            $books = $query->where('stock', '>', 0)->orderBy('book_name')->paginate(20);
         }
 
         foreach ($books as $book) {
@@ -219,6 +219,8 @@ class UserController extends Controller
     {
         $cart_items = DB::table('user_cart')->where('user_id', '=', self::$user_id)->get();
         $sorted_books = [];
+        $errors = [];
+        $error_ids = [];
         foreach ($cart_items as $cart_item) {
 
             $book_details = books::where('book_id', '=', $cart_item->book_id)->first();
@@ -226,12 +228,15 @@ class UserController extends Controller
                 $discounted_price = $book_details->price * $book_details->discount->discount_percentage / 100;
                 $book_details->discount_price =  number_format($book_details->price -  $discounted_price, 2, '.', "");
             }
+
+            if ($book_details->stock === 0) {
+                $errors[] = $book_details->book_name;
+                $error_ids[] = $book_details->book_id;
+            }
             $sorted_books[$book_details->created_by][] = $book_details;
             $cart_item->book_details = $book_details;
         }
-
-
-        return view('users.cart', compact('cart_items', 'sorted_books'));
+        return view('users.cart', compact('cart_items', 'sorted_books', 'errors', 'error_ids'));
     }
 
     public function favourite()
@@ -510,6 +515,22 @@ class UserController extends Controller
         }
     }
 
+    public function selectiveremovecart(Request $request)
+    {
+        $request->validate([
+            'ids' => ['required']
+        ]);
+
+        foreach ($request->ids as $id) {
+            DB::table('user_cart')->where('user_id', '=', self::$user_id)->where('book_id', '=', $id)->delete();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "Out of stock book has been removed from your cart. Happy Shopping!",
+            'payload' => []
+        ], Response::HTTP_ACCEPTED);
+    }
     /**
      * Favourite API logic code starts here
      */

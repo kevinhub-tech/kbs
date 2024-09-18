@@ -38,7 +38,7 @@
                                 @endif
 
                                 <small class="stock">Stock : {{ $book->stock }}</small><br>
-                                @if (session('userSignedIn') && session('userRole') === 'user')
+                                @if (session('userSignedIn') && session('userRole') === 'user' && $book->stock !== 0)
                                     <button class='kbs-purchase'
                                         onclick="window.location.href = '{{ route('user.checkout', ['ids[]' => $book->book_id]) }}'">Purchase
                                         Now</button>

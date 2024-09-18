@@ -34,6 +34,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
         Route::post('/add-favourite', 'addfavourite')->name('user.addfavourite');
         Route::post('/update-cart', 'updatecart')->name('user.updatecart');
         Route::post('/remove-cart', 'removecart')->name('user.removecart');
+        Route::post('/selective-remove-cart', 'selectiveremovecart')->name('user.selectiveremovecart');
         Route::post('/remove-favourite', 'removefavourite')->name('user.removefavourite');
         Route::post('/send-order', 'sendorder')->name('user.sendorder');
         Route::post('/update-order-status', 'updateorderstatus')->name('user.updateorderstatus');
