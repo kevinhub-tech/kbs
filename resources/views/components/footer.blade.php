@@ -34,7 +34,7 @@
             <ul>
                 <li><a href="{{ route('vendor.vendorapplication') }}">Become a Partner </a></li>
                 <li><a href="{{ route('tnc') }}">Terms and Conditions </a></li>
-                <li><a href="">FAQ </a></li>
+                <li><a href="{{ route('vfaq') }}">FAQ </a></li>
             </ul>
         </div>
         <div>
